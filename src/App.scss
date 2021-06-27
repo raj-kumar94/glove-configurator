@@ -9,8 +9,14 @@
     box-sizing: inherit;
 }
 
+$primary-color: #afb8b3;
+$secondary-color: #174a45;
+$third-color: #f3f5f4;
+$white: #fff;
+$gradient-secondary: #b4b4b4;
+
 body {
-    background: radial-gradient(circle at 41% 50%,#fff,#b4b4b4);
+    // background: radial-gradient(circle at 41% 50%,$white,$gradient-secondary);
 }
 
 #root {
@@ -22,27 +28,35 @@ body {
     }
 
     .custom-container {
-        max-width: 97.5vw;
+        max-width: 95vw;
+        margin-left: 2.5vw;
     }
 
-    .text-muted {
-        color: #777;
+    .small, small {
+        font-size: 80%;
+        font-weight: 400;
     }
+
+    // .text-muted {
+    //     color: #777;
+    // }
     
     /* Option tabs */
     .react-tab-tab {
+        cursor: pointer;
         flex: 1 1;
-        background: #cbcbcb;
+        background: $primary-color;
         padding: 11px;
         &.box-shadow--light {
             box-shadow: 0 0 20px rgb(0 0 0 / 30%);
         }
         font-family: Open Sans,sans-serif;
         font-size: 13px;
-        color: #4a4a4a;
+        color: #fff;
     }
     .react-tab-tab.active {
-        background: #ffb948!important;
+        // background: #ffb948!important;
+        background: $secondary-color;
     }
     
     
@@ -57,13 +71,19 @@ body {
         .item {
             color: #0d98f0;   
             display: flex;
+            cursor: pointer;
             // align-items: center;
+            .item-name {
+                text-transform: capitalize;   
+            }
         }
         .left-item {
             padding-left: 0.875rem;
+            margin-right: auto;
         }
         .right-item {
             padding-right: 0.875rem;
+            margin-left: auto;
         }
        
         .fa-angle-left {
@@ -88,6 +108,7 @@ body {
             font-size: 1.5rem;
             font-family: Oswald,sans-serif;
             color: rgb(74, 74, 74);
+            text-transform: uppercase;
             // font-weight: bolder;
         }
         .info {
@@ -115,6 +136,7 @@ body {
 
     .pick-color-wrapper {
         box-shadow: 0px -7px 10px rgb(0 0 0 / 13%);
+        background: $third-color;
         .color-title {
             padding: 1rem 1rem 0rem 1rem;
             font-family: Open Sans,sans-serif;
@@ -155,17 +177,32 @@ body {
             input {
                 display: none;
             }
+            .color-value {
+                .color-value__span {
+                    display: inline-flex;
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                    color: rgb(83, 189, 1);
+                    font-size: 20px;
+                    background-image: radial-gradient(at center, white 50%, transparent 50%);
+                }
+            }
         }
     }
 
     #add-to-cart-btn {
         border-radius: 0px;
         font-size: 0.875rem;
+        background: $secondary-color;
+        color: white;
     }
 
     #add-to-cart-btn[disabled] {
-        background: rgb(204, 204, 204);
-        color: rgb(120, 120, 120);
+        // background: rgb(204, 204, 204);
+        // color: rgb(120, 120, 120);
+        background: $primary-color;
+        color: #fff;
     }
 
     @media only screen and (max-width: 768px) {
@@ -176,6 +213,13 @@ body {
             max-width: 95vw;
             margin-left: 2.5vw;
         }
+    }
+
+    .flickity-button {
+        background: $secondary-color;
+    }
+    .flickity-button-icon {
+        fill: white;
     }
 }
 

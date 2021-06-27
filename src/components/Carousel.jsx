@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import Flickity from 'react-flickity-component'
 import './Carousel.css'
 import Product from './Product';
@@ -24,12 +24,14 @@ class Carousel extends Component {
             //     <Product />
             // </Slider>
             
-            <Flickity options={{wrapAround: true}} className="carousel">
+            <>
+            <Flickity options={{wrapAround: true, pageDots: false}} className="carousel carousel-main">
                 <div className="carousel-cell"><Product /></div>
                 <div className="carousel-cell"><Product /></div>
                 <div className="carousel-cell"><Product /></div>
                 <div className="carousel-cell"><Product /></div>
             </Flickity>
+            </>
         )
     }
 }

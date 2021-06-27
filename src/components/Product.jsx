@@ -9,7 +9,7 @@ class Product extends Component {
     state = {
         // NAMING CONVENTION: Leather Type-Position-Part Name-Color (JK-Fielder-F1-Blue)
         images: [
-            // "Base.png",
+            "Base.png",
             "view01-fielder-Wrist-JK-Gray.png",
             "view01-fielder-logo-JK-Wine.png",
             "view01-fielder-F1-JK-Gray.png",
@@ -30,12 +30,15 @@ class Product extends Component {
             "view01-fielder-hood-JK-Wine.png",
             "view01-fielder-stitch-T-JK-Red.png"
         ],
-        containerWidth: 500,
-        conatainerHeight: 500
+        containerWidth: window.screen.width > 768 ? 700: 500,
+        conatainerHeight: window.screen.width > 768 ? 700: 500
     }
 
-
     componentDidMount() {
+
+        const images = this.state.images;
+        images[6] = "view01-fielder-F4-JK-Orange.png";
+        this.setState({images});
 
         // had to set timeout because it cache() was causing the product to disappear
         // setTimeout(() => {

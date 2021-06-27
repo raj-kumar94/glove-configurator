@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import SwipeableViews from 'react-swipeable-views';
+// import SwipeableViews from 'react-swipeable-views';
 import './App.scss';
 import Carousel from './components/Carousel';
 import OptionTabs from './components/options/OptionTabs';
-import SlideOptions from './components/options/SlideOptions';
-import CurrentOptionInfo from './components/options/CurrentOptionInfo';
-import PickColor from './components/options/PickColor';
+// import SlideOptions from './components/options/SlideOptions';
+// import CurrentOptionInfo from './components/options/CurrentOptionInfo';
+// import PickColor from './components/options/PickColor';
+import SwipeView from './components/SwipeView';
 
 // import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 // import 'react-tabs/style/react-tabs.css';
@@ -54,28 +55,7 @@ class App extends Component {
 						{/* <SlideOptions />
 						<CurrentOptionInfo /> */}
 
-						<SwipeableViews index={this.state.index} className="swipable-views-colors-wrapper">
-							<div>
-								<SlideOptions />
-								<CurrentOptionInfo />
-								<PickColor />
-							</div>
-							<div>
-								<SlideOptions />
-								<CurrentOptionInfo />
-								<PickColor />
-							</div>
-							<div>
-								<SlideOptions />
-								<CurrentOptionInfo />
-								<PickColor />
-							</div>
-							<div>
-								<SlideOptions />
-								<CurrentOptionInfo />
-								<PickColor />
-							</div>
-						</SwipeableViews>
+						<SwipeView />
 
 						<div>
 							{/* Add btn-success class on success */}

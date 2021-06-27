@@ -35,7 +35,11 @@ class PickColor extends Component {
                             <input type="radio" name={color_for} id={`${color_for}_${color.code}`} value={color.code}></input>
                             <div>
                                 <label htmlFor={`${color_for}_${color.code}`} className="color-label">
-                                    <span className="color color-value" style={{background: color.rgb}}></span>
+                                    <span className="color color-value" style={{background: color.rgb}}>
+                                        <span className="color-value__span selected">
+                                            <i className="fas fa-check-circle"></i>
+                                        </span>
+                                    </span>
                                     {color.name}
                                 </label>
                             </div>

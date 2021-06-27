@@ -152,3 +152,8 @@ https://flickity.metafizzy.co
     opacity: 1;
   }
 
+  /* @media only screen and (max-width: 768px) {
+    .carousel-cell {
+      transform: scale(0.7);
+    }
+  } */
