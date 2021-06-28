@@ -58,7 +58,6 @@ class App extends Component {
 						<SwipeView />
 
 						<div>
-							{/* Add btn-success class on success */}
 							<button type="button" id="add-to-cart-btn" disabled={true} className="btn mt-4">Add To Cart $185</button>
 							<p className="text-muted small mt-1 font-family-main">To add to cart, please answer the required steps in the  Base, Colors, and Personalize sections.</p>
 						</div>

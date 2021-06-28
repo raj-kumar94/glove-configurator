@@ -5,7 +5,11 @@ export const gloveSlice = createSlice({
     name: 'glove',
     initialState: {
         value: 0,
-        swipeViewIndex: 0,
+        swipeViewIndexes: {
+            'Base': 0,
+            'Colors': 0,
+            'Personalize': 0,
+        },
         tabs: [
             { name: 'Base', 'remaining': 2 },
             { name: 'Colors', 'remaining': 9 },
@@ -33,7 +37,17 @@ export const gloveSlice = createSlice({
             gloveSlice.caseReducers.decrement(state);
         },
         setSwipeViewIndex: (state, action) => {
-            state.swipeViewIndex = action.payload;
+            // state.swipeViewIndex = action.payload;
+            console.log({action});
+            state.swipeViewIndexes[action.payload.indexName] = action.payload.index;
+        },
+        setSelectedColor: (state, action) => {
+            for(let colorOption of state.gloveJson['Colors']) {
+                if(colorOption.name === action.payload.name) {
+                    colorOption.selected = action.payload.selected;
+                    break;
+                }
+            }
         }
     },
 })
@@ -44,7 +58,8 @@ export const {
     decrement,
     incrementByAmount,
     selectTab,
-    setSwipeViewIndex
+    setSwipeViewIndex,
+    setSelectedColor
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

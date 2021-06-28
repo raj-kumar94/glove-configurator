@@ -4,6 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import SlideOptions from '../components/options/SlideOptions';
 import CurrentOptionInfo from '../components/options/CurrentOptionInfo';
 import PickColor from '../components/options/PickColor';
+import SelectBase from './options/SelectBase';
 
 class SwipeView extends Component {
 
@@ -13,10 +14,10 @@ class SwipeView extends Component {
 
     render() {
 
-        const { gloveJson, selectedTab, swipeViewIndex } = this.props;
+        const { gloveJson, selectedTab, swipeViewIndexes } = this.props;
 
         return (
-            <SwipeableViews index={swipeViewIndex} className="swipable-views-colors-wrapper">
+            <SwipeableViews index={swipeViewIndexes[selectedTab]} className="swipable-views-colors-wrapper">
                 {
                     gloveJson[selectedTab].map((tabData, index) => {
                         let nextItem = gloveJson[selectedTab][index + 1] ? gloveJson[selectedTab][index + 1].name: '';
@@ -27,6 +28,7 @@ class SwipeView extends Component {
                             <div key={`tabData-${index}`}>
                                 <SlideOptions 
                                     currentIndex={index} 
+                                    indexName={selectedTab}
                                     noPrev={index===0} 
                                     noNext={index===gloveJson[selectedTab].length-1} 
                                     nextItem={nextItem} 
@@ -38,8 +40,15 @@ class SwipeView extends Component {
                                 {/* 
                                     If selected tab is Base, show options
                                     If Selected tab is color, show <PickColor />
-                                 */}
-                                <PickColor />
+                                */}
+                                {
+                                    selectedTab === 'Base' &&
+                                    <SelectBase tabData={tabData} />
+                                }
+                                {
+                                    selectedTab === 'Colors' &&
+                                    <PickColor tabData={tabData} />
+                                }
                             </div>
                         )
                     })
@@ -72,7 +81,7 @@ class SwipeView extends Component {
 // export default SwipeView
 
 const mapStateToProps = (state) => ({
-    swipeViewIndex: state.glove.swipeViewIndex,
+    swipeViewIndexes: state.glove.swipeViewIndexes,
     gloveJson: state.glove.gloveJson,
     selectedTab: state.glove.selectedTab
 });

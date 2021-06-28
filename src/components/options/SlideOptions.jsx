@@ -8,7 +8,7 @@ class SlideOptions extends Component {
             <div className="step-nav--directional">
                 {
                     this.props.prevItem && 
-                    <div className="item left-item" onClick={() => !this.props.noPrev && this.props.dispatch(setSwipeViewIndex(this.props.currentIndex-1))}>
+                    <div className="item left-item" onClick={() => !this.props.noPrev && this.props.dispatch(setSwipeViewIndex({index: this.props.currentIndex-1, indexName: this.props.indexName}))}>
                         <i className="fas fa-angle-left"></i>
                         <span type="button" className="item-name">
                             {this.props.prevItem}
@@ -17,7 +17,7 @@ class SlideOptions extends Component {
                 }
                 {
                     this.props.nextItem &&
-                        <div className="item right-item" onClick={() => !this.props.noNext && this.props.dispatch(setSwipeViewIndex(this.props.currentIndex+1))}>
+                        <div className="item right-item" onClick={() => !this.props.noNext && this.props.dispatch(setSwipeViewIndex({index: this.props.currentIndex+1,  indexName: this.props.indexName}))}>
                             <span type="button" className="item-name">
                                 {/* Wingtip Pinky */}
                                 {this.props.nextItem}
@@ -32,7 +32,7 @@ class SlideOptions extends Component {
 
 // export default SlideOptions
 const mapStateToProps = (state) => ({
-    swipeViewIndex: state.glove.swipeViewIndex
+    // swipeViewIndex: state.glove.swipeViewIndex
 });
   
   
