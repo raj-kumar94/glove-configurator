@@ -7,6 +7,8 @@ import OptionTabs from './components/options/OptionTabs';
 // import CurrentOptionInfo from './components/options/CurrentOptionInfo';
 // import PickColor from './components/options/PickColor';
 import SwipeView from './components/SwipeView';
+import { tabConstants } from './constants';
+const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 
 // import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 // import 'react-tabs/style/react-tabs.css';
@@ -58,8 +60,8 @@ class App extends Component {
 						<SwipeView />
 
 						<div>
-							<button type="button" id="add-to-cart-btn" disabled={true} className="btn mt-4">Add To Cart $185</button>
-							<p className="text-muted small mt-1 font-family-main">To add to cart, please answer the required steps in the  Base, Colors, and Personalize sections.</p>
+							<button type="button" id="add-to-cart-btn" disabled={false} className="btn mt-4">Add To Cart $185</button>
+							<p className="text-muted small mt-1 secondary-font">To add to cart, please answer the required steps in the {GLOVE_FOUNDATION}, {LEATHER_DESIGN} and {PERSONAL_EMBROIDERY} sections.</p>
 						</div>
 
 					</div>

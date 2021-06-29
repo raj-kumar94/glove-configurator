@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { setSelectedGloveFoundation } from '../../feature/gloveSlice';
 
 export class SelectBase extends Component {
+
+    handleInputChange = (event) => {
+        console.log("object");
+        this.props.dispatch(setSelectedGloveFoundation({
+            name: event.target.name,
+            selected: event.target.value
+        }));
+    }
+
     render() {
         const { tabData } = this.props;
         return (
@@ -10,7 +21,14 @@ export class SelectBase extends Component {
                         let id = `Base-${tabData.name}-${option}`
                         return (
                             <div key={id}>
-                                <input type="radio" name={`Base-${tabData.name}`} id={id} />
+                                <input 
+                                    type="radio" 
+                                    name={`${tabData.name}`} 
+                                    id={id} 
+                                    value={option} 
+                                    onChange={this.handleInputChange} 
+                                    checked={option === tabData.selected}
+                                />
                                 <label htmlFor={id}>{option}</label>
                             </div>
                         )
@@ -21,4 +39,8 @@ export class SelectBase extends Component {
     }
 }
 
-export default SelectBase
+const mapStateToProps = (state) => ({
+
+})
+
+export default connect(mapStateToProps)(SelectBase);

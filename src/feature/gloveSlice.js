@@ -1,21 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { gloveData } from '../data/gloveData'
+import { gloveData } from '../data/gloveData';
+import { tabConstants } from '../constants';
+const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 
 export const gloveSlice = createSlice({
     name: 'glove',
     initialState: {
         value: 0,
+        views: ["view-01", "view-02", "view-03", "view-04"],
         swipeViewIndexes: {
-            'Base': 0,
-            'Colors': 0,
-            'Personalize': 0,
+            [GLOVE_FOUNDATION]: 0,
+            [LEATHER_DESIGN]: 0,
+            [PERSONAL_EMBROIDERY]: 0,
         },
         tabs: [
-            { name: 'Base', 'remaining': 2 },
-            { name: 'Colors', 'remaining': 9 },
-            { name: 'Personalize', 'remaining': 1 }
+            { name: GLOVE_FOUNDATION, 'remaining': 2 },
+            { name: LEATHER_DESIGN, 'remaining': 9 },
+            { name: PERSONAL_EMBROIDERY, 'remaining': 1 }
         ],
-        selectedTab: 'Base',
+        selectedTab: GLOVE_FOUNDATION,
         gloveJson: gloveData
     },
     reducers: {
@@ -42,11 +45,43 @@ export const gloveSlice = createSlice({
             state.swipeViewIndexes[action.payload.indexName] = action.payload.index;
         },
         setSelectedColor: (state, action) => {
-            for(let colorOption of state.gloveJson['Colors']) {
+            for(let colorOption of state.gloveJson[LEATHER_DESIGN]) {
                 if(colorOption.name === action.payload.name) {
                     colorOption.selected = action.payload.selected;
                     break;
                 }
+            }
+        },
+        setSelectedGloveFoundation: (state, action) => {
+            for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
+                if(option.name === action.payload.name) {
+                    option.selected = action.payload.selected;
+                    break;
+                }
+            }
+
+            // console.log(action.payload.name, action.payload.selected)
+            switch(action.payload.name) {
+                case 'position':
+                    // size or cather_mitt_size to be present
+                    for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
+                        if(action.payload.selected === 'Catcher') {
+                            if(option.name === 'cather_mitt_size') {
+                                option.active = true;    
+                            } else if(option.name === 'size') {
+                                option.active = false;
+                            }
+                        } else {
+                            if(option.name === 'cather_mitt_size') {
+                                option.active = false;    
+                            } else if(option.name === 'size') {
+                                option.active = true;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     },
@@ -59,7 +94,8 @@ export const {
     incrementByAmount,
     selectTab,
     setSwipeViewIndex,
-    setSelectedColor
+    setSelectedColor,
+    setSelectedGloveFoundation
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

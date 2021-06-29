@@ -14,6 +14,8 @@ $secondary-color: #174a45;
 $third-color: #f3f5f4;
 $white: #fff;
 $gradient-secondary: #b4b4b4;
+$primary-font: "Open Sans";
+$secondary-font: "Lato";
 
 body {
     // background: radial-gradient(circle at 41% 50%,$white,$gradient-secondary);
@@ -21,10 +23,10 @@ body {
 
 #root {
 
-    font-family: Oswald,sans-serif;
+    font-family: $primary-font;
 
-    .font-family-main {
-        font-family: Open Sans,sans-serif;
+    .secondary-font {
+        font-family: $secondary-font;
     }
 
     .custom-container {
@@ -35,6 +37,15 @@ body {
     .small, small {
         font-size: 80%;
         font-weight: 400;
+    }
+
+    .font-weight-light {
+        font-size: 90%;
+        font-weight: lighter;
+    }
+    
+    .mt-auto {
+        margin-top: auto;
     }
 
     // .text-muted {
@@ -50,13 +61,31 @@ body {
         &.box-shadow--light {
             box-shadow: 0 0 20px rgb(0 0 0 / 30%);
         }
-        font-family: Open Sans,sans-serif;
+        font-family: $primary-font;
         font-size: 13px;
         color: #fff;
+        text-align: center;
+        font-weight: 600;
+
+        .tab-menu-index {
+            align-self: center;
+            border-radius: 50%;
+            height: 1.8rem;
+            width: 1.8rem;
+            text-align: center;
+            background: $secondary-color;
+            .menu-index {
+                position: relative;
+                top: 5px;
+            }
+        }
     }
     .react-tab-tab.active {
         // background: #ffb948!important;
         background: $secondary-color;
+        .tab-menu-index {
+            background: $primary-color;
+        }
     }
     
     
@@ -76,14 +105,32 @@ body {
             .item-name {
                 text-transform: capitalize;   
             }
+
+            // adding border
+            box-shadow: 0 0 20px rgb(0 0 0 / 30%);
+            border-radius: 4px;
+            padding: 5px;
+            // end adding border
+
+            &:hover {
+                transform: scale(0.97);
+                transition: 0.2s all;
+                // box-shadow: none;
+                // border: 1px solid #afb8b352;
+                box-shadow: 0 0 10px rgb(0 0 0 / 15%);
+            }
         }
         .left-item {
             padding-left: 0.875rem;
             margin-right: auto;
+            margin-left: 8px;
+            padding-right: 0.8rem;
         }
         .right-item {
             padding-right: 0.875rem;
             margin-left: auto;
+            margin-right: 8px;
+            padding-left: 0.8rem;
         }
        
         .fa-angle-left {
@@ -104,9 +151,10 @@ body {
         justify-content: space-between;
         align-items: center;
         .title {
-            padding-left: 2rem;
-            font-size: 1.5rem;
-            font-family: Oswald,sans-serif;
+            padding-left: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: bolder;
+            font-family: $secondary-font;
             color: rgb(74, 74, 74);
             text-transform: uppercase;
             // font-weight: bolder;
@@ -118,7 +166,7 @@ body {
             .fa-exclamation-triangle {
                 color: rgb(246, 151, 43);
             }
-            font-family: Open Sans,sans-serif;
+            font-family: $primary-font;
             i {
                 text-align: center;
             }
@@ -127,7 +175,7 @@ body {
     }
 
     .swipable-views-colors-wrapper {
-        font-family: Open Sans,sans-serif;
+        font-family: $primary-font;
         font-size: 16px;
         background: white;
         // box-shadow: 0px -7px 10px rgb(0 0 0 / 13%);
@@ -139,7 +187,7 @@ body {
         background: $third-color;
         .color-title {
             padding: 1rem 1rem 0rem 1rem;
-            font-family: Open Sans,sans-serif;
+            font-family: $primary-font;
             font-size: 0.8rem;
         }
         .color-label {
@@ -202,6 +250,11 @@ body {
         font-size: 0.875rem;
         background: $secondary-color;
         color: white;
+        font-family: $primary-font;
+        text-transform: uppercase;
+        padding: 10px 25px;
+        border-radius: 4px;
+        font-size: 1rem;
     }
 
     #add-to-cart-btn[disabled] {
@@ -261,3 +314,10 @@ body {
 // }
 
 
+// .react-swipeable-view-container > div[aria-hidden="false"] {
+//     height: 100%;
+// }
+
+// .react-swipeable-view-container > div[aria-hidden="true"] {
+//     height: 0;
+// }

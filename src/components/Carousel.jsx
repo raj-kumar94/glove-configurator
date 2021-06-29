@@ -1,39 +1,29 @@
 import React, { Component } from 'react'
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import { connect } from 'react-redux';
 import Flickity from 'react-flickity-component'
 import './Carousel.css'
 import Product from './Product';
 
 class Carousel extends Component {
     render() {
-        // var settings = {
-        //     dots: false,
-        //     infinite: true,
-        //     speed: 500,
-        //     slidesToShow: 1,
-        //     slidesToScroll: 1
-        // };
+        const { views } = this.props;
 
         return (
-            // <Slider {...settings}>
-            //     <Product />
-            //     <Product />
-            //     <Product />
-            //     <Product />
-            // </Slider>
-            
             <>
             <Flickity options={{wrapAround: true, pageDots: false}} className="carousel carousel-main">
-                <div className="carousel-cell"><Product /></div>
-                <div className="carousel-cell"><Product /></div>
-                <div className="carousel-cell"><Product /></div>
-                <div className="carousel-cell"><Product /></div>
+                {
+                    views.map(view => (
+                        <div className="carousel-cell" key={`view-${view}`}><Product /></div>
+                    ))
+                }
             </Flickity>
             </>
         )
     }
 }
 
-export default Carousel
+const mapStateToProps = (state) => ({
+    views: state.glove.views,
+});
+
+export default connect(mapStateToProps)(Carousel)

@@ -5,6 +5,8 @@ import SlideOptions from '../components/options/SlideOptions';
 import CurrentOptionInfo from '../components/options/CurrentOptionInfo';
 import PickColor from '../components/options/PickColor';
 import SelectBase from './options/SelectBase';
+import { tabConstants } from '../constants';
+const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 
 class SwipeView extends Component {
 
@@ -15,13 +17,14 @@ class SwipeView extends Component {
     render() {
 
         const { gloveJson, selectedTab, swipeViewIndexes } = this.props;
+        const selectedAndActiveTab = gloveJson[selectedTab].filter(gtab => gtab.active);
 
         return (
-            <SwipeableViews index={swipeViewIndexes[selectedTab]} className="swipable-views-colors-wrapper">
+            <SwipeableViews index={swipeViewIndexes[selectedTab]} className="swipable-views-colors-wrapper" animateHeight>
                 {
-                    gloveJson[selectedTab].map((tabData, index) => {
-                        let nextItem = gloveJson[selectedTab][index + 1] ? gloveJson[selectedTab][index + 1].name: '';
-                        let prevItem = gloveJson[selectedTab][index - 1] ? gloveJson[selectedTab][index - 1].name: '';
+                    selectedAndActiveTab.map((tabData, index) => {
+                        let nextItem = selectedAndActiveTab[index + 1] ? selectedAndActiveTab[index + 1].name: '';
+                        let prevItem = selectedAndActiveTab[index - 1] ? selectedAndActiveTab[index - 1].name: '';
                         nextItem = nextItem.replace(/_/g, ' ');
                         prevItem = prevItem.replace(/_/g, ' ');
                         return (
@@ -30,7 +33,7 @@ class SwipeView extends Component {
                                     currentIndex={index} 
                                     indexName={selectedTab}
                                     noPrev={index===0} 
-                                    noNext={index===gloveJson[selectedTab].length-1} 
+                                    noNext={index===selectedAndActiveTab.length-1} 
                                     nextItem={nextItem} 
                                     prevItem={prevItem} 
                                 />
@@ -42,11 +45,11 @@ class SwipeView extends Component {
                                     If Selected tab is color, show <PickColor />
                                 */}
                                 {
-                                    selectedTab === 'Base' &&
+                                    selectedTab === GLOVE_FOUNDATION &&
                                     <SelectBase tabData={tabData} />
                                 }
                                 {
-                                    selectedTab === 'Colors' &&
+                                    selectedTab === LEATHER_DESIGN &&
                                     <PickColor tabData={tabData} />
                                 }
                             </div>
