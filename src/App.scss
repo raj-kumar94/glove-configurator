@@ -22,7 +22,6 @@ body {
 }
 
 #root {
-
     font-family: $primary-font;
 
     .secondary-font {
@@ -34,7 +33,8 @@ body {
         margin-left: 2.5vw;
     }
 
-    .small, small {
+    .small,
+    small {
         font-size: 80%;
         font-weight: 400;
     }
@@ -43,7 +43,7 @@ body {
         font-size: 90%;
         font-weight: lighter;
     }
-    
+
     .mt-auto {
         margin-top: auto;
     }
@@ -51,8 +51,22 @@ body {
     // .text-muted {
     //     color: #777;
     // }
-    
+
+    .react-tabs__tab-panel {
+        margin-top: -12px;
+    }
+
     /* Option tabs */
+    .react-tabs__tab-list {
+        display: flex;
+        .react-tabs__tab--selected {
+            background: $secondary-color;
+            .tab-menu-index {
+                background: $primary-color;
+            }
+        }
+    }
+
     .react-tab-tab {
         cursor: pointer;
         flex: 1 1;
@@ -80,15 +94,14 @@ body {
             }
         }
     }
-    .react-tab-tab.active {
-        // background: #ffb948!important;
-        background: $secondary-color;
-        .tab-menu-index {
-            background: $primary-color;
-        }
-    }
-    
-    
+    // .react-tab-tab.active {
+    //     // background: #ffb948!important;
+    //     background: $secondary-color;
+    //     .tab-menu-index {
+    //         background: $primary-color;
+    //     }
+    // }
+
     /* Slide options */
     .step-nav--directional {
         background: #f3f3f3;
@@ -98,7 +111,7 @@ body {
         align-items: center;
         font-size: 0.8rem;
         .item {
-            color: #0d98f0;   
+            color: #0d98f0;
             display: flex;
             cursor: pointer;
             // align-items: center;
@@ -134,7 +147,7 @@ body {
             margin-right: 8px;
             padding-left: 0.8rem;
         }
-       
+
         .fa-angle-left {
             margin-right: 0.5rem;
         }
@@ -183,6 +196,10 @@ body {
         // box-shadow: 0px -7px 10px rgb(0 0 0 / 13%);
     }
 
+    .tab-user-options-container {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
 
     .pick-color-wrapper {
         &.shadow {
@@ -247,6 +264,12 @@ body {
         box-shadow: 0px -7px 10px rgb(0 0 0 / 13%);
     }
 
+    .option-wrapper {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
     .select-base-wrapper {
         box-shadow: 0px -7px 10px rgb(0 0 0 / 13%);
         background: $third-color;
@@ -290,42 +313,62 @@ body {
     }
 }
 
+/* checkbox css */
+.input-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
 
-// // slick slider related code to be put outside of #root div
-// .slick-prev, .slick-next {
-//     // background: white;
-//     transform: scale(2.5) !important;
-// }
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
 
-// .slick-next {
-//     right: 25px !important;
-// }
+        &:checked + .slider {
+            background-color: $secondary-color;
+        }
 
-// .slick-prev {
-//     left: 25px !important;
-//     z-index: 9999;
-// }
+        &:focus + .slider {
+            box-shadow: 0 0 1px $secondary-color;
+        }
 
-// .slick-prev:before, .slick-next:before {
-//     color: hsla(0,0%,100%,.75) !important;
-// }
+        &:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+    }
 
-// .slick-slide {
-//     // opacity: 0;
-// }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        &::before {
+            position: absolute;
+            content: "";
+            height: 23px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
 
-// .slick-slide.slick-active.slick-current {
-//     display: flex;
-//     justify-content: center;
-//     // opacity: 1;
-//     // transition: .01s all;
-// }
-
-
-// .react-swipeable-view-container > div[aria-hidden="false"] {
-//     height: 100%;
-// }
-
-// .react-swipeable-view-container > div[aria-hidden="true"] {
-//     height: 0;
-// }
+        /* Rounded sliders */
+        &.round {
+            border-radius: 30px;
+        }
+        
+        &.round:before {
+            border-radius: 50%;
+        }
+    }
+}

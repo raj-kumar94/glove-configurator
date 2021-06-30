@@ -1,49 +1,20 @@
 import React, { Component } from 'react'
 // import SwipeableViews from 'react-swipeable-views';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import './App.scss';
 import Carousel from './components/Carousel';
-import OptionTabs from './components/options/OptionTabs';
+// import OptionTabs from './components/options/OptionTabs';
 // import SlideOptions from './components/options/SlideOptions';
 // import CurrentOptionInfo from './components/options/CurrentOptionInfo';
 // import PickColor from './components/options/PickColor';
-import SwipeView from './components/SwipeView';
+// import SwipeView from './components/SwipeView';
+import SwipeView2 from './components/SwipeView2';
 import { tabConstants } from './constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
-
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import 'react-tabs/style/react-tabs.css';
-const styles = {
-	slide: {
-	  padding: 15,
-	  minHeight: 100,
-	  color: '#fff',
-	},
-	slide1: {
-	  background: '#FEA900',
-	},
-	slide2: {
-	  background: '#B3DC4A',
-	},
-	slide3: {
-	  background: '#6AC0FF',
-	},
-  };
+const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
 
 class App extends Component {
-
-	state = {
-		index: 1
-	}
-
-	componentDidMount() {
-		// setTimeout(() => {
-		// 	this.setState({index: 0})
-		// }, 1000);
-	}
-
-	setSlide = (index) => {
-		this.setState({index: index});
-	}
 
 	render() {
 		return (
@@ -53,12 +24,30 @@ class App extends Component {
 						<Carousel />
 					</div>
 					<div className="col-md-4">
-						<OptionTabs />
-						{/* <SlideOptions />
-						<CurrentOptionInfo /> */}
+						<Tabs>
+							<TabList>
+								{
+									TABS.map((TAB, index) => (
+										<Tab key={`tab-${TAB}`} 
+										className={`react-tab-tab box-shadow--light d-flex flex-column`}
+										>
+											<span className="tab-menu-index"><span className="menu-index">{index+1}</span></span>
+											<span className="mr-1">{TAB}</span>
+											<span className="font-weight-light mt-auto">{1} remaining</span>
+										</Tab>
+									))
+								}
+							</TabList>
 
-						<SwipeView />
-
+							{
+								TABS.map(TAB => (
+									<TabPanel key={`tab-panel-${TAB}`}>
+										<SwipeView2 TAB={TAB} />
+									</TabPanel>
+								))
+							}
+						</Tabs>
+						
 						<div>
 							<button type="button" id="add-to-cart-btn" disabled={false} className="btn mt-4">Add To Cart $185</button>
 							<p className="text-muted small mt-1 secondary-font">To add to cart, please answer the required steps in the {GLOVE_FOUNDATION}, {LEATHER_DESIGN} and {PERSONAL_EMBROIDERY} sections.</p>

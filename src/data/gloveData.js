@@ -137,7 +137,7 @@ export const gloveData = {
     [PERSONAL_EMBROIDERY]: [
         {
             "name": "thumb logo/graphic",
-            "type": "options",
+            "type": "list_options",
             "enabled": true,
             "options": ["None", "Home Plate Logo", "Custom Number(+$5)"],
             "selected": "None",

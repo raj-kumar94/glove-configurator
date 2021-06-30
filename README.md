@@ -18,6 +18,7 @@ Since this already have been implemented on your website, you must be having all
 Could you please share them? 
 
 
+We are looking to add these 12 leather colors for steerhide and 4 colors for Kip. Will you need pngs for each glove piece and view or can you make them on your side with the files you have?
 
 # Text
 - Thumb

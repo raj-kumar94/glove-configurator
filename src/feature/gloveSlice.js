@@ -2,6 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import { gloveData } from '../data/gloveData';
 import { tabConstants } from '../constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
+const GLOVE_FOUNDATION_INDEX = 0;
+const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
+const PERSONAL_EMBROIDERY_INDEX = gloveData[LEATHER_DESIGN].filter(data => data.active).length + LEATHER_DESIGN_INDEX;
 
 export const gloveSlice = createSlice({
     name: 'glove',
