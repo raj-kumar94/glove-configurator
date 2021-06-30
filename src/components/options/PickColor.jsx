@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { setSelectedColor } from "../../feature/gloveSlice";
-
+import { setPersonalizeSelectedColor, setSelectedColor } from "../../feature/gloveSlice";
+import { tabConstants } from '../../constants';
+const { PERSONAL_EMBROIDERY } = tabConstants
 class PickColor extends Component {
 
     state = {
@@ -27,21 +28,29 @@ class PickColor extends Component {
     handleInputChange = (event) => {
         console.log("object");
         // debugger;
-        this.props.dispatch(setSelectedColor({
-            name: event.target.name,
-            selected: event.target.value
-        }));
+        const { pickFor } = this.props;
+        if(pickFor === PERSONAL_EMBROIDERY) {
+            this.props.dispatch(setPersonalizeSelectedColor({
+                name: event.target.name,
+                selected_color: event.target.value
+            }));
+        } else {
+            this.props.dispatch(setSelectedColor({
+                name: event.target.name,
+                selected_color: event.target.value
+            }));
+        }
 
     }
 
     render() {
 
         // const { color_for, colors } = this.state;
-        const { tabData } = this.props;
+        const { tabData, noShadow } = this.props;
         const color_for = tabData.name;
 
         return (
-            <div className="pick-color-wrapper">
+            <div className={`pick-color-wrapper ${noShadow? "": "shadow"}`}>
                 <p className="text-muted color-title ml-3">Pick a color</p>
                 <div className="d-flex flex-wrap ml-3 mr-3">
                     {tabData.colors.map((color, index) => (
@@ -51,13 +60,13 @@ class PickColor extends Component {
                                 name={color_for} 
                                 id={`${color_for}_${color.code}`} 
                                 value={color.code} 
-                                checked={color.code === tabData.selected } 
+                                checked={color.code === tabData.selected_color } 
                                 onChange={this.handleInputChange}
                             ></input>
                             <div>
                                 <label htmlFor={`${color_for}_${color.code}`} className="color-label">
                                     <span className="color color-value" style={{background: color.rgb}}>
-                                        { color.code === tabData.selected && 
+                                        { color.code === tabData.selected_color && 
                                             <span className={`color-value__span selected`}>
                                                 <i className="fas fa-check-circle"></i>
                                             </span>

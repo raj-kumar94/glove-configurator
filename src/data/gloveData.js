@@ -20,7 +20,7 @@ export const gloveData = {
         {
             "name": "size",
             "options": ["9.25", "9.5", "9.75", "10", "10.25", "10.5"],
-            "selected": "11",
+            "selected": "10",
             "required": true,
             "active": true
         },
@@ -48,7 +48,7 @@ export const gloveData = {
     [LEATHER_DESIGN]: [
         {
             "name": "web_color",
-            "selected": "BLACK",
+            "selected_color": "BLACK",
             "colors": [
                 {name: 'Black', code: 'BLACK', rgb: 'center center rgb(26, 26, 26)'},
                 {name: 'Grey', code: 'GREY', rgb: 'center center rgb(144, 143, 136)'},
@@ -86,7 +86,7 @@ export const gloveData = {
                 {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
                 {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
             ],
-            "selected": "GREY",
+            "selected_color": "GREY",
             "required": true,
             "active": true
         },
@@ -108,7 +108,7 @@ export const gloveData = {
                 {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
                 {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
             ],
-            "selected": "GREY",
+            "selected_color": "GREY",
             "required": true,
             "active": true
         },
@@ -130,9 +130,51 @@ export const gloveData = {
                 // {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
                 // {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
             ],
-            "selected": "BLACK",
+            "selected_color": "BLACK",
             "active": true
         }
     ],
-    [PERSONAL_EMBROIDERY]: []
+    [PERSONAL_EMBROIDERY]: [
+        {
+            "name": "thumb logo/graphic",
+            "type": "options",
+            "enabled": true,
+            "options": ["None", "Home Plate Logo", "Custom Number(+$5)"],
+            "selected": "None",
+            "active": true
+        },
+        {
+            "name": "palm stamp",
+            "type": "text_and_color",
+            "enabled": false,
+            "text": "",
+            "colors": [
+                {name: 'Black', code: 'BLACK', rgb: 'center center rgb(26, 26, 26)'},
+                {name: 'Grey', code: 'GREY', rgb: 'center center rgb(144, 143, 136)'},
+                {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
+            ],
+            "selected_color": "GREY",
+            "active": true
+        },
+        {
+            "name": "thumb text",
+            "type": "text_and_color",
+            "enabled": false,
+            "text": "",
+            "colors": [
+                {name: 'Black', code: 'BLACK', rgb: 'center center rgb(26, 26, 26)'},
+                {name: 'Grey', code: 'GREY', rgb: 'center center rgb(144, 143, 136)'},
+                {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
+            ],
+            "selected_color": "",
+            "active": true
+        },
+        {
+            "name": "special instructions",
+            "type": "text_area",
+            "enabled": true,
+            "text": "",
+            "active": true
+        }
+    ]
 }

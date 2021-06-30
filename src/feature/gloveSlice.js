@@ -37,6 +37,13 @@ export const gloveSlice = createSlice({
         },
         selectTab: (state, action) => {
             state.selectedTab = action.payload;
+            // gloveSlice.caseReducers.setSwipeViewIndex(state, {
+            //     payload: {
+            //         indexName: action.payload,
+            //         index: state.swipeViewIndexes[action.payload]
+            //     }
+            // })
+            // DEMO: call another reducer
             gloveSlice.caseReducers.decrement(state);
         },
         setSwipeViewIndex: (state, action) => {
@@ -47,7 +54,7 @@ export const gloveSlice = createSlice({
         setSelectedColor: (state, action) => {
             for(let colorOption of state.gloveJson[LEATHER_DESIGN]) {
                 if(colorOption.name === action.payload.name) {
-                    colorOption.selected = action.payload.selected;
+                    colorOption.selected_color = action.payload.selected_color;
                     break;
                 }
             }
@@ -83,7 +90,20 @@ export const gloveSlice = createSlice({
                 default:
                     break;
             }
-        }
+        },
+        setPersonalizeTextArea: (state, action) => {
+            state.gloveJson[PERSONAL_EMBROIDERY]
+                .filter(option => option.name === action.payload.name)[0]
+                .text = action.payload.value;
+        },
+        setPersonalizeSelectedColor: (state, action) => {
+            for(let colorOption of state.gloveJson[PERSONAL_EMBROIDERY]) {
+                if(colorOption.name === action.payload.name) {
+                    colorOption.selected_color = action.payload.selected_color;
+                    break;
+                }
+            }
+        },
     },
 })
 
@@ -95,7 +115,9 @@ export const {
     selectTab,
     setSwipeViewIndex,
     setSelectedColor,
-    setSelectedGloveFoundation
+    setSelectedGloveFoundation,
+    setPersonalizeTextArea,
+    setPersonalizeSelectedColor
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

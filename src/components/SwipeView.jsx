@@ -5,6 +5,7 @@ import SlideOptions from '../components/options/SlideOptions';
 import CurrentOptionInfo from '../components/options/CurrentOptionInfo';
 import PickColor from '../components/options/PickColor';
 import SelectBase from './options/SelectBase';
+import SelectPersonalEmbroidery from './options/personalize/SelectPersonalEmbroidery';
 import { tabConstants } from '../constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 
@@ -51,6 +52,10 @@ class SwipeView extends Component {
                                 {
                                     selectedTab === LEATHER_DESIGN &&
                                     <PickColor tabData={tabData} />
+                                }
+                                {
+                                    selectedTab === PERSONAL_EMBROIDERY &&
+                                    <SelectPersonalEmbroidery tabData={tabData} />
                                 }
                             </div>
                         )
