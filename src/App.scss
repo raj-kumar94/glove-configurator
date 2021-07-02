@@ -48,6 +48,17 @@ body {
         margin-top: auto;
     }
 
+    .full-width {
+        width: 100%;
+    }
+
+    textarea.full-width {
+        border-radius: 15px;
+        border-color: $primary-color;
+        padding-top: 15px;
+        padding-left: 15px;
+    }
+
     // .text-muted {
     //     color: #777;
     // }
@@ -101,6 +112,49 @@ body {
     //         background: $primary-color;
     //     }
     // }
+
+    .radio-input-wrapper {
+        // padding-left: 20px;
+        // padding-top: 10px;
+        padding-bottom: 10px;
+        label {
+            // padding-top: 10px;
+            margin-left: 20px;
+        }
+        // &:not(:last-child) {
+        //     border-bottom: 1px solid #e8e8e8;
+        // }
+        // padding: 10px;
+        input::before {
+            content: "\f111";
+            font-family: "Font Awesome 5 Free";
+            color: white;
+            font-weight: 900;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            font-size: 20px;
+            position: relative;
+            left: -3px;
+            top: -5px;
+            border: 1px solid $primary-color;
+            border-radius: 50%;
+            background: white;
+        }
+        input:checked::before {
+            content: "\f058";
+            color: #53bd01;
+            border: none;
+            font-size: 22px;
+        }
+    }
+
+    .personalize-option-wrapper {
+        background: $third-color;
+        padding: 1rem;
+    }
 
     /* Slide options */
     .step-nav--directional {

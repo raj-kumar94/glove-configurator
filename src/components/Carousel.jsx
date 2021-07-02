@@ -13,7 +13,7 @@ class Carousel extends Component {
             <Flickity options={{wrapAround: true, pageDots: false}} className="carousel carousel-main">
                 {
                     views.map(view => (
-                        <div className="carousel-cell" key={`view-${view}`}><Product /></div>
+                        <div className="carousel-cell" key={`view-${view}`}><Product view={view} /></div>
                     ))
                 }
             </Flickity>

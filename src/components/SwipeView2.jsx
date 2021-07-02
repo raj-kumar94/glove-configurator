@@ -16,6 +16,10 @@ class SwipeView2 extends Component {
         console.log(this.props.gloveJson)
     }
 
+    componentDidUpdate() {
+        this.swipeableActions.updateHeight();
+    }
+
     render() {
 
         const { gloveJson, swipeViewIndexes, TAB } = this.props;
@@ -24,7 +28,14 @@ class SwipeView2 extends Component {
         
 
         return (
-            <SwipeableViews index={swipeViewIndexes[TAB]} className={`swipable-views-colors-wrapper`} animateHeight>
+            <SwipeableViews 
+                index={swipeViewIndexes[TAB]} 
+                className={`swipable-views-colors-wrapper`} 
+                animateHeight
+                action={actions => {
+                    this.swipeableActions = actions
+                }}
+            >
                 {
                     selectedAndActiveTab.map((tabData, index) => {
                         let nextItem = selectedAndActiveTab[index + 1] ? selectedAndActiveTab[index + 1].name: '';

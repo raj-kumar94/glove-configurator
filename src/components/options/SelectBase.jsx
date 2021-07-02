@@ -20,7 +20,7 @@ export class SelectBase extends Component {
                     tabData.options.map(option => {
                         let id = `Base-${tabData.name}-${option}`
                         return (
-                            <div key={id}>
+                            <div key={id} className="radio-input-wrapper">
                                 <input 
                                     type="radio" 
                                     name={`${tabData.name}`} 

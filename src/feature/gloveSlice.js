@@ -10,7 +10,12 @@ export const gloveSlice = createSlice({
     name: 'glove',
     initialState: {
         value: 0,
-        views: ["view-01", "view-02", "view-03", "view-04"],
+        views: [
+            "view01", 
+            "view02", 
+            // "view03", 
+            // "view04"
+        ],
         swipeViewIndexes: {
             [GLOVE_FOUNDATION]: 0,
             [LEATHER_DESIGN]: 0,
@@ -63,35 +68,60 @@ export const gloveSlice = createSlice({
             }
         },
         setSelectedGloveFoundation: (state, action) => {
+            let selectedOption;
             for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
                 if(option.name === action.payload.name) {
                     option.selected = action.payload.selected;
+                    selectedOption = option;
                     break;
                 }
             }
 
-            // console.log(action.payload.name, action.payload.selected)
-            switch(action.payload.name) {
-                case 'position':
-                    // size or cather_mitt_size to be present
+            if(selectedOption.controls) {
+                const control = selectedOption.controls[selectedOption.selected];
+                if(control) {
                     for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
-                        if(action.payload.selected === 'Catcher') {
-                            if(option.name === 'cather_mitt_size') {
-                                option.active = true;    
-                            } else if(option.name === 'size') {
-                                option.active = false;
-                            }
-                        } else {
-                            if(option.name === 'cather_mitt_size') {
-                                option.active = false;    
-                            } else if(option.name === 'size') {
-                                option.active = true;
-                            }
+                        if(option.name === control.activate) {
+                            option.active = true;    
+                        } else if(option.name === control.deactivate) {
+                            option.active = false;
                         }
                     }
+                }
+            }
+            return;
+
+            // console.log(action.payload.name, action.payload.selected)
+            // switch(action.payload.name) {
+            //     case 'position':
+            //         // size or cather_mitt_size to be present
+            //         for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
+            //             if(action.payload.selected === 'Catcher') {
+            //                 if(option.name === 'cather_mitt_size') {
+            //                     option.active = true;    
+            //                 } else if(option.name === 'size') {
+            //                     option.active = false;
+            //                 }
+            //             } else {
+            //                 if(option.name === 'cather_mitt_size') {
+            //                     option.active = false;    
+            //                 } else if(option.name === 'size') {
+            //                     option.active = true;
+            //                 }
+            //             }
+            //         }
+            //         break;
+            //     default:
+            //         break;
+            // }
+        },
+        // to select the color from pick a color
+        setPersonalizeSelectedColor: (state, action) => {
+            for(let colorOption of state.gloveJson[PERSONAL_EMBROIDERY]) {
+                if(colorOption.name === action.payload.name) {
+                    colorOption.selected_color = action.payload.selected_color;
                     break;
-                default:
-                    break;
+                }
             }
         },
         setPersonalizeTextArea: (state, action) => {
@@ -99,11 +129,36 @@ export const gloveSlice = createSlice({
                 .filter(option => option.name === action.payload.name)[0]
                 .text = action.payload.value;
         },
-        setPersonalizeSelectedColor: (state, action) => {
-            for(let colorOption of state.gloveJson[PERSONAL_EMBROIDERY]) {
-                if(colorOption.name === action.payload.name) {
-                    colorOption.selected_color = action.payload.selected_color;
+        setPersonalEmbroideryEnableDisable: (state, action) => {
+            state.gloveJson[PERSONAL_EMBROIDERY]
+                .filter(option => option.name === action.payload.name)[0]
+                .enabled = action.payload.value;
+        },
+        setPersonalEmbroideryText: (state, action) => {
+            state.gloveJson[PERSONAL_EMBROIDERY]
+                .filter(option => option.name === action.payload.name)[0]
+                .text = action.payload.value;
+        },
+        setSelectedPersonalEmbroideryOption: (state, action) => {
+            let selectedOption;
+            for(let option of state.gloveJson[PERSONAL_EMBROIDERY]) {
+                if(option.name === action.payload.name) {
+                    option.selected = action.payload.selected;
+                    selectedOption = option;
                     break;
+                }
+            }
+
+            if(selectedOption.controls) {
+                const control = selectedOption.controls[selectedOption.selected];
+                if(control) {
+                    for(let option of state.gloveJson[PERSONAL_EMBROIDERY]) {
+                        if(option.name === control.activate) {
+                            option.active = true;    
+                        } else if(option.name === control.deactivate) {
+                            option.active = false;
+                        }
+                    }
                 }
             }
         },
@@ -119,8 +174,11 @@ export const {
     setSwipeViewIndex,
     setSelectedColor,
     setSelectedGloveFoundation,
+    setPersonalizeSelectedColor,
     setPersonalizeTextArea,
-    setPersonalizeSelectedColor
+    setPersonalEmbroideryEnableDisable,
+    setPersonalEmbroideryText,
+    setSelectedPersonalEmbroideryOption
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

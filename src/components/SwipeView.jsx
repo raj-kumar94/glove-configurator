@@ -13,7 +13,12 @@ const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
 class SwipeView extends Component {
 
     componentDidMount() {
-        console.log(this.props.gloveJson)
+        console.log("componentDidMount:SwipeView");
+    }
+
+    componentDidUpdate() {
+        console.log("yyy");
+        this.swipeableActions.updateHeight();
     }
 
     render() {
@@ -39,7 +44,14 @@ class SwipeView extends Component {
                 console.log({selectedAndActiveTab});
                 return (
                     <div className={TAB === selectedTab ? "opacity-1": "opacity-0"}>
-                    <SwipeableViews index={swipeViewIndexes[TAB]} className={`swipable-views-colors-wrapper`} animateHeight>
+                    <SwipeableViews 
+                        index={swipeViewIndexes[TAB]} 
+                        className={`swipable-views-colors-wrapper`} 
+                        animateHeight
+                        action={actions => {
+                            this.swipeableActions = actions
+                        }}
+                    >
                         {
                             selectedAndActiveTab.map((tabData, index) => {
                                 let nextItem = selectedAndActiveTab[index + 1] ? selectedAndActiveTab[index + 1].name: '';

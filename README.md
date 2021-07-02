@@ -1,6 +1,9 @@
 ## Cloning nodes and appending to separate Layers in React-Konva
 https://stackoverflow.com/questions/52958481/cloning-nodes-and-appending-to-separate-layers-in-react-konva
 
+## Dynamic height for material ui tab containers
+https://stackoverflow.com/questions/47095900/dynamic-height-for-material-ui-tab-containers
+
 When "Position" changed to "Infield", it asks to 
 - select "Size"
 - Select Thumb color
@@ -22,3 +25,18 @@ We are looking to add these 12 leather colors for steerhide and 4 colors for Kip
 
 # Text
 - Thumb
+
+
+
+1. Please let me know if only these Options are for personalization:
+   - Wrist Logo Options
+   - Thumb Logo
+   - Name Font
+   - Special Instructions
+
+
+2. Can you have both thumb logo and thumb text? If yes, any example of thumb logo and thumb text together?
+
+3. Will "Thumb Logo Color" be valid only if customer has selected "E Logo"?
+
+4. Are "Name on Thumb", "Name Font" and "Name Color" related to thumb text?

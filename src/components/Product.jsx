@@ -9,26 +9,26 @@ class Product extends Component {
     state = {
         // NAMING CONVENTION: Leather Type-Position-Part Name-Color (JK-Fielder-F1-Blue)
         images: [
-            "Base.png",
-            "view01-fielder-Wrist-JK-Gray.png",
-            "view01-fielder-logo-JK-Wine.png",
-            "view01-fielder-F1-JK-Gray.png",
-            "view01-fielder-F2-JK-Wine.png",
-            "view01-fielder-F3-JK-Gray.png",
-            "view01-fielder-F4-JK-Wine.png",
-            "view01-fielder-F5-JK-Gray.png",
-            "view01-fielder-F6-JK-Wine.png",
-            "view01-fielder-F7-JK-Gray.png",
-            "view01-fielder-F8-JK-Wine.png",
-            "view01-fielder-T2-JK-Gray.png",
-            "view01-fielder-T1-JK-Wine.png",
-            "view01-fielder-Pipping-JK-Gray.png",
-            "view01-fielder-Welting-JK-Gray.png",
-            "view01-fielder-Palm-JK-Wine.png",
-            "view01-fielder-Web-T-JK-Gray.png",
-            "view01-fielder-Lace-T-JK-Wine.png",
-            "view01-fielder-hood-JK-Wine.png",
-            "view01-fielder-stitch-T-JK-Red.png"
+            `${this.props.view}-Base.png`,
+            `${this.props.view}-fielder-Wrist-JK-Gray.png`,
+            `${this.props.view}-fielder-logo-JK-Wine.png`,
+            `${this.props.view}-fielder-F1-JK-Gray.png`,
+            `${this.props.view}-fielder-F2-JK-Wine.png`,
+            `${this.props.view}-fielder-F3-JK-Gray.png`,
+            `${this.props.view}-fielder-F4-JK-Wine.png`,
+            `${this.props.view}-fielder-F5-JK-Gray.png`,
+            `${this.props.view}-fielder-F6-JK-Wine.png`,
+            `${this.props.view}-fielder-F7-JK-Gray.png`,
+            `${this.props.view}-fielder-F8-JK-Wine.png`,
+            `${this.props.view}-fielder-T2-JK-Gray.png`,
+            `${this.props.view}-fielder-T1-JK-Wine.png`,
+            `${this.props.view}-fielder-Pipping-JK-Gray.png`,
+            `${this.props.view}-fielder-Welting-JK-Gray.png`,
+            `${this.props.view}-fielder-Palm-JK-Wine.png`,
+            `${this.props.view}-fielder-Web-T-JK-Gray.png`,
+            `${this.props.view}-fielder-Lace-T-JK-Wine.png`,
+            `${this.props.view}-fielder-hood-JK-Wine.png`,
+            `${this.props.view}-fielder-stitch-T-JK-Red.png`
         ],
         containerWidth: window.screen.width > 768 ? 700: 500,
         conatainerHeight: window.screen.width > 768 ? 700: 500
@@ -37,7 +37,7 @@ class Product extends Component {
     componentDidMount() {
 
         const images = this.state.images;
-        images[6] = "view01-fielder-F4-JK-Orange.png";
+        images[6] = `${this.props.view}-fielder-F4-JK-Orange.png`;
         this.setState({images});
 
         // had to set timeout because it cache() was causing the product to disappear
@@ -50,6 +50,7 @@ class Product extends Component {
 
     render() {
         const { containerWidth, conatainerHeight, images } = this.state;
+        const { view } = this.props;
         console.log('rendering')
 
         return (
@@ -58,7 +59,7 @@ class Product extends Component {
                     <Layer ref={this.layerRef}>
                         {
                             images.map((src, index) => {
-                                src = `/images/top/${src}`;
+                                src = `/images/${view}/${src}`;
                                 return (
                                     <LoadImageFromURL key={src} src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
                                 )
