@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import SwipeableViews from 'react-swipeable-views';
-import SlideOptions from '../components/options/SlideOptions';
-import CurrentOptionInfo from '../components/options/CurrentOptionInfo';
-import PickColor from '../components/options/PickColor';
+import SlideOptions from './options/SlideOptions';
+import CurrentOptionInfo from './options/CurrentOptionInfo';
+import PickColor from './options/design/PickColor';
 import SelectBase from './options/SelectBase';
 import SelectPersonalEmbroidery from './options/personalize/SelectPersonalEmbroidery';
 import { tabConstants } from '../constants';

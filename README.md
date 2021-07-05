@@ -40,3 +40,20 @@ We are looking to add these 12 leather colors for steerhide and 4 colors for Kip
 3. Will "Thumb Logo Color" be valid only if customer has selected "E Logo"?
 
 4. Are "Name on Thumb", "Name Font" and "Name Color" related to thumb text?
+
+
+I see 44 is letting select either Hood or Pad, not both. Do you offer both?
+Also, I tried searching for images for Pad, but couldn't find in the folder. Could you please check?
+
+
+-----------
+piping color is missing from the website
+
+
+
+# TODO
+- color option on selection of "Wrist Logo Options"
+
+
+Updates:
+- File names fixed

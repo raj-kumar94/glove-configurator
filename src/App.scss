@@ -64,7 +64,7 @@ body {
     // }
 
     .react-tabs__tab-panel {
-        margin-top: -12px;
+        margin-top: -17px;
     }
 
     /* Option tabs */
@@ -361,6 +361,7 @@ body {
 
     .flickity-button {
         background: $secondary-color;
+        border-radius: 50%;
     }
     .flickity-button-icon {
         fill: white;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setPersonalEmbroideryEnableDisable, setPersonalEmbroideryText } from '../../../feature/gloveSlice'
-import PickColor from '../PickColor';
+import PickColor from '../design/PickColor';
 
 function TextAndColorOption(props) {
     const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { setPersonalizeSelectedColor, setSelectedColor } from "../../feature/gloveSlice";
-import { tabConstants } from '../../constants';
+import { setPersonalizeSelectedColor, setSelectedColor } from "../../../feature/gloveSlice";
+import { tabConstants } from '../../../constants';
 const { PERSONAL_EMBROIDERY } = tabConstants
 class PickColor extends Component {
 

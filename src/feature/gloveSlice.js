@@ -16,6 +16,10 @@ export const gloveSlice = createSlice({
             // "view03", 
             // "view04"
         ],
+        viewImages: {
+            "view01": ["view01-base.png"],
+            "view02": ["view02-base.png"],
+        },
         swipeViewIndexes: {
             [GLOVE_FOUNDATION]: 0,
             [LEATHER_DESIGN]: 0,
@@ -87,8 +91,24 @@ export const gloveSlice = createSlice({
                             option.active = false;
                         }
                     }
+
+                    // for colors
+                    if(control.activate_colors) {
+                        // console.log("yes", JSON.stringify(control.activate_colors, null, 4));
+                        for(let option of state.gloveJson[LEATHER_DESIGN]) {
+                            // console.log({option: option.name});
+                            if(control.activate_colors.includes(option.name)) {
+                                option.active = true;    
+                                // console.log("active", option.name);
+                            } else if(control.deactivate_colors.includes(option.name)) {
+                                option.active = false;
+                                // console.log("inactive", option.name);
+                            }
+                        }
+                    }
                 }
             }
+            gloveSlice.caseReducers.calculateRemaining(state, {})
             return;
 
             // console.log(action.payload.name, action.payload.selected)
@@ -123,6 +143,7 @@ export const gloveSlice = createSlice({
                     break;
                 }
             }
+            gloveSlice.caseReducers.calculateRemaining(state, {})
         },
         setPersonalizeTextArea: (state, action) => {
             state.gloveJson[PERSONAL_EMBROIDERY]
@@ -162,6 +183,35 @@ export const gloveSlice = createSlice({
                 }
             }
         },
+        calculateRemaining: (state, payload) => {
+            const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active);
+            const leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active);
+            const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active);
+
+            const gloveFoundationActiveOptionsRemaining = gloveFoundationActiveOptions.filter(option => option.selected);
+            const leatherDesignActiveOptionsRemaining = leatherDesignActiveOptions.filter(option => option.selected);
+            // since personalise section has multiple type of options
+            const personalActiveOptionsRemaining = personalActiveOptions.filter(option => {
+                if(option.type === "list_options") {
+                    return option.selected;
+                } else if(option.type === "text_and_color") {
+                    return option.text && option.selected_color;
+                } else if(option.type === "text_area") {
+                    return option.text;
+                }
+                return true;
+            });
+            console.log({
+                gloveFoundationActiveOptions: gloveFoundationActiveOptions.length,
+                leatherDesignActiveOptions: leatherDesignActiveOptions.length,
+                personalActiveOptions: personalActiveOptions.length
+            });
+            console.log({
+                gloveFoundationActiveOptionsRemaining: gloveFoundationActiveOptions.length - gloveFoundationActiveOptionsRemaining.length,
+                leatherDesignActiveOptionsRemaining: leatherDesignActiveOptions.length - leatherDesignActiveOptionsRemaining.length,
+                personalActiveOptionsRemaining: personalActiveOptions.length - personalActiveOptionsRemaining.length
+            });
+        }
     },
 })
 

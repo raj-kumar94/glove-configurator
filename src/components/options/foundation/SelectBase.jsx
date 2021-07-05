@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { setSelectedGloveFoundation } from '../../feature/gloveSlice';
+import { setSelectedGloveFoundation } from '../../../feature/gloveSlice';
 
 export class SelectBase extends Component {
 

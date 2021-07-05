@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image as KonvaImage } from 'react-konva';
+// import { Image as KonvaImage } from 'react-konva/lib/ReactKonvaCore';
 import useImage from 'use-image';
 
 // the first very simple and recommended way:
