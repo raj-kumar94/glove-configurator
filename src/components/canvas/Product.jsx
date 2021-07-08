@@ -36,7 +36,7 @@ class Product extends Component {
             `${this.props.view}-fielder-web-t-jk-gray.png`,
             `${this.props.view}-fielder-lace-t-jk-wine.png`,
             `${this.props.view}-fielder-hood-jk-wine.png`,
-            `${this.props.view}-fielder-stitch-t-jk-Red.png`
+            `${this.props.view}-fielder-stitch-t-jk-red.png`
         ],
         containerWidth: window.screen.width > 768 ? 700: 500,
         conatainerHeight: window.screen.width > 768 ? 700: 500
@@ -44,9 +44,9 @@ class Product extends Component {
 
     componentDidMount() {
 
-        const images = this.state.images;
-        images[6] = `${this.props.view}-fielder-f4-jk-orange.png`;
-        this.setState({images});
+        // const images = this.state.images;
+        // images[6] = `${this.props.view}-fielder-f4-jk-orange.png`;
+        // this.setState({images});
 
         // had to set timeout because it cache() was causing the product to disappear
         // setTimeout(() => {
@@ -57,8 +57,15 @@ class Product extends Component {
 
 
     render() {
-        const { containerWidth, conatainerHeight, images } = this.state;
-        const { view } = this.props;
+        const { 
+            containerWidth, 
+            conatainerHeight, 
+            // images
+        } = this.state;
+        const { 
+            view, 
+            images 
+        } = this.props;
         console.log('rendering')
 
         return (
@@ -72,7 +79,7 @@ class Product extends Component {
                                     if(view === 'view02' && src.includes('-lace-')) {
                                         return (
                                             <>
-                                            <CanvasText />
+                                            {/* <CanvasText /> */}
                                             <LoadImageFromURL key={src} src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
                                             </>
                                         )

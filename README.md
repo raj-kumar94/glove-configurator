@@ -53,7 +53,3 @@ piping color is missing from the website
 
 # TODO
 - color option on selection of "Wrist Logo Options"
-
-
-Updates:
-- File names fixed

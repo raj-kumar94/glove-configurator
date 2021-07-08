@@ -117,10 +117,17 @@ body {
         // padding-left: 20px;
         // padding-top: 10px;
         padding-bottom: 10px;
+        display: flex;
         label {
             // padding-top: 10px;
-            margin-left: 20px;
+            // margin-left: 20px;
         }
+        // &.base-options {
+        //     label {
+        //         margin-left: 0px !important;
+        //     }
+        //     display: flex;
+        // }
         // &:not(:last-child) {
         //     border-bottom: 1px solid #e8e8e8;
         // }

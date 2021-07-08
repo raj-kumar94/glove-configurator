@@ -10,7 +10,7 @@ export const gloveData = {
             "options": ["Infield", "Outfield", "Pitcher", "First Base", "Catcher"],
             "selected": "Infield",
             "required": true,
-            "active": true,
+            "active": false,
             "controls": {
                 "Infield": {
                     activate: "size", 
@@ -33,6 +33,14 @@ export const gloveData = {
                 "First Base": {activate: "size", deactivate: "catcher_mitt_size", activate_colors: ["shell_back_color", "u_piece_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
                 "Catcher": {activate: "catcher_mitt_size", deactivate: "size", activate_colors: ["shell_back_color", "rails_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
             }
+        },
+        {
+            // depending on position, size will be active or inactive
+            "name": "leather",
+            "options": ["Emerald Series - Japanese Kip Leather", "Peridot Series - US Steerhide Leather", "Topaz Series - Smooth Cowhide Leather"],
+            "selected": "Emerald Series - Japanese Kip Leather",
+            "required": true,
+            "active": true
         },
         {
             // depending on position, size will be active or inactive
@@ -195,7 +203,7 @@ export const gloveData = {
     [LEATHER_DESIGN]: [
         {
             "name": "web_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
@@ -209,84 +217,91 @@ export const gloveData = {
         },
         {
             "name": "palm_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "wrist_logo_color",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "thumb_inner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "thumb_outer_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "index_inner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "index_outer_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "middle_inner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "middle_outer_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "ring_inner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "ring_outer_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "pinky_inner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "pinky_outer_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "wrist_color",
-            "selected_color": "",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
@@ -307,21 +322,21 @@ export const gloveData = {
         },
         {
             "name": "lace_color",
-            "selected_color": "darkcamel",
+            "selected_color": "wine",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "stitching_color",
-            "selected_color": "darkcamel",
+            "selected_color": "red",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "welting_color",
-            "selected_color": "darkcamel",
+            "selected_color": "gray",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
@@ -400,11 +415,7 @@ export const gloveData = {
             "type": "text_and_color",
             "enabled": false,
             "text": "",
-            "colors": [
-                {name: 'Black', code: 'BLACK', rgb: 'center center rgb(26, 26, 26)'},
-                {name: 'Grey', code: 'GREY', rgb: 'center center rgb(144, 143, 136)'},
-                {name: 'Orange Tan', code: 'ORANGE_TAN', rgb: 'center center rgb(255, 99, 0)'},
-            ],
+            "colors": COMMON_COLORS,
             "selected_color": "",
             "active": true
         },

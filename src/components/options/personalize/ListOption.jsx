@@ -20,15 +20,19 @@ function ListOption(props) {
                     let id = `${pickFor}-${tabData.name}-${option}`
                     return (
                         <div key={id} className="radio-input-wrapper">
-                            <input 
-                                type="radio" 
-                                name={`${tabData.name}`} 
-                                id={id} 
-                                value={option} 
-                                onChange={handleInputChange} 
-                                checked={option === tabData.selected}
-                            />
-                            <label htmlFor={id}>{option}</label>
+                            <div className="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                                <input 
+                                    type="radio" 
+                                    name={`${tabData.name}`} 
+                                    id={id} 
+                                    value={option} 
+                                    onChange={handleInputChange} 
+                                    checked={option === tabData.selected}
+                                />
+                            </div>
+                            <div className="col-md-11">
+                                <label htmlFor={id}>{option}</label>
+                            </div>
                         </div>
                     )
                 })

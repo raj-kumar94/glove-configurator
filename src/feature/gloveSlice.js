@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { gloveData } from '../data/gloveData';
-import { tabConstants } from '../constants';
+import { tabConstants, FIELDER_PART_NAMES } from '../constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 const GLOVE_FOUNDATION_INDEX = 0;
 const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
@@ -20,6 +20,7 @@ export const gloveSlice = createSlice({
             "view01": ["view01-base.png"],
             "view02": ["view02-base.png"],
         },
+        partNames: FIELDER_PART_NAMES,
         swipeViewIndexes: {
             [GLOVE_FOUNDATION]: 0,
             [LEATHER_DESIGN]: 0,
