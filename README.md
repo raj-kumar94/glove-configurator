@@ -53,3 +53,36 @@ piping color is missing from the website
 
 # TODO
 - color option on selection of "Wrist Logo Options"
+
+- Update color pallet
+- Update n remaining text
+- Add Thumb text
+- Add thumb custom logo
+- Rename piping to binding
+- Finger Pad color doesn’t seem to be working when selected
+
+
+
+# Doc
+controls[option].activate -> string | array
+controls[option].deactivate -> string | array
+
+All glove templates should start as the same color white
+- I see that som
+
+
+- only finger pad or hood color will be visible at a time
+- Removed Selection of yes or no for finger pad or hood as it was ambigious
+- Stitch color for pad/hood will be same as of main stitching color
+
+# Wrist Options - when customer selects “One Piece” we need to remove the stitching that separates wrist from thumb
+-> In this case designer has to seperate stitches. Please check the current stich image in the attachment
+view01-fielder-stitch-T-JK-Red
+
+# Wrist Logo Options - glove template doesn’t change when “Embroidery” “Patch Embroidery” or “Patch Stamped” is selected
+Please let me know if these are true
+- when none is selected, there won't be any logo
+- when Embroidery is selected, only logo will appear
+- when Patch Embroidery is selected, both patch and logo will appear
+
+But what happens when Patch Stamped is selected? I can't find any image having "stamp" in it.

@@ -5,6 +5,7 @@ class CurrentOptionInfo extends Component {
 
         const { tabData } = this.props;
         const name = tabData.name.replace(/_/g, ' ');
+        const info = tabData.info || (tabData.controls && tabData.controls[tabData.selected] && tabData.controls[tabData.selected].info);
 
         return (
             <div className="current-info-block">
@@ -13,8 +14,8 @@ class CurrentOptionInfo extends Component {
                     {
                         tabData.required &&
                         <>
-                        <i className="fas fa-exclamation-triangle"></i>
-                        <small>Required</small>
+                        <i className={`fas ${info ? "fa-info-circle": "fa-exclamation-triangle" }`}></i>
+                        <small>{ info || 'Required'}</small>
                         </>
                     }
                 </div>

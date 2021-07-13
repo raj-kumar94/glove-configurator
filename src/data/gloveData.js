@@ -1,6 +1,8 @@
 import { tabConstants } from '../constants';
+// import { filederPartsActiveInactive } from '../config/fielderConfig';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY, COMMON_COLORS } = tabConstants;
 const FIELDER_COLOR_OPTIONS = ["thumb_inner_color", "thumb_outer_color", "index_inner_color", "index_outer_color", "middle_inner_color", "middle_outer_color", "ring_inner_color", "ring_outer_color", "pinky_inner_color", "pinky_outer_color"];
+const selected_finger_hood_or_pad = "None"; // Choices -> ["None", "Pad", "Hood"]
 
 export const gloveData = {
     [GLOVE_FOUNDATION]: [
@@ -67,13 +69,15 @@ export const gloveData = {
         },
         {
             "name": "web_type",
-            "options": ["T", "I", "H", "Y", "V", "Basket", "Basket Lace", "Lace Cross", "One Piece (Catcher)", "Two Piece (Catcher)", "H (First Base)", "Post (First Base)", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
+            // "options": ["T", "I", "H", "Y", "V", "Basket", "Basket Lace", "Lace Cross", "One Piece (Catcher)", "Two Piece (Catcher)", "H (First Base)", "Post (First Base)", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
+            "options": ["T", "I", "H", "Y", "V", "Basket", "Basket Lace", "Lace Cross", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
             "selected": "I",
             "required": true,
             "active": true
         },
         {
             // if Two Piece is selected, ask user to input "Wrist Color"
+            // if One Piece is selected, the wrist color will be the same as of thumb inner color
             "name": "wrist_options",
             "options": ["One Piece", "Two Piece", "Closed Back"],
             "selected": "One Piece",
@@ -83,25 +87,34 @@ export const gloveData = {
                     deactivate: "", 
                     activate_colors: [], 
                     deactivate_colors: ["wrist_color"],
+                    reset_color_on_deactivate: true,
+                    reset_color_ref: 'thumb_inner_color', // it will find the color from this part and reset the deactivate_colors options
+                    info: ''
                 },
                 "Two Piece": {
                     activate: "", 
                     deactivate: "",
                     activate_colors: ["wrist_color"], 
-                    deactivate_colors: []
+                    deactivate_colors: [],
+                    reset_color_on_deactivate: false,
+                    reset_color_ref: '',
+                    info: ''
                 },
                 "Closed Back": {
                     activate: "", 
                     deactivate: "",
                     activate_colors: [], 
                     deactivate_colors: ["wrist_color"], 
+                    reset_color_on_deactivate: true,
+                    reset_color_ref: 'thumb_inner_color',
+                    info: 'Not shown in builder'
                 }
             },
             "required": true,
             "active": true
         },
         {
-            "name": "wrist_strap",
+            "name": "wrist_size",
             "options": ["Normal", "Youth"],
             "selected": "Normal",
             "required": true,
@@ -110,88 +123,144 @@ export const gloveData = {
         {
             "name": "wrist_logo_options",
             "options": ["None", "Embroidery", "Patch Embroidery", "Patch Stamped"],
-            "selected": "None",
+            "selected": "Embroidery",
             "controls": {
+                "None": {
+                    activate: "", 
+                    deactivate: "",
+                    activate_colors: ["embroidery_color"], 
+                    deactivate_colors: ["patch_leather_color"],
+                    activate_part_names: [],
+                    deactivate_part_names: ["logo", "patch"]
+                },
                 "Embroidery": {
                     activate: "", 
                     deactivate: "",
                     activate_colors: ["embroidery_color"], 
-                    deactivate_colors: ["patch_leather_color"]
+                    deactivate_colors: ["patch_leather_color"],
+                    activate_part_names: ["logo"],
+                    deactivate_part_names: ["patch"]
                 },
                 "Patch Embroidery": {
                     activate: "", 
                     deactivate: "",
                     activate_colors: ["patch_leather_color", "embroidery_color"], 
-                    deactivate_colors: []
+                    deactivate_colors: [],
+                    activate_part_names: ["logo", "patch"],
+                    deactivate_part_names: []
                 },
                 "Patch Stamped": {
                     activate: "", 
                     deactivate: "",
                     activate_colors: ["patch_leather_color"], 
-                    deactivate_colors: ["embroidery_color"]
+                    deactivate_colors: ["embroidery_color"],
+                    activate_part_names: ["logo", "patch"],
+                    deactivate_part_names: []
                 },
             },
             "active": true
         },
         {
             // if Yes selected, ask user to input "Finger Pad Location" and "Finger Pad Color"
-            "name": "finger_pad",
-            "options": ["Yes", "No"],
-            "selected": "No",
+            "name": "finger_hood_or_pad",
+            "options": ["None", "Hood", "Pad"],
+            "selected": selected_finger_hood_or_pad,
             "required": true,
             "active": true,
             "controls": {
-                "Yes": {
-                    activate: "finger_pad_location", 
-                    deactivate: "",
-                    activate_colors: ["finger_pad_color"], 
-                    deactivate_colors: []
-                },
-                "No": {
+                "None": {
                     activate: "", 
-                    deactivate: "finger_pad_location",
+                    deactivate: ["finger_pad", "finger_pad_location", "finger_hood", "finger_hood_location"],
                     activate_colors: [], 
-                    deactivate_colors: ["finger_pad_color"]
+                    deactivate_colors: ["finger_pad_color", "finger_hood_color"],
+                    // activate_part_names: ["fingerpad", "fingerpadstitch"], 
+                    deactivate_part_names: ["hood", "hoodstitch", "fingerpad", "fingerpadstitch"]
+                },
+                "Hood": {
+                    activate: ["finger_hood", "finger_hood_location"], 
+                    deactivate: ["finger_pad", "finger_pad_location"],
+                    activate_colors: ["finger_hood_color"], 
+                    deactivate_colors: ["finger_pad_color"],
+                    activate_part_names: ["hood", "hoodstitch"],
+                    deactivate_part_names: ["fingerpad", "fingerpadstitch"]
+                },
+                "Pad": {
+                    activate: ["finger_pad", "finger_pad_location"], 
+                    deactivate: ["finger_hood", "finger_hood_location"],
+                    activate_colors: ["finger_pad_color"], 
+                    deactivate_colors: ["finger_hood_color"],
+                    activate_part_names: ["fingerpad", "fingerpadstitch"],
+                    deactivate_part_names: ["hood", "hoodstitch"]
                 },
             }
         },
+        // {
+        //     // if Yes selected, ask user to input "Finger Pad Location" and "Finger Pad Color"
+        //     "name": "finger_pad",
+        //     "options": ["Yes", "No"],
+        //     "selected": "Yes",
+        //     "required": true,
+        //     "active": false,
+        //     "controls": {
+        //         "Yes": {
+        //             activate: "finger_pad_location", 
+        //             deactivate: "",
+        //             activate_colors: ["finger_pad_color"], 
+        //             deactivate_colors: [],
+        //             activate_part_names: ["fingerpad", "fingerpadstitch"], 
+        //             deactivate_part_names: []
+        //         },
+        //         "No": {
+        //             activate: "", 
+        //             deactivate: "finger_pad_location",
+        //             activate_colors: [], 
+        //             deactivate_colors: ["fingerpad", "fingerpadstitch"],
+        //             activate_part_names: [], 
+        //             deactivate_part_names: ["fingerpad", "fingerpadstitch"]
+        //         },
+        //     }
+        // },
         {
             // depending on finger_pad, finger_pad_location will be active or inactive
             "name": "finger_pad_location",
             "options": ["Index", "Middle"],
             "selected": "Middle",
             "required": true,
-            "active": false
+            "active": selected_finger_hood_or_pad === "Pad"
         },
-        {
-            // if Yes selected, ask user to input "Finger Hood Location" and "Finger Hood Color"
-            "name": "finger_hood",
-            "options": ["Yes", "No"],
-            "selected": "No",
-            "required": true,
-            "active": true,
-            "controls": {
-                "Yes": {
-                    activate: "finger_hood_location", 
-                    deactivate: "",
-                    activate_colors: ["finger_hood_color"], 
-                    deactivate_colors: []
-                },
-                "No": {
-                    activate: "", 
-                    deactivate: "finger_hood_location",
-                    activate_colors: [],
-                    deactivate_colors: ["finger_hood_color"]
-                },
-            }
-        },
+        // {
+        //     // if Yes selected, ask user to input "Finger Hood Location" and "Finger Hood Color"
+        //     "name": "finger_hood",
+        //     "options": ["Yes", "No"],
+        //     "selected": "Yes",
+        //     "required": true,
+        //     "active": false,
+        //     "controls": {
+        //         "Yes": {
+        //             activate: "finger_hood_location", 
+        //             deactivate: "",
+        //             activate_colors: ["finger_hood_color", "hood_stitch_color"], 
+        //             deactivate_colors: [],
+        //             activate_part_names: ["hood", "hoodstitch"], 
+        //             deactivate_part_names: []
+        //         },
+        //         "No": {
+        //             activate: "", 
+        //             deactivate: "finger_hood_location",
+        //             activate_colors: [],
+        //             deactivate_colors: ["finger_hood_color", "hood_stitch_color"],
+        //             activate_part_names: [], 
+        //             deactivate_part_names: ["hood", "hoodstitch"]
+        //         },
+        //     }
+        // },
         {
             // depending on finger_hood, finger_hood_location will be active or inactive
             "name": "finger_hood_location",
             "options": ["Index", "Middle"],
             "selected": "Middle",
             "required": true,
-            "active": false
+            "active": selected_finger_hood_or_pad === "Hood"
         },
         {
             "name": "stiffness",
@@ -203,165 +272,187 @@ export const gloveData = {
     [LEATHER_DESIGN]: [
         {
             "name": "web_color",
-            "selected_color": "gray",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "liner_color",
-            "selected_color": "darkcamel",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
-            "active": true
+            "active": true,
+            "info": "Not shown in builder"
         },
         {
             "name": "palm_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "wrist_logo_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "thumb_inner_color",
-            "selected_color": "gray",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "thumb_outer_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "index_inner_color",
-            "selected_color": "gray",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "index_outer_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "middle_inner_color",
-            "selected_color": "gray",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "middle_outer_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "ring_inner_color",
-            "selected_color": "gray",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "ring_outer_color",
-            "selected_color": "wine",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "pinky_inner_color",
-            "selected_color": "gray",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "pinky_outer_color",
-            "selected_color": "wine",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "wrist_color",
-            "selected_color": "gray",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
         },
         {
-            "name": "finger_pad_color",
-            "selected_color": "",
+            "name": "wrist_logo_color",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
+        },
+        {
+            "name": "patch_leather_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "thumb_logo_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": false
+        },
+        {
+            "name": "thumb_inner_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "thumb_outer_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "index_inner_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "index_outer_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "middle_inner_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "middle_outer_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "ring_inner_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "ring_outer_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "pinky_inner_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "pinky_outer_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": true
+        },
+        {
+            "name": "finger_pad_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": selected_finger_hood_or_pad === "Pad"
         },
         {
             "name": "finger_hood_color",
-            "selected_color": "",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
-            "active": true
+            "active": selected_finger_hood_or_pad === "Hood"
         },
         {
             "name": "lace_color",
-            "selected_color": "wine",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "stitching_color",
-            "selected_color": "red",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
+            "name": "hood_stitch_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": false
+        },
+        {
+            "name": "finger_pad_stitch_color",
+            "selected_color": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": false
+        },
+        {
             "name": "welting_color",
-            "selected_color": "gray",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "binding_color",
-            "selected_color": "darkcamel",
+            "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "wrist_fur_color/Pad",
-            "selected_color": "",
+            "selected_color": "white",
             "colors": [
                 {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
                 {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
             ],
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "patch_leather_color",
-            "selected_color": "",
-            "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
@@ -395,6 +486,26 @@ export const gloveData = {
             "enabled": true,
             "options": ["None", "E Logo", "Custom"],
             "selected": "None",
+            "controls": {
+                "None": {
+                    activate: "", 
+                    deactivate: "",
+                    activate_colors: [], 
+                    deactivate_colors: ["thumb_logo_color"]
+                },
+                "E Logo": {
+                    activate: "", 
+                    deactivate: "",
+                    activate_colors: ["thumb_logo_color"],
+                    deactivate_colors: []
+                },
+                "Custom": {
+                    activate: "", 
+                    deactivate: "",
+                    activate_colors: [],
+                    deactivate_colors: ["thumb_logo_color"]
+                },
+            },
             "active": true
         },
         // {

@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { gloveData } from '../data/gloveData';
 import { tabConstants, FIELDER_PART_NAMES } from '../constants';
+import { KIP_COMMOM_COLOR, US_STEERHIDE_COMMOM_COLOR, COWHIDE_COMMOM_COLOR, DEFAULT_FIELDER_PART_COLORS } from '../constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
-const GLOVE_FOUNDATION_INDEX = 0;
-const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
-const PERSONAL_EMBROIDERY_INDEX = gloveData[LEATHER_DESIGN].filter(data => data.active).length + LEATHER_DESIGN_INDEX;
+// const GLOVE_FOUNDATION_INDEX = 0;
+// const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
+// const PERSONAL_EMBROIDERY_INDEX = gloveData[LEATHER_DESIGN].filter(data => data.active).length + LEATHER_DESIGN_INDEX;
 
 export const gloveSlice = createSlice({
     name: 'glove',
@@ -14,11 +15,12 @@ export const gloveSlice = createSlice({
             "view01", 
             "view02", 
             // "view03", 
-            // "view04"
+            "view04"
         ],
         viewImages: {
             "view01": ["view01-base.png"],
             "view02": ["view02-base.png"],
+            "view04": ["view04-base.png"],
         },
         partNames: FIELDER_PART_NAMES,
         swipeViewIndexes: {
@@ -65,14 +67,24 @@ export const gloveSlice = createSlice({
             state.swipeViewIndexes[action.payload.indexName] = action.payload.index;
         },
         setSelectedColor: (state, action) => {
+            let dependantColors = [];
+            if(action.payload.name === "stitching_color") {
+                // change hood_stitch_color and finger_pad_stitch_color as well
+                dependantColors = ["hood_stitch_color", "finger_pad_stitch_color"]
+            }
+            console.log({dependantColors})
             for(let colorOption of state.gloveJson[LEATHER_DESIGN]) {
                 if(colorOption.name === action.payload.name) {
                     colorOption.selected_color = action.payload.selected_color;
-                    break;
+                    // break;
+                }
+                if(dependantColors.includes(colorOption.name)) {
+                    colorOption.selected_color = action.payload.selected_color;
                 }
             }
         },
         setSelectedGloveFoundation: (state, action) => {
+            console.log("called", action.payload.called);
             let selectedOption;
             for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
                 if(option.name === action.payload.name) {
@@ -82,18 +94,98 @@ export const gloveSlice = createSlice({
                 }
             }
 
+            /**
+             * If leather type is selected, we just want to change the color pallet
+             */
+            if(selectedOption.name === 'leather') {
+                // alert('leather selected');
+                for(let option of state.gloveJson[LEATHER_DESIGN]) {
+                    let colorOptions = [];
+                    let leatherType = 'jk';
+                    console.log('object', selectedOption.selected);
+                    if(selectedOption.selected === "Emerald Series - Japanese Kip Leather") {
+                        colorOptions = KIP_COMMOM_COLOR;
+                    } else if(selectedOption.selected === "Peridot Series - US Steerhide Leather") {
+                        colorOptions = US_STEERHIDE_COMMOM_COLOR;
+                        leatherType = 'ussh';
+                    } else if (selectedOption.selected === "Topaz Series - Smooth Cowhide Leather") {
+                        colorOptions = COWHIDE_COMMOM_COLOR;
+                        leatherType = 'ch';
+                    } else {
+                        colorOptions = KIP_COMMOM_COLOR;
+                    }
+
+                    // find default part color
+                    // const filederPartDefaultColor = FIELDER_PART_NAMES.filter(fielderPart => fielderPart.design_name === option.name);
+                    // console.log({filederPartDefaultColor});
+                    let colorExists = colorOptions.filter(clr => clr.code === option.selected_color);
+                    if(colorExists && colorExists.length) {
+                        option.selected_color = DEFAULT_FIELDER_PART_COLORS[leatherType][option.name] || colorExists[0].code;
+                    } else {
+                        option.selected_color = colorOptions[0].code;
+                    }
+
+                    option.colors = colorOptions;
+                }
+                return;
+            }
+
             if(selectedOption.controls) {
                 const control = selectedOption.controls[selectedOption.selected];
                 if(control) {
                     for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
-                        if(option.name === control.activate) {
+                        if(option.controls) {
+                            // 
+                        }
+                        let optionFound = false;
+                        if(typeof control.activate === "string" && option.name === control.activate) {
                             option.active = true;    
-                        } else if(option.name === control.deactivate) {
+                            optionFound = true;
+                        } else if(Array.isArray(control.activate) && control.activate.includes(option.name)) {
+                            option.active = true;
+                            optionFound = true;    
+                        } else if(typeof control.deactivate === "string" && option.name === control.deactivate) {
                             option.active = false;
+                            optionFound = true;
+                        } else if(Array.isArray(control.deactivate) && control.deactivate.includes(option.name)) {
+                            option.active = false;
+                            optionFound = true;
+                        }
+
+                        if(optionFound && option.controls) {
+                            console.log(`Calling setSelectedGloveFoundation for name:${option.name}, selected: ${option.selected}`)
+                            // gloveSlice.caseReducers.setSelectedGloveFoundation(state, {payload: {name: option.name, selected: option.selected, called: 'yes'} })
+                        }
+
+                        /**
+                         * For parts
+                         */
+                        // activate and deactivate glove parts
+                        const partNames = state.partNames;
+                        if(control.activate_part_names) {
+                            for(let controlPartName of control.activate_part_names) {
+                                for(let partName of partNames) {
+                                    if(partName.name === controlPartName) {
+                                        // console.log({selectedOption: JSON.stringify(selectedOption.selected, null, 4)});
+                                        partName.active = true;
+                                    }
+                                }
+                            }
+                        }
+                        if(control.deactivate_part_names) {
+                            for(let controlPartName of control.deactivate_part_names) {
+                                for(let partName of partNames) {
+                                    if(partName.name === controlPartName) {
+                                        partName.active = false;
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    // for colors
+                    /**
+                     * for colors
+                     */
                     if(control.activate_colors) {
                         // console.log("yes", JSON.stringify(control.activate_colors, null, 4));
                         for(let option of state.gloveJson[LEATHER_DESIGN]) {
@@ -104,37 +196,25 @@ export const gloveSlice = createSlice({
                             } else if(control.deactivate_colors.includes(option.name)) {
                                 option.active = false;
                                 // console.log("inactive", option.name);
+                                if(control.reset_color_on_deactivate) {
+                                    // reset the wrist color, it should be equal to thumb inner color
+                                    let selectedColor = '';
+                                    if(control.reset_color_ref) {
+                                        let temp = state.gloveJson[LEATHER_DESIGN].filter(oo => oo.name === control.reset_color_ref);
+                                        if(temp && temp.length) {
+                                            selectedColor = temp[0].selected_color;
+                                        }
+                                    }
+                                    if(selectedColor) {
+                                        option.selected_color = selectedColor;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
             gloveSlice.caseReducers.calculateRemaining(state, {})
-            return;
-
-            // console.log(action.payload.name, action.payload.selected)
-            // switch(action.payload.name) {
-            //     case 'position':
-            //         // size or cather_mitt_size to be present
-            //         for(let option of state.gloveJson[GLOVE_FOUNDATION]) {
-            //             if(action.payload.selected === 'Catcher') {
-            //                 if(option.name === 'cather_mitt_size') {
-            //                     option.active = true;    
-            //                 } else if(option.name === 'size') {
-            //                     option.active = false;
-            //                 }
-            //             } else {
-            //                 if(option.name === 'cather_mitt_size') {
-            //                     option.active = false;    
-            //                 } else if(option.name === 'size') {
-            //                     option.active = true;
-            //                 }
-            //             }
-            //         }
-            //         break;
-            //     default:
-            //         break;
-            // }
         },
         // to select the color from pick a color
         setPersonalizeSelectedColor: (state, action) => {
@@ -171,6 +251,7 @@ export const gloveSlice = createSlice({
                 }
             }
 
+            // console.log(JSON.stringify(selectedOption.controls, null, 4))
             if(selectedOption.controls) {
                 const control = selectedOption.controls[selectedOption.selected];
                 if(control) {
@@ -181,8 +262,21 @@ export const gloveSlice = createSlice({
                             option.active = false;
                         }
                     }
+
+                    // for colors
+                    if(control.activate_colors) {
+                        for(let option of state.gloveJson[LEATHER_DESIGN]) {
+                            if(control.activate_colors.includes(option.name)) {
+                                option.active = true;    
+                            } else if(control.deactivate_colors.includes(option.name)) {
+                                option.active = false;
+                            }
+                        }
+                    }
                 }
             }
+
+            gloveSlice.caseReducers.activateDeactivateParts(state, {});
         },
         calculateRemaining: (state, payload) => {
             const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active);
@@ -212,6 +306,20 @@ export const gloveSlice = createSlice({
                 leatherDesignActiveOptionsRemaining: leatherDesignActiveOptions.length - leatherDesignActiveOptionsRemaining.length,
                 personalActiveOptionsRemaining: personalActiveOptions.length - personalActiveOptionsRemaining.length
             });
+        },
+        activateDeactivateParts: (state, payload) => {
+            // activating/de-activationg e-logo
+            const thumbLogoOption = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.name === "thumb logo")[0];
+            console.log(JSON.stringify(thumbLogoOption, null, 4));
+            for(let part of state.partNames) {
+                if(part.name === "e" && thumbLogoOption) {
+                    if(thumbLogoOption.selected === "E Logo") {
+                        part.active = true;
+                    } else {
+                        part.active = false;
+                    }
+                }
+            }
         }
     },
 })

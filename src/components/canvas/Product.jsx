@@ -78,10 +78,10 @@ class Product extends Component {
                                     src = `/images/${view}/${src}`;
                                     if(view === 'view02' && src.includes('-lace-')) {
                                         return (
-                                            <>
-                                            {/* <CanvasText /> */}
-                                            <LoadImageFromURL key={src} src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
-                                            </>
+                                            <React.Fragment key={src}>
+                                                {/* <CanvasText /> */}
+                                                <LoadImageFromURL src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
+                                            </React.Fragment>
                                         )
                                     } else {
                                         return (
