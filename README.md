@@ -86,3 +86,9 @@ Please let me know if these are true
 - when Patch Embroidery is selected, both patch and logo will appear
 
 But what happens when Patch Stamped is selected? I can't find any image having "stamp" in it.
+
+
+- Finger pad for white middle finger need to be corrected
+- Finger hood and pad for middle finger location is missing for view02 and view04. So, I am using the old images for view02 and view04
+- All images shared by you have been updated
+- please fix ring finger image for view04 and index finger image for view02

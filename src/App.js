@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from "react-redux";
 // import SwipeableViews from 'react-swipeable-views';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './App.scss';
 import Carousel from './components/Carousel';
+import OptionTabs from './components/options/OptionTabs';
 // import OptionTabs from './components/options/OptionTabs';
 // import SlideOptions from './components/options/SlideOptions';
 // import CurrentOptionInfo from './components/options/CurrentOptionInfo';
@@ -17,6 +19,12 @@ const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
 class App extends Component {
 
 	render() {
+
+		const tabMapping = {}
+		for(const tab of this.props.tabs) {
+			tabMapping[tab.name] = tab.remaining;
+		}
+
 		return (
 			<div className="App custom-container mt-5">
 				<div className="row">
@@ -33,11 +41,12 @@ class App extends Component {
 										>
 											<span className="tab-menu-index"><span className="menu-index">{index+1}</span></span>
 											<span className="mr-1">{TAB}</span>
-											<span className="font-weight-light mt-auto">{1} remaining</span>
+											<span className="font-weight-light mt-auto">{tabMapping[TAB]} remaining</span>
 										</Tab>
 									))
 								}
 							</TabList>
+							{/* <OptionTabs /> */}
 
 							{
 								TABS.map(TAB => (
@@ -60,5 +69,11 @@ class App extends Component {
 	}
 }
 
-export default App
-
+// export default App
+const mapStateToProps = (state) => ({
+    tabs: state.glove.tabs,
+    selectedTab: state.glove.selectedTab
+});
+  
+  
+export default connect(mapStateToProps)(App);

@@ -22,6 +22,7 @@ export const gloveSlice = createSlice({
             "view02": ["view02-base.png"],
             "view04": ["view04-base.png"],
         },
+        thumbLogoSrc: '',
         partNames: FIELDER_PART_NAMES,
         swipeViewIndexes: {
             [GLOVE_FOUNDATION]: 0,
@@ -100,6 +101,11 @@ export const gloveSlice = createSlice({
             if(selectedOption.name === 'leather') {
                 // alert('leather selected');
                 for(let option of state.gloveJson[LEATHER_DESIGN]) {
+                    
+                    // don't change colors for this option
+                    if(option.retain_color_options === true) {
+                        continue;
+                    }
                     let colorOptions = [];
                     let leatherType = 'jk';
                     console.log('object', selectedOption.selected);
@@ -278,13 +284,16 @@ export const gloveSlice = createSlice({
 
             gloveSlice.caseReducers.activateDeactivateParts(state, {});
         },
+        setThumbLogo: (state, action) => {
+            state.thumbLogoSrc = action.payload.thumbLogoSrc;
+        },
         calculateRemaining: (state, payload) => {
             const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active);
             const leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active);
             const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active);
 
             const gloveFoundationActiveOptionsRemaining = gloveFoundationActiveOptions.filter(option => option.selected);
-            const leatherDesignActiveOptionsRemaining = leatherDesignActiveOptions.filter(option => option.selected);
+            const leatherDesignActiveOptionsRemaining = leatherDesignActiveOptions.filter(option => option.selected_color);
             // since personalise section has multiple type of options
             const personalActiveOptionsRemaining = personalActiveOptions.filter(option => {
                 if(option.type === "list_options") {
@@ -296,16 +305,27 @@ export const gloveSlice = createSlice({
                 }
                 return true;
             });
-            console.log({
-                gloveFoundationActiveOptions: gloveFoundationActiveOptions.length,
-                leatherDesignActiveOptions: leatherDesignActiveOptions.length,
-                personalActiveOptions: personalActiveOptions.length
-            });
-            console.log({
-                gloveFoundationActiveOptionsRemaining: gloveFoundationActiveOptions.length - gloveFoundationActiveOptionsRemaining.length,
-                leatherDesignActiveOptionsRemaining: leatherDesignActiveOptions.length - leatherDesignActiveOptionsRemaining.length,
-                personalActiveOptionsRemaining: personalActiveOptions.length - personalActiveOptionsRemaining.length
-            });
+            // console.log({
+            //     gloveFoundationActiveOptions: gloveFoundationActiveOptions.length,
+            //     leatherDesignActiveOptions: leatherDesignActiveOptions.length,
+            //     personalActiveOptions: personalActiveOptions.length
+            // });
+            // console.log({
+            //     gloveFoundationActiveOptionsRemaining: gloveFoundationActiveOptions.length - gloveFoundationActiveOptionsRemaining.length,
+            //     leatherDesignActiveOptionsRemaining: leatherDesignActiveOptions.length - leatherDesignActiveOptionsRemaining.length,
+            //     personalActiveOptionsRemaining: personalActiveOptions.length - personalActiveOptionsRemaining.length
+            // });
+
+            for(let tab of state.tabs) {
+                if(tab.name === GLOVE_FOUNDATION) {
+                    tab.remaining = gloveFoundationActiveOptions.length - gloveFoundationActiveOptionsRemaining.length;
+                } else if(tab.name === LEATHER_DESIGN) {
+                    tab.remaining = leatherDesignActiveOptions.length - leatherDesignActiveOptionsRemaining.length;
+                } else if(tab.name === PERSONAL_EMBROIDERY) {
+                    tab.remaining = personalActiveOptions.length - personalActiveOptionsRemaining.length;
+                } 
+            }
+
         },
         activateDeactivateParts: (state, payload) => {
             // activating/de-activationg e-logo
@@ -337,7 +357,8 @@ export const {
     setPersonalizeTextArea,
     setPersonalEmbroideryEnableDisable,
     setPersonalEmbroideryText,
-    setSelectedPersonalEmbroideryOption
+    setSelectedPersonalEmbroideryOption,
+    setThumbLogo
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

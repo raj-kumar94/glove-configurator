@@ -1,4 +1,5 @@
 import { tabConstants } from '../constants';
+import { PART_NAME_MAPPING } from '../constants';
 // import { filederPartsActiveInactive } from '../config/fielderConfig';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY, COMMON_COLORS } = tabConstants;
 const FIELDER_COLOR_OPTIONS = ["thumb_inner_color", "thumb_outer_color", "index_inner_color", "index_outer_color", "middle_inner_color", "middle_outer_color", "ring_inner_color", "ring_outer_color", "pinky_inner_color", "pinky_outer_color"];
@@ -63,7 +64,7 @@ export const gloveData = {
         {
             "name": "hand_throw",
             "options": ["Right", "Left"],
-            "selected": "Right",
+            "selected": "",
             "required": true,
             "active": true
         },
@@ -89,6 +90,8 @@ export const gloveData = {
                     deactivate_colors: ["wrist_color"],
                     reset_color_on_deactivate: true,
                     reset_color_ref: 'thumb_inner_color', // it will find the color from this part and reset the deactivate_colors options
+                    activate_part_names: ['t2full'],
+                    deactivate_part_names: [],
                     info: ''
                 },
                 "Two Piece": {
@@ -98,6 +101,8 @@ export const gloveData = {
                     deactivate_colors: [],
                     reset_color_on_deactivate: false,
                     reset_color_ref: '',
+                    activate_part_names: [],
+                    deactivate_part_names: ['t2full'],
                     info: ''
                 },
                 "Closed Back": {
@@ -107,6 +112,8 @@ export const gloveData = {
                     deactivate_colors: ["wrist_color"], 
                     reset_color_on_deactivate: true,
                     reset_color_ref: 'thumb_inner_color',
+                    activate_part_names: [],
+                    deactivate_part_names: ['t2full'],
                     info: 'Not shown in builder'
                 }
             },
@@ -154,8 +161,8 @@ export const gloveData = {
                     deactivate: "",
                     activate_colors: ["patch_leather_color"], 
                     deactivate_colors: ["embroidery_color"],
-                    activate_part_names: ["logo", "patch"],
-                    deactivate_part_names: []
+                    activate_part_names: ["patch"],
+                    deactivate_part_names: ["logo"]
                 },
             },
             "active": true
@@ -173,24 +180,24 @@ export const gloveData = {
                     deactivate: ["finger_pad", "finger_pad_location", "finger_hood", "finger_hood_location"],
                     activate_colors: [], 
                     deactivate_colors: ["finger_pad_color", "finger_hood_color"],
-                    // activate_part_names: ["fingerpad", "fingerpadstitch"], 
-                    deactivate_part_names: ["hood", "hoodstitch", "fingerpad", "fingerpadstitch"]
+                    activate_part_names: [], 
+                    deactivate_part_names: [PART_NAME_MAPPING.FINGER_HOOD, PART_NAME_MAPPING.FINGER_HOOD_STITCH, PART_NAME_MAPPING.FINGER_PAD, PART_NAME_MAPPING.FINGER_PAD_STITCH]
                 },
                 "Hood": {
                     activate: ["finger_hood", "finger_hood_location"], 
                     deactivate: ["finger_pad", "finger_pad_location"],
                     activate_colors: ["finger_hood_color"], 
                     deactivate_colors: ["finger_pad_color"],
-                    activate_part_names: ["hood", "hoodstitch"],
-                    deactivate_part_names: ["fingerpad", "fingerpadstitch"]
+                    activate_part_names: [PART_NAME_MAPPING.FINGER_HOOD, PART_NAME_MAPPING.FINGER_HOOD_STITCH],
+                    deactivate_part_names: [PART_NAME_MAPPING.FINGER_PAD, PART_NAME_MAPPING.FINGER_PAD_STITCH]
                 },
                 "Pad": {
                     activate: ["finger_pad", "finger_pad_location"], 
                     deactivate: ["finger_hood", "finger_hood_location"],
                     activate_colors: ["finger_pad_color"], 
                     deactivate_colors: ["finger_hood_color"],
-                    activate_part_names: ["fingerpad", "fingerpadstitch"],
-                    deactivate_part_names: ["hood", "hoodstitch"]
+                    activate_part_names: [PART_NAME_MAPPING.FINGER_PAD, PART_NAME_MAPPING.FINGER_PAD_STITCH],
+                    deactivate_part_names: [PART_NAME_MAPPING.FINGER_HOOD, PART_NAME_MAPPING.FINGER_HOOD_STITCH]
                 },
             }
         },
@@ -265,8 +272,9 @@ export const gloveData = {
         {
             "name": "stiffness",
             "options": ["Stiff", "Soft", "Youth"],
-            "selected": "Stiff",
-            "active": true
+            "selected": "",
+            "required": true,
+            "active": true,
         },
     ],
     [LEATHER_DESIGN]: [
@@ -311,7 +319,7 @@ export const gloveData = {
             "selected_color": "white",
             "colors": COMMON_COLORS,
             "required": true,
-            "active": true
+            "active": false
         },
         {
             "name": "thumb_logo_color",
@@ -452,24 +460,27 @@ export const gloveData = {
             "colors": [
                 {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
                 {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
+                {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
             ],
             "required": true,
-            "active": true
+            "active": true,
+            "as_list": true,
+            "retain_color_options": true
         },
-        {
-            "name": "embroidery_color",
-            "selected_color": "",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
-        {
-            "name": "name_color",
-            "selected_color": "",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": true
-        },
+        // {
+        //     "name": "embroidery_color",
+        //     "selected_color": "",
+        //     "colors": COMMON_COLORS,
+        //     "required": true,
+        //     "active": true
+        // },
+        // {
+        //     "name": "name_color",
+        //     "selected_color": "",
+        //     "colors": COMMON_COLORS,
+        //     "required": true,
+        //     "active": true
+        // },
     ],
     [PERSONAL_EMBROIDERY]: [
         // {
@@ -523,6 +534,15 @@ export const gloveData = {
         // },
         {
             "name": "name on thumb",
+            "type": "text_and_color",
+            "enabled": false,
+            "text": "",
+            "colors": COMMON_COLORS,
+            "selected_color": "",
+            "active": true
+        },
+        {
+            "name": "name on pinky",
             "type": "text_and_color",
             "enabled": false,
             "text": "",

@@ -16,7 +16,7 @@ function TextAndColorOption(props) {
         } else if(event.target.type === 'text') {
             dispatch(setPersonalEmbroideryText({
                 name: tabData.name,
-                value: event.target.value
+                value: event.target.value.substring(0, 15)
             }));
         }
     }

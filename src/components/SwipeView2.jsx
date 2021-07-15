@@ -7,6 +7,7 @@ import PickColor from './options/design/PickColor';
 import SelectBase from './options/foundation/SelectBase';
 import SelectPersonalEmbroidery from './options/personalize/SelectPersonalEmbroidery';
 import { tabConstants } from '../constants';
+import DesignListOption from './options/design/DesignListOption';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
 
@@ -63,7 +64,12 @@ class SwipeView2 extends Component {
                                     }
                                     {
                                         TAB === LEATHER_DESIGN &&
-                                        <PickColor tabData={tabData} />
+                                        (
+                                            tabData.as_list ?
+                                            <DesignListOption tabData={tabData} pickFor={LEATHER_DESIGN} />
+                                            : 
+                                            <PickColor tabData={tabData} />
+                                        )
                                     }
                                     {
                                         TAB === PERSONAL_EMBROIDERY &&

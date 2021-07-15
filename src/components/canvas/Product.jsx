@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import store from '../../store'
 import { Provider } from 'react-redux'
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Image as KonvaImage } from 'react-konva';
 // import { Stage, Layer } from 'react-konva/lib/ReactKonvaCore';
 import LoadImageFromURL from './LoadImageFromURL';
 import CanvasText from './CanvasText';
@@ -64,9 +64,14 @@ class Product extends Component {
         } = this.state;
         const { 
             view, 
-            images 
+            images,
+            thumbTextData,
+            pinkyTextData,
+            nameFont,
+            thumbLogoSrc
         } = this.props;
         console.log('rendering')
+        // console.log({thumbLogoSrc});
 
         return (
             <div className="product-view">
@@ -79,7 +84,26 @@ class Product extends Component {
                                     if(view === 'view02' && src.includes('-lace-')) {
                                         return (
                                             <React.Fragment key={src}>
-                                                {/* <CanvasText /> */}
+                                                <CanvasText 
+                                                    data={thumbTextData}
+                                                    nameFont={nameFont}
+                                                    isMobile = {containerWidth <= 500}
+                                                />
+                                                {/* {
+                                                    thumbLogoSrc &&
+                                                    <KonvaImage image={thumbLogoSrc} width={100} height={100} x={320} y={400} />
+                                                } */}
+                                                <LoadImageFromURL src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
+                                            </React.Fragment>
+                                        )
+                                    } else if(view === 'view04' && src.includes('-f8-')) {
+                                        return (
+                                            <React.Fragment key={src}>
+                                                <CanvasText 
+                                                    data={pinkyTextData}
+                                                    nameFont={nameFont}
+                                                    isMobile = {containerWidth <= 500}
+                                                />
                                                 <LoadImageFromURL src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
                                             </React.Fragment>
                                         )
