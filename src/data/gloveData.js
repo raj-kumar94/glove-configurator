@@ -543,7 +543,8 @@ export const gloveData = {
                     deactivate_colors: ["thumb_logo_color"]
                 },
             },
-            "active": true
+            "active": true,
+            "required": false
         },
         {
             "name": "thumb_logo_color",
@@ -574,7 +575,8 @@ export const gloveData = {
             "text": "",
             "colors": COMMON_COLORS,
             "selected_color": "",
-            "active": true
+            "active": true,
+            "required": false
         },
         {
             "name": "name on pinky",
@@ -583,7 +585,8 @@ export const gloveData = {
             "text": "",
             "colors": COMMON_COLORS,
             "selected_color": "",
-            "active": true
+            "active": true,
+            "required": false
         },
         {
             "name": "name font",
@@ -591,14 +594,16 @@ export const gloveData = {
             "enabled": true,
             "options": ["Script", "Block"],
             "selected": "Script",
-            "active": true
+            "active": true,
+            "required": true
         },
         {
             "name": "special instructions",
             "type": "text_area",
             "enabled": true,
             "text": "",
-            "active": true
+            "active": true,
+            "required": false
         }
     ]
 }

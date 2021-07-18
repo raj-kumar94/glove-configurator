@@ -14,13 +14,13 @@ export const gloveSlice = createSlice({
         views: [
             "view01", 
             "view02", 
-            // "view03", 
+            "view03", 
             "view04"
         ],
         viewImages: {
             "view01": ["view01-base.png"],
             "view02": ["view02-base.png"],
-            // "view03": ["view03-base.png"],
+            "view03": ["view03-base.png"],
             "view04": ["view04-base.png"],
         },
         thumbLogoSrc: '',
@@ -306,9 +306,9 @@ export const gloveSlice = createSlice({
             state.thumbLogoSrc = action.payload.thumbLogoSrc;
         },
         calculateRemaining: (state, payload) => {
-            const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active);
-            const leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active);
-            const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active);
+            const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active && option.required);
+            const leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active && option.required);
+            const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active && option.required);
 
             const gloveFoundationActiveOptionsRemaining = gloveFoundationActiveOptions.filter(option => option.selected);
             const leatherDesignActiveOptionsRemaining = leatherDesignActiveOptions.filter(option => option.selected_color);
@@ -320,6 +320,8 @@ export const gloveSlice = createSlice({
                     return option.text && option.selected_color;
                 } else if(option.type === "text_area") {
                     return option.text;
+                } else if(option.type === "color") {
+                    return option.selected_color;
                 }
                 return true;
             });

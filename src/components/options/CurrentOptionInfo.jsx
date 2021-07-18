@@ -9,11 +9,20 @@ class CurrentOptionInfo extends Component {
         const name = tabData.name.replace(/_/g, ' ');
         const info = tabData.info || (tabData.controls && tabData.controls[tabData.selected] && tabData.controls[tabData.selected].info);
         let infoBlockActive = true;
-        if(indexName === GLOVE_FOUNDATION && tabData.selected) {
+        // if there is a selected option
+        if(indexName === GLOVE_FOUNDATION && tabData.selected && tabData.required) {
             infoBlockActive = false;
         }
-        if(indexName === LEATHER_DESIGN && tabData.selected_color) {
+        // if there is a selected color
+        if(indexName === LEATHER_DESIGN && tabData.selected_color && tabData.required) {
             infoBlockActive = false;
+        }
+        if(indexName === PERSONAL_EMBROIDERY) {
+            if(tabData.type === "text_and_color" && !tabData.enabled) {
+                infoBlockActive = false;
+            } else if(tabData.type === "text_and_color" && tabData.enabled && tabData.text && tabData.selected_color) {
+                infoBlockActive = false;
+            }
         }
         
         return (
@@ -22,13 +31,8 @@ class CurrentOptionInfo extends Component {
                 {
                     infoBlockActive &&
                     <div className="info">
-                        {
-                            tabData.required &&
-                            <>
-                            <i className={`fas ${info ? "fa-info-circle": "fa-exclamation-triangle" }`}></i>
-                            <small>{ info || 'Required'}</small>
-                            </>
-                        }
+                        <i className={`fas ${info ? "fa-info-circle": "fa-exclamation-triangle" }`}></i>
+                        <small>{ info || 'Required'}</small>
                     </div>
                 }
             </div>

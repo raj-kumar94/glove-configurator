@@ -97,3 +97,5 @@ But what happens when Patch Stamped is selected? I can't find any image having "
 - Should I add "liner color not shown in the builder"?
 
 - Patch Stamped images added
+- view03 added
+- is there any customisation on view03? Eg: customised palm text?
