@@ -16,6 +16,11 @@ class Carousel extends Component {
         for(let option of gloveJson[LEATHER_DESIGN]) {
             designColors[option.name] = option.selected_color;
         }
+        for(let option of gloveJson[PERSONAL_EMBROIDERY]) {
+            if(option.type === "color") {
+                designColors[option.name] = option.selected_color || option.default;
+            }
+        }
         // const selectedWebType = gloveJson[GLOVE_FOUNDATION].filter(option => option.name === 'web_type')[0].selected;
         // const selectedLeatherType = gloveJson[GLOVE_FOUNDATION].filter(option => option.name === 'leather')[0].selected;
         let selectedWebType, selectedLeatherType, thumbTextData, pinkyTextData, nameFont, fingetHoodLocation, fingerPadLocation;
@@ -62,7 +67,11 @@ class Carousel extends Component {
                             // find the color
                             let partName = part.name;
                             if(['web', 'lace', 'stitch'].includes(partName)) {
-                                partName = `${partName}-${WEB_TYPE_OPTION_MAPPING[selectedWebType]}`
+                                if(view === 'view04' && partName === 'lace') {
+                                    // partname will remain same
+                                } else {
+                                    partName = `${partName}-${WEB_TYPE_OPTION_MAPPING[selectedWebType]}`
+                                }
                             } else if(partName === 'base') {
                                 return `${view}-base.png`;
                             }

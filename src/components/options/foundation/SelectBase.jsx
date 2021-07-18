@@ -5,7 +5,7 @@ import { setSelectedGloveFoundation } from '../../../feature/gloveSlice';
 export class SelectBase extends Component {
 
     handleInputChange = (event) => {
-        console.log("object");
+        // console.log("object");
         this.props.dispatch(setSelectedGloveFoundation({
             name: event.target.name,
             selected: event.target.value

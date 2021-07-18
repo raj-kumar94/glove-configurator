@@ -97,6 +97,7 @@ export const DEFAULT_FIELDER_PART_COLORS = {
     'jk': {
         'wrist_color': 'white',
         'wrist_logo_color': 'white',
+        'patch_leather_color': 'white',
         'index_inner_color': 'white',
         'index_outer_color': 'white',
         'middle_inner_color': 'white',
@@ -122,6 +123,7 @@ export const DEFAULT_FIELDER_PART_COLORS = {
     'ussh': {
         'wrist_color': 'white',
         'wrist_logo_color': 'white',
+        'patch_leather_color': 'white',
         'index_inner_color': 'white',
         'index_outer_color': 'white',
         'middle_inner_color': 'white',
@@ -147,6 +149,7 @@ export const DEFAULT_FIELDER_PART_COLORS = {
     'ch': {
         'wrist_color': 'white',
         'wrist_logo_color': 'white',
+        'patch_leather_color': 'white',
         'index_inner_color': 'white',
         'index_outer_color': 'white',
         'middle_inner_color': 'white',

@@ -9,12 +9,12 @@ import SelectPersonalEmbroidery from './options/personalize/SelectPersonalEmbroi
 import { tabConstants } from '../constants';
 import DesignListOption from './options/design/DesignListOption';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
-const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
+// const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
 
 class SwipeView2 extends Component {
 
     componentDidMount() {
-        console.log(this.props.gloveJson)
+        // console.log(this.props.gloveJson)
     }
 
     componentDidUpdate() {
@@ -56,6 +56,7 @@ class SwipeView2 extends Component {
                                 />
                                 <CurrentOptionInfo
                                     tabData={tabData}
+                                    indexName={TAB}
                                 />
                                 <div className="tab-user-options-container">
                                     {

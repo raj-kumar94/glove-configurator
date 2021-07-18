@@ -1,8 +1,9 @@
 import React from 'react'
+import { tabConstants } from '../../../constants';
 import TextAreaOption from './TextAreaOption';
 import TextAndColorOption from './TextAndColorOption';
 import ListOption from './ListOption';
-import { tabConstants } from '../../../constants';
+import ColorOption from './ColorOption';
 const { PERSONAL_EMBROIDERY } = tabConstants;
 
 function SelectPersonalEmbroidery(props) {
@@ -20,6 +21,10 @@ function SelectPersonalEmbroidery(props) {
             {
                 tabData.type === "text_and_color" &&
                 <TextAndColorOption tabData={tabData} pickFor={PERSONAL_EMBROIDERY} />
+            }
+            {
+                tabData.type === "color" &&
+                <ColorOption tabData={tabData} pickFor={PERSONAL_EMBROIDERY} />
             }
         </div>
     )

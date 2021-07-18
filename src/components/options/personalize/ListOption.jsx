@@ -30,9 +30,10 @@ function ListOption(props) {
     //     };
     // }
     const _onChange = (event) => {
+        console.log("_onChange:start");
         // Assuming only image
         let file = event.target.files[0];
-        let reader = new FileReader();
+        // let reader = new FileReader();
         let URL = window.webkitURL || window.URL;
         let url = URL.createObjectURL(file);
 
@@ -40,11 +41,11 @@ function ListOption(props) {
         img.crossOrigin = 'Anonymous';
         img.src = url;
 
-        reader.onload = (e) => {
-            console.log("object");
+        img.onload = (e) => {
+            // console.log("object");
             dispatch(setThumbLogo({
                 name: event.target.name,
-                thumbLogoSrc: img
+                thumbLogoSrc: url
             }));
         };
     }
@@ -56,7 +57,7 @@ function ListOption(props) {
                     let id = `${pickFor}-${tabData.name}-${option}`
                     return (
                         <div key={id} className="radio-input-wrapper">
-                            <div className="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                            <div className="col-1">
                                 <input 
                                     type="radio" 
                                     name={`${tabData.name}`} 
@@ -66,7 +67,7 @@ function ListOption(props) {
                                     checked={option === tabData.selected}
                                 />
                             </div>
-                            <div className="col-md-11">
+                            <div className="col-11">
                                 <label htmlFor={id}>{option}</label>
                             </div>
                         </div>
@@ -75,14 +76,15 @@ function ListOption(props) {
             }
 
             {
-                tabData.selected === "Custom" && false &&
+                tabData.selected === "Custom" && 
                 <div className="file-input-wrapper">
-                    <input type="file" name="custom_logo" id="custom_logo" onChange={_onChange} />
-                    <div className="logo-preview">
-                        {/* {
-                            thumbLogoSrc &&
-                            {thumbLogoSrc}
-                        } */}
+                    <hr />
+                    <label className="form-label" htmlFor="customFile">Upload your logo</label>
+                    <input type="file" className="form-control" name="custom_logo" id="custom_logo" onChange={_onChange} />
+                    <div className="logo-preview text-center mt-3 mb-5" style={{display: 'flex', justifyContent: 'center'}}>
+                        <div style={{width: '250px', height: '250px', display: thumbLogoSrc? 'block': 'none'}}>
+                            <img src={thumbLogoSrc} alt="logo" width="80%"/>
+                        </div>
                     </div>
                 </div>
             }

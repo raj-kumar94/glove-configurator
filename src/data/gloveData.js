@@ -8,42 +8,42 @@ const selected_finger_hood_or_pad = "None"; // Choices -> ["None", "Pad", "Hood"
 export const gloveData = {
     [GLOVE_FOUNDATION]: [
         {
-            // position controls size and catcher_mitt_size
-            "name": "position",
-            "options": ["Infield", "Outfield", "Pitcher", "First Base", "Catcher"],
-            "selected": "Infield",
-            "required": true,
-            "active": false,
-            "controls": {
-                "Infield": {
-                    activate: "size", 
-                    deactivate: "catcher_mitt_size", 
-                    activate_colors: FIELDER_COLOR_OPTIONS, 
-                    deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
-                },
-                "Outfield": {
-                    activate: "size", 
-                    deactivate: "catcher_mitt_size",
-                    activate_colors: FIELDER_COLOR_OPTIONS, 
-                    deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
-                },
-                "Pitcher": {
-                    activate: "size", 
-                    deactivate: "catcher_mitt_size",
-                    activate_colors: FIELDER_COLOR_OPTIONS, 
-                    deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
-                },
-                "First Base": {activate: "size", deactivate: "catcher_mitt_size", activate_colors: ["shell_back_color", "u_piece_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
-                "Catcher": {activate: "catcher_mitt_size", deactivate: "size", activate_colors: ["shell_back_color", "rails_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
-            }
-        },
-        {
             // depending on position, size will be active or inactive
             "name": "leather",
             "options": ["Emerald Series - Japanese Kip Leather", "Peridot Series - US Steerhide Leather", "Topaz Series - Smooth Cowhide Leather"],
             "selected": "Emerald Series - Japanese Kip Leather",
             "required": true,
             "active": true
+        },
+        {
+            // position controls size and catcher_mitt_size
+            "name": "position",
+            "options": ["Pitcher", "Infield", "Outfield"],
+            "selected": "",
+            "required": true,
+            "active": true,
+            // "controls": {
+            //     "Infield": {
+            //         activate: "size", 
+            //         deactivate: "catcher_mitt_size", 
+            //         activate_colors: FIELDER_COLOR_OPTIONS, 
+            //         deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
+            //     },
+            //     "Outfield": {
+            //         activate: "size", 
+            //         deactivate: "catcher_mitt_size",
+            //         activate_colors: FIELDER_COLOR_OPTIONS, 
+            //         deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
+            //     },
+            //     "Pitcher": {
+            //         activate: "size", 
+            //         deactivate: "catcher_mitt_size",
+            //         activate_colors: FIELDER_COLOR_OPTIONS, 
+            //         deactivate_colors: ["shell_back_color", "u_piece_color", "rails_color"]
+            //     },
+            //     "First Base": {activate: "size", deactivate: "catcher_mitt_size", activate_colors: ["shell_back_color", "u_piece_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
+            //     "Catcher": {activate: "catcher_mitt_size", deactivate: "size", activate_colors: ["shell_back_color", "rails_color"], deactivate_colors: FIELDER_COLOR_OPTIONS},
+            // }
         },
         {
             // depending on position, size will be active or inactive
@@ -129,7 +129,7 @@ export const gloveData = {
         },
         {
             "name": "wrist_logo_options",
-            "options": ["None", "Embroidery", "Patch Embroidery", "Patch Stamped"],
+            "options": ["Embroidery", "Patch Embroidery", "Patch Stamped"],
             "selected": "Embroidery",
             "controls": {
                 "None": {
@@ -280,14 +280,16 @@ export const gloveData = {
     [LEATHER_DESIGN]: [
         {
             "name": "web_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "liner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true,
@@ -295,173 +297,197 @@ export const gloveData = {
         },
         {
             "name": "palm_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "wrist_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
         },
         {
             "name": "wrist_logo_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "patch_leather_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
         },
-        {
-            "name": "thumb_logo_color",
-            "selected_color": "white",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": false
-        },
+        // {
+        //     "name": "thumb_logo_color",
+        //     "selected_color": "",
+        //     "default": "white",
+        //     "colors": COMMON_COLORS,
+        //     "required": true,
+        //     "active": false
+        // },
         {
             "name": "thumb_inner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "thumb_outer_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "index_inner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "index_outer_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "middle_inner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "middle_outer_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "ring_inner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "ring_outer_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "pinky_inner_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "pinky_outer_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "finger_pad_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": selected_finger_hood_or_pad === "Pad"
         },
         {
             "name": "finger_hood_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": selected_finger_hood_or_pad === "Hood"
         },
         {
             "name": "lace_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "stitching_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "hood_stitch_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
         },
         {
             "name": "finger_pad_stitch_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": false
         },
         {
             "name": "welting_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "binding_color",
-            "selected_color": "white",
+            "selected_color": "",
+            "default": "white",
             "colors": COMMON_COLORS,
             "required": true,
             "active": true
         },
         {
             "name": "wrist_fur_color/Pad",
-            "selected_color": "white",
+            "selected_color": "",
             "colors": [
                 {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
                 {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
                 {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
             ],
+            "default": "white",
             "required": true,
             "active": true,
             "as_list": true,
@@ -518,6 +544,15 @@ export const gloveData = {
                 },
             },
             "active": true
+        },
+        {
+            "name": "thumb_logo_color",
+            "selected_color": "",
+            "type": "color",
+            "default": "white",
+            "colors": COMMON_COLORS,
+            "required": true,
+            "active": false
         },
         // {
         //     "name": "palm stamp",

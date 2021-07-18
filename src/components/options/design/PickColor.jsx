@@ -26,7 +26,7 @@ class PickColor extends Component {
     }
 
     handleInputChange = (event) => {
-        console.log("object");
+        // console.log("object");
         // debugger;
         const { pickFor } = this.props;
         if(pickFor === PERSONAL_EMBROIDERY) {

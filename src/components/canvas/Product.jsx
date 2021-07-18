@@ -6,6 +6,7 @@ import { Stage, Layer, Image as KonvaImage } from 'react-konva';
 import LoadImageFromURL from './LoadImageFromURL';
 import CanvasText from './CanvasText';
 import { tabConstants } from '../../constants';
+import LoadImageFromDisk from './LoadImageFromDisk';
 const { PART_NAMES } = tabConstants;
 
 // const X = `${view}-${position}-${partName}-${leatherType}-${color}.png`;
@@ -89,10 +90,14 @@ class Product extends Component {
                                                     nameFont={nameFont}
                                                     isMobile = {containerWidth <= 500}
                                                 />
-                                                {/* {
-                                                    thumbLogoSrc &&
-                                                    <KonvaImage image={thumbLogoSrc} width={100} height={100} x={320} y={400} />
-                                                } */}
+                                                
+                                                {/* <KonvaImage image={thumbLogoSrc} width={100} height={100} x={320} y={400} /> */}
+                                                <LoadImageFromDisk 
+                                                    src={thumbLogoSrc} 
+                                                    containerOffsetWidth={containerWidth} 
+                                                    containerOffsetHeight={conatainerHeight} 
+                                                    isMobile = {containerWidth <= 500}
+                                                />
                                                 <LoadImageFromURL src={src} containerOffsetWidth={containerWidth} containerOffsetHeight={conatainerHeight} />
                                             </React.Fragment>
                                         )

@@ -92,3 +92,8 @@ But what happens when Patch Stamped is selected? I can't find any image having "
 - Finger hood and pad for middle finger location is missing for view02 and view04. So, I am using the old images for view02 and view04
 - All images shared by you have been updated
 - please fix ring finger image for view04 and index finger image for view02
+
+
+- Should I add "liner color not shown in the builder"?
+
+- Patch Stamped images added

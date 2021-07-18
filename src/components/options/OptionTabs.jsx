@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Tab, TabList } from 'react-tabs';
-import { selectTab } from "../../feature/gloveSlice";
+// import { selectTab } from "../../feature/gloveSlice";
 
 class OptionTabs extends Component {
 

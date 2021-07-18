@@ -43,9 +43,9 @@ function CanvasText(props) {
     if(text.length >= 7 && text.length < 10) {
         fontSize = fontSize * 0.8;
     } else if(text.length >= 10 && text.length < 12) {
-        fontSize = fontSize * 0.7;
+        fontSize = fontSize * 0.8;
     } else if(text.length >= 12) {
-        fontSize = fontSize * 0.65;
+        fontSize = fontSize * 0.8;
     }
 
     return (
@@ -56,7 +56,7 @@ function CanvasText(props) {
             y={y}
             fontSize={fontSize}
             // rotationDeg={295}
-            rotationDeg={rotationDeg}
+            rotation={rotationDeg}
             fill={ selectedColorCode || "black"}
             // verticalAlign={'middle'}
             align={'center'}
