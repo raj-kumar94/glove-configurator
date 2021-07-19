@@ -98,4 +98,12 @@ But what happens when Patch Stamped is selected? I can't find any image having "
 
 - Patch Stamped images added
 - view03 added
+- Custom thumb logo added
 - is there any customisation on view03? Eg: customised palm text?
+
+
+- Enable Add to cart button when customisation has been done
+# Final Setup
+- S3 setup and project image upload
+- Image upload server to upload custom logo and all views
+- export all options selected by customers when configuration saved

@@ -5,7 +5,7 @@ const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 class CurrentOptionInfo extends Component {
     render() {
 
-        const { tabData, indexName } = this.props;
+        const { tabData, indexName, thumbLogoSrc } = this.props;
         const name = tabData.name.replace(/_/g, ' ');
         const info = tabData.info || (tabData.controls && tabData.controls[tabData.selected] && tabData.controls[tabData.selected].info);
         let infoBlockActive = true;
@@ -21,6 +21,18 @@ class CurrentOptionInfo extends Component {
             if(tabData.type === "text_and_color" && !tabData.enabled) {
                 infoBlockActive = false;
             } else if(tabData.type === "text_and_color" && tabData.enabled && tabData.text && tabData.selected_color) {
+                infoBlockActive = false;
+            } else if(tabData.type === "list_options" && tabData.enabled && tabData.selected) {
+                if(tabData.selected === "Custom") {
+                    if(thumbLogoSrc) {
+                        infoBlockActive = false;
+                    }
+                } else {
+                    infoBlockActive = false;
+                }
+            } else if(tabData.type === "text_area" && tabData.enabled && (tabData.text || !tabData.required)) {
+                infoBlockActive = false;
+            } else if(tabData.type === "color" && tabData.active && tabData.selected_color) {
                 infoBlockActive = false;
             }
         }

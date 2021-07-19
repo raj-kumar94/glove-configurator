@@ -350,6 +350,7 @@ body {
         padding: 10px 25px;
         border-radius: 4px;
         font-size: 1rem;
+        cursor: pointer;
     }
 
     #add-to-cart-btn[disabled] {
@@ -435,5 +436,30 @@ body {
         &.round:before {
             border-radius: 50%;
         }
+    }
+}
+
+// #custom_logo_img {
+//     &::after {
+//         content: "\f410";
+//         display: inline-block;
+//         font-size: 30px;
+//         color: rgb(202, 96, 96);
+//         right: 60px;
+//         cursor: pointer;
+//         position: absolute;
+//     }
+// }
+
+.fa-window-close {
+    font-size: 30px;
+    color: #ca6060;
+    right: 0%;
+    cursor: pointer;
+    position: absolute;
+}
+@media only screen and (max-width: 768px) {
+    .fa-window-close {
+        right: 0%;
     }
 }

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 // import SwipeableViews from 'react-swipeable-views';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { reseltConfigurator, calculateRemaining } from './feature/gloveSlice';
+import { reseltConfigurator, calculateRemaining, saveCustomisation } from './feature/gloveSlice';
 import './App.scss';
 import Carousel from './components/Carousel';
 // import OptionTabs from './components/options/OptionTabs';
@@ -25,6 +25,10 @@ class App extends Component {
 
 	handleResetConfigurator = () => {
 		this.props.dispatch(reseltConfigurator({}));
+	}
+
+	handleAddToCart = () => {
+		// this.props.dispatch(saveCustomisation({product_id: 212324}));
 	}
 
 	render() {
@@ -67,8 +71,8 @@ class App extends Component {
 						</Tabs>
 						
 						<div>
-							<button type="button" id="add-to-cart-btn" disabled={false} className="btn mt-4">Add To Cart $185</button>
-							<button type="button" id="reset-btn" disabled={false} className="btn mt-4 ml-5 btn-warning" onClick={this.handleResetConfigurator}>Start Over</button>
+							<button type="button" id="add-to-cart-btn" disabled={false} className="btn mt-4" onClick={this.handleAddToCart}>Add To Cart $185</button>
+							{/* <button type="button" id="reset-btn" disabled={false} className="btn mt-4 ml-5 btn-warning" onClick={this.handleResetConfigurator}>Start Over</button> */}
 							<p className="text-muted small mt-1 secondary-font">To add to cart, please answer the required steps in the {GLOVE_FOUNDATION}, {LEATHER_DESIGN} and {PERSONAL_EMBROIDERY} sections.</p>
 						</div>
 

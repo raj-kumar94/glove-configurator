@@ -544,7 +544,7 @@ export const gloveData = {
                 },
             },
             "active": true,
-            "required": false
+            "required": true
         },
         {
             "name": "thumb_logo_color",

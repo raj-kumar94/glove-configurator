@@ -74,6 +74,8 @@ class Product extends Component {
         console.log('rendering')
         // console.log({thumbLogoSrc});
 
+        let baseUrl = window.IMAGE_BASE_URL || '';
+
         return (
             <div className="product-view">
                 <Stage width={containerWidth} height={conatainerHeight}>
@@ -81,7 +83,7 @@ class Product extends Component {
                         <Layer ref={this.layerRef}>
                             {
                                 images.map((src, index) => {
-                                    src = `/images/${view}/${src}`;
+                                    src = `${baseUrl}/images/${view}/${src}`;
                                     if(view === 'view02' && src.includes('-lace-')) {
                                         return (
                                             <React.Fragment key={src}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 // import { Stage, Layer, Image as KonvaImage } from 'react-konva';
-import { setSelectedPersonalEmbroideryOption, setThumbLogo } from '../../../feature/gloveSlice'
+import { setSelectedPersonalEmbroideryOption, setThumbLogo, unsetThumbLogo } from '../../../feature/gloveSlice'
 
 function ListOption(props) {
     const dispatch = useDispatch();
@@ -50,6 +50,12 @@ function ListOption(props) {
         };
     }
 
+
+    const handleUnsetCustomImage = () => {
+        dispatch(unsetThumbLogo({}))
+        document.getElementById('custom_logo').value = '';
+    }
+
     return (
         <div className="personalize-option-wrapper">
             {
@@ -81,9 +87,10 @@ function ListOption(props) {
                     <hr />
                     <label className="form-label" htmlFor="customFile">Upload your logo</label>
                     <input type="file" className="form-control" name="custom_logo" id="custom_logo" onChange={_onChange} />
-                    <div className="logo-preview text-center mt-3 mb-5" style={{display: 'flex', justifyContent: 'center'}}>
-                        <div style={{width: '250px', height: '250px', display: thumbLogoSrc? 'block': 'none'}}>
-                            <img src={thumbLogoSrc} alt="logo" width="80%"/>
+                    <div className="logo-preview text-center mt-3 mb-5" style={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
+                        <div style={{display: thumbLogoSrc? 'block': 'none'}}>
+                            <img src={thumbLogoSrc} alt="logo" width="100%" id="custom_logo_img"/>
+                            <i className="fas fa-window-close" onClick={handleUnsetCustomImage}></i>
                         </div>
                     </div>
                 </div>

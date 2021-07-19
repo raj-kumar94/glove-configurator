@@ -23,7 +23,7 @@ class SwipeView2 extends Component {
 
     render() {
 
-        const { gloveJson, swipeViewIndexes, TAB } = this.props;
+        const { gloveJson, swipeViewIndexes, TAB, thumbLogoSrc } = this.props;
 
         const selectedAndActiveTab = gloveJson[TAB].filter(gtab => gtab.active);
         
@@ -57,6 +57,7 @@ class SwipeView2 extends Component {
                                 <CurrentOptionInfo
                                     tabData={tabData}
                                     indexName={TAB}
+                                    thumbLogoSrc={!!thumbLogoSrc}
                                 />
                                 <div className="tab-user-options-container">
                                     {
@@ -92,7 +93,8 @@ class SwipeView2 extends Component {
 const mapStateToProps = (state) => ({
     swipeViewIndexes: state.glove.swipeViewIndexes,
     gloveJson: state.glove.gloveJson,
-    selectedTab: state.glove.selectedTab
+    selectedTab: state.glove.selectedTab,
+    thumbLogoSrc: state.glove.thumbLogoSrc
 });
   
   
