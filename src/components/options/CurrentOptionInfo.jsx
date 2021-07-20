@@ -9,31 +9,32 @@ class CurrentOptionInfo extends Component {
         const name = tabData.name.replace(/_/g, ' ');
         const info = tabData.info || (tabData.controls && tabData.controls[tabData.selected] && tabData.controls[tabData.selected].info);
         let infoBlockActive = true;
+        let errorBlockActive = true;
         // if there is a selected option
         if(indexName === GLOVE_FOUNDATION && tabData.selected && tabData.required) {
-            infoBlockActive = false;
+            errorBlockActive = false;
         }
         // if there is a selected color
         if(indexName === LEATHER_DESIGN && tabData.selected_color && tabData.required) {
-            infoBlockActive = false;
+            errorBlockActive = false;
         }
         if(indexName === PERSONAL_EMBROIDERY) {
             if(tabData.type === "text_and_color" && !tabData.enabled) {
-                infoBlockActive = false;
+                errorBlockActive = false;
             } else if(tabData.type === "text_and_color" && tabData.enabled && tabData.text && tabData.selected_color) {
-                infoBlockActive = false;
+                errorBlockActive = false;
             } else if(tabData.type === "list_options" && tabData.enabled && tabData.selected) {
                 if(tabData.selected === "Custom") {
                     if(thumbLogoSrc) {
-                        infoBlockActive = false;
+                        errorBlockActive = false;
                     }
                 } else {
-                    infoBlockActive = false;
+                    errorBlockActive = false;
                 }
             } else if(tabData.type === "text_area" && tabData.enabled && (tabData.text || !tabData.required)) {
-                infoBlockActive = false;
+                errorBlockActive = false;
             } else if(tabData.type === "color" && tabData.active && tabData.selected_color) {
-                infoBlockActive = false;
+                errorBlockActive = false;
             }
         }
         
@@ -41,10 +42,17 @@ class CurrentOptionInfo extends Component {
             <div className="current-info-block">
                 <h5 className="title">{name}</h5>
                 {
-                    infoBlockActive &&
+                    errorBlockActive &&
                     <div className="info">
-                        <i className={`fas ${info ? "fa-info-circle": "fa-exclamation-triangle" }`}></i>
-                        <small>{ info || 'Required'}</small>
+                        <i className={`fas fa-exclamation-triangle`}></i>
+                        <small>{ 'Required'}</small>
+                    </div>
+                }
+                {
+                    !errorBlockActive && info &&
+                    <div className="info">
+                        <i className={`fas fa-info-circle`}></i>
+                        <small>{ info }</small>
                     </div>
                 }
             </div>

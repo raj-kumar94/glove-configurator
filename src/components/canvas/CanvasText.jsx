@@ -17,8 +17,8 @@ function CanvasText(props) {
     // console.log({selectedColorCode});
 
     let rotationDeg = 295;
-    let x = 350;
-    let y = 450;
+    let x = 380;
+    let y = 400;
 
     if(data.name === 'name on pinky') {
         rotationDeg = 65;
@@ -45,7 +45,7 @@ function CanvasText(props) {
     } else if(text.length >= 10 && text.length < 12) {
         fontSize = fontSize * 0.8;
     } else if(text.length >= 12) {
-        fontSize = fontSize * 0.8;
+        fontSize = fontSize * 0.75;
     }
 
     return (
@@ -61,7 +61,7 @@ function CanvasText(props) {
             // verticalAlign={'middle'}
             align={'center'}
             // offsetX={40}
-            width={300}
+            width={320}
             fontFamily={fontFamily}
         />
     )

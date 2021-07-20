@@ -104,6 +104,6 @@ But what happens when Patch Stamped is selected? I can't find any image having "
 
 - Enable Add to cart button when customisation has been done
 # Final Setup
-- S3 setup and project image upload
+- S3 setup and configurator images upload
 - Image upload server to upload custom logo and all views
-- export all options selected by customers when configuration saved
+- Export all options selected by customers when configuration saved

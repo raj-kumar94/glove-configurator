@@ -29,7 +29,7 @@ function TextAndColorOption(props) {
                     <span className="slider round"></span>
                 </label>
                 <div className="mt-2 ml-3">
-                    <p className="">{tabData.name}</p>
+                    <p className="capitalize">{tabData.name}</p>
                 </div>
             </div>
             {

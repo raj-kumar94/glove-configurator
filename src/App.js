@@ -34,8 +34,10 @@ class App extends Component {
 	render() {
 
 		const tabMapping = {}
+		let totalRemaining = 0;
 		for(const tab of this.props.tabs) {
 			tabMapping[tab.name] = tab.remaining;
+			totalRemaining += tab.remaining;
 		}
 
 		return (
@@ -71,8 +73,8 @@ class App extends Component {
 						</Tabs>
 						
 						<div>
-							<button type="button" id="add-to-cart-btn" disabled={false} className="btn mt-4" onClick={this.handleAddToCart}>Add To Cart $185</button>
-							{/* <button type="button" id="reset-btn" disabled={false} className="btn mt-4 ml-5 btn-warning" onClick={this.handleResetConfigurator}>Start Over</button> */}
+							<button type="button" id="add-to-cart-btn" disabled={totalRemaining > 0} className="btn mt-4" onClick={this.handleAddToCart}>Add To Cart $185</button>
+							<button type="button" id="reset-btn" disabled={false} className="btn mt-4 ml-2" onClick={this.handleResetConfigurator}>Start Over</button>
 							<p className="text-muted small mt-1 secondary-font">To add to cart, please answer the required steps in the {GLOVE_FOUNDATION}, {LEATHER_DESIGN} and {PERSONAL_EMBROIDERY} sections.</p>
 						</div>
 

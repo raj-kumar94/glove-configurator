@@ -26,8 +26,8 @@ const LoadImageFromDisk = (props) => {
 
         // x = (props.containerOffsetWidth - image_width) / 2;
         // y = (props.containerOffsetHeight - image_height) / 2;
-        x = 300
-        y = 500
+        x = 290
+        y = 520
     }
 
     if(props.isMobile) {

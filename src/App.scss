@@ -33,6 +33,10 @@ body {
         margin-left: 2.5vw;
     }
 
+    .capitalize {
+        text-transform: capitalize !important;
+    }
+
     .small,
     small {
         font-size: 80%;
@@ -349,6 +353,13 @@ body {
         text-transform: uppercase;
         padding: 10px 25px;
         border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    #reset-btn {
+        background: $primary-color;
+        padding: 10px 25px;
         font-size: 1rem;
         cursor: pointer;
     }

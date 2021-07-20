@@ -1,7 +1,7 @@
 import { tabConstants } from '../constants';
-import { PART_NAME_MAPPING } from '../constants';
+import { PART_NAME_MAPPING, KIP_COMMOM_COLOR } from '../constants';
 // import { filederPartsActiveInactive } from '../config/fielderConfig';
-const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY, COMMON_COLORS } = tabConstants;
+const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 const FIELDER_COLOR_OPTIONS = ["thumb_inner_color", "thumb_outer_color", "index_inner_color", "index_outer_color", "middle_inner_color", "middle_outer_color", "ring_inner_color", "ring_outer_color", "pinky_inner_color", "pinky_outer_color"];
 const selected_finger_hood_or_pad = "None"; // Choices -> ["None", "Pad", "Hood"]
 
@@ -143,7 +143,7 @@ export const gloveData = {
                 "Embroidery": {
                     activate: "", 
                     deactivate: "",
-                    activate_colors: ["embroidery_color"], 
+                    activate_colors: ["embroidery_color", "wrist_logo_color"], 
                     deactivate_colors: ["patch_leather_color"],
                     activate_part_names: ["logo"],
                     deactivate_part_names: ["patch"]
@@ -151,7 +151,7 @@ export const gloveData = {
                 "Patch Embroidery": {
                     activate: "", 
                     deactivate: "",
-                    activate_colors: ["patch_leather_color", "embroidery_color"], 
+                    activate_colors: ["patch_leather_color", "embroidery_color", "wrist_logo_color"], 
                     deactivate_colors: [],
                     activate_part_names: ["logo", "patch"],
                     deactivate_part_names: []
@@ -160,12 +160,13 @@ export const gloveData = {
                     activate: "", 
                     deactivate: "",
                     activate_colors: ["patch_leather_color"], 
-                    deactivate_colors: ["embroidery_color"],
+                    deactivate_colors: ["embroidery_color", "wrist_logo_color"],
                     activate_part_names: ["patch"],
                     deactivate_part_names: ["logo"]
                 },
             },
-            "active": true
+            "active": true,
+            "required": true,
         },
         {
             // if Yes selected, ask user to input "Finger Pad Location" and "Finger Pad Color"
@@ -282,7 +283,7 @@ export const gloveData = {
             "name": "web_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -290,7 +291,7 @@ export const gloveData = {
             "name": "liner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true,
             "info": "Not shown in builder"
@@ -299,7 +300,7 @@ export const gloveData = {
             "name": "palm_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -307,7 +308,7 @@ export const gloveData = {
             "name": "wrist_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": false
         },
@@ -315,7 +316,7 @@ export const gloveData = {
             "name": "wrist_logo_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -323,7 +324,7 @@ export const gloveData = {
             "name": "patch_leather_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": false
         },
@@ -331,7 +332,7 @@ export const gloveData = {
         //     "name": "thumb_logo_color",
         //     "selected_color": "",
         //     "default": "white",
-        //     "colors": COMMON_COLORS,
+        //     "colors": KIP_COMMOM_COLOR,
         //     "required": true,
         //     "active": false
         // },
@@ -339,7 +340,7 @@ export const gloveData = {
             "name": "thumb_inner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -347,7 +348,7 @@ export const gloveData = {
             "name": "thumb_outer_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -355,7 +356,7 @@ export const gloveData = {
             "name": "index_inner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -363,7 +364,7 @@ export const gloveData = {
             "name": "index_outer_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -371,7 +372,7 @@ export const gloveData = {
             "name": "middle_inner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -379,7 +380,7 @@ export const gloveData = {
             "name": "middle_outer_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -387,7 +388,7 @@ export const gloveData = {
             "name": "ring_inner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -395,7 +396,7 @@ export const gloveData = {
             "name": "ring_outer_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -403,7 +404,7 @@ export const gloveData = {
             "name": "pinky_inner_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -411,7 +412,7 @@ export const gloveData = {
             "name": "pinky_outer_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -419,7 +420,7 @@ export const gloveData = {
             "name": "finger_pad_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": selected_finger_hood_or_pad === "Pad"
         },
@@ -427,7 +428,7 @@ export const gloveData = {
             "name": "finger_hood_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": selected_finger_hood_or_pad === "Hood"
         },
@@ -435,7 +436,7 @@ export const gloveData = {
             "name": "lace_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -443,7 +444,7 @@ export const gloveData = {
             "name": "stitching_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -451,7 +452,7 @@ export const gloveData = {
             "name": "hood_stitch_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": false
         },
@@ -459,7 +460,7 @@ export const gloveData = {
             "name": "finger_pad_stitch_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": false
         },
@@ -467,7 +468,7 @@ export const gloveData = {
             "name": "welting_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -475,7 +476,7 @@ export const gloveData = {
             "name": "binding_color",
             "selected_color": "",
             "default": "white",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "required": true,
             "active": true
         },
@@ -496,14 +497,14 @@ export const gloveData = {
         // {
         //     "name": "embroidery_color",
         //     "selected_color": "",
-        //     "colors": COMMON_COLORS,
+        //     "colors": KIP_COMMOM_COLOR,
         //     "required": true,
         //     "active": true
         // },
         // {
         //     "name": "name_color",
         //     "selected_color": "",
-        //     "colors": COMMON_COLORS,
+        //     "colors": KIP_COMMOM_COLOR,
         //     "required": true,
         //     "active": true
         // },
@@ -551,9 +552,10 @@ export const gloveData = {
             "selected_color": "",
             "type": "color",
             "default": "white",
-            "colors": COMMON_COLORS,
-            "required": true,
-            "active": false
+            "colors": KIP_COMMOM_COLOR,
+            "required": true, // required only when it is active
+            "active": false,
+            "enabled": true,
         },
         // {
         //     "name": "palm stamp",
@@ -573,20 +575,20 @@ export const gloveData = {
             "type": "text_and_color",
             "enabled": false,
             "text": "",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "selected_color": "",
             "active": true,
-            "required": false
+            "required": true // required only when it is active
         },
         {
             "name": "name on pinky",
             "type": "text_and_color",
             "enabled": false,
             "text": "",
-            "colors": COMMON_COLORS,
+            "colors": KIP_COMMOM_COLOR,
             "selected_color": "",
             "active": true,
-            "required": false
+            "required": true // required only when it is active
         },
         {
             "name": "name font",
@@ -595,7 +597,7 @@ export const gloveData = {
             "options": ["Script", "Block"],
             "selected": "Script",
             "active": true,
-            "required": true
+            "required": true // required only when it is active
         },
         {
             "name": "special instructions",
@@ -603,7 +605,7 @@ export const gloveData = {
             "enabled": true,
             "text": "",
             "active": true,
-            "required": false
+            "required": false // required only when it is active
         }
     ]
 }

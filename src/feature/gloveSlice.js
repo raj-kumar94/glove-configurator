@@ -100,6 +100,9 @@ export const gloveSlice = createSlice({
             if (action.payload.name === "stitching_color") {
                 // change hood_stitch_color and finger_pad_stitch_color as well
                 dependantColors = ["hood_stitch_color", "finger_pad_stitch_color"]
+            } else if (action.payload.name === "thumb_inner_color") {
+                // change wrist_color as well
+                dependantColors = ["wrist_color"]
             }
             // console.log({dependantColors})
             for (let colorOption of state.gloveJson[LEATHER_DESIGN]) {
@@ -272,16 +275,22 @@ export const gloveSlice = createSlice({
             state.gloveJson[PERSONAL_EMBROIDERY]
                 .filter(option => option.name === action.payload.name)[0]
                 .text = action.payload.value;
+
+            gloveSlice.caseReducers.calculateRemaining(state, {});
         },
         setPersonalEmbroideryEnableDisable: (state, action) => {
             state.gloveJson[PERSONAL_EMBROIDERY]
                 .filter(option => option.name === action.payload.name)[0]
                 .enabled = action.payload.value;
+
+            gloveSlice.caseReducers.calculateRemaining(state, {});
         },
         setPersonalEmbroideryText: (state, action) => {
             state.gloveJson[PERSONAL_EMBROIDERY]
                 .filter(option => option.name === action.payload.name)[0]
                 .text = action.payload.value;
+
+            gloveSlice.caseReducers.calculateRemaining(state, {});
         },
         setSelectedPersonalEmbroideryOption: (state, action) => {
             let selectedOption;
@@ -331,14 +340,16 @@ export const gloveSlice = createSlice({
         },
         setThumbLogo: (state, action) => {
             state.thumbLogoSrc = action.payload.thumbLogoSrc;
+            gloveSlice.caseReducers.calculateRemaining(state, {});
         },
         unsetThumbLogo: (state, action) => {
             state.thumbLogoSrc = '';
+            gloveSlice.caseReducers.calculateRemaining(state, {});
         },
         calculateRemaining: (state, payload) => {
             const gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active && option.required);
             const leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active && option.required);
-            const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active && option.required);
+            const personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active && option.enabled && option.required);
 
             const gloveFoundationActiveOptionsRemaining = gloveFoundationActiveOptions.filter(option => option.selected);
             const leatherDesignActiveOptionsRemaining = leatherDesignActiveOptions.filter(option => option.selected_color);

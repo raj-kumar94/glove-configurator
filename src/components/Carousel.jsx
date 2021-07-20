@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Flickity from 'react-flickity-component'
 import './Carousel.css'
 import Product from './canvas/Product';
-import { tabConstants, WEB_TYPE_OPTION_MAPPING, DEFAULT_FIELDER_PART_COLORS, PART_NAME_MAPPING } from '../constants';
+import { tabConstants, WEB_TYPE_OPTION_MAPPING, DEFAULT_FIELDER_PART_COLORS } from '../constants';
 const { LEATHER_DESIGN, GLOVE_FOUNDATION, PERSONAL_EMBROIDERY } = tabConstants;
 
 class Carousel extends Component {
