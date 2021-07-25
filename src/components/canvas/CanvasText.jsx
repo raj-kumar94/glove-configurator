@@ -30,6 +30,13 @@ function CanvasText(props) {
      * 500 and 700 are hardcoded values, which can be dynamically taken later from Product component
      */
     if(isMobile) {
+        if(data.name === 'name on pinky') {
+            y = 120;
+            x = 150;
+        } else {
+            x = 350;
+            y = 450;
+        }
         x = x * (500/700);
         y = y * (500/700);
     }
@@ -46,6 +53,14 @@ function CanvasText(props) {
         fontSize = fontSize * 0.8;
     } else if(text.length >= 12) {
         fontSize = fontSize * 0.75;
+    }
+
+    if(isMobile) {
+        if(nameFont === 'Block') {
+            fontSize = fontSize * (600/700);
+        } else {
+            //
+        }
     }
 
     return (

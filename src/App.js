@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 // import SwipeableViews from 'react-swipeable-views';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { reseltConfigurator, calculateRemaining, saveCustomisation } from './feature/gloveSlice';
+import { reseltConfigurator, calculateRemaining, saveCustomImage, saveCustomisation } from './feature/gloveSlice';
 import './App.scss';
 import Carousel from './components/Carousel';
 // import OptionTabs from './components/options/OptionTabs';
@@ -28,7 +28,8 @@ class App extends Component {
 	}
 
 	handleAddToCart = () => {
-		// this.props.dispatch(saveCustomisation({product_id: 212324}));
+		this.props.dispatch(saveCustomImage({product_id: 212324}));
+		this.props.dispatch(saveCustomisation({product_id: 212324}));
 	}
 
 	render() {

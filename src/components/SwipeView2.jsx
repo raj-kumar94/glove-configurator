@@ -65,13 +65,12 @@ class SwipeView2 extends Component {
                                         <SelectBase tabData={tabData} />
                                     }
                                     {
-                                        TAB === LEATHER_DESIGN &&
-                                        (
-                                            tabData.as_list ?
-                                            <DesignListOption tabData={tabData} pickFor={LEATHER_DESIGN} />
-                                            : 
-                                            <PickColor tabData={tabData} />
-                                        )
+                                        TAB === LEATHER_DESIGN && tabData.as_list &&
+                                        <DesignListOption tabData={tabData} pickFor={LEATHER_DESIGN} />
+                                    }
+                                    {
+                                        TAB === LEATHER_DESIGN && !tabData.as_list &&
+                                        <PickColor tabData={tabData} />
                                     }
                                     {
                                         TAB === PERSONAL_EMBROIDERY &&

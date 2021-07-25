@@ -7,6 +7,11 @@ export const PART_NAME_MAPPING = {
     FINGER_HOOD_STITCH: 'hoodstitch',
 }
 
+export const DEFAULT_SELECTION = {
+    'selected_finger_hood_or_pad': "None",
+    'selected_thumb_logo': 'E Logo'
+}
+
 export const tabConstants = {
     GLOVE_FOUNDATION: 'Glove Foundation',
     LEATHER_DESIGN: 'Leather & Design',
@@ -46,6 +51,7 @@ export const KIP_COMMOM_COLOR = [
     {name: "Orange", code: "orange", rgb: "center center rgb(211, 121, 0)"},
     {name: "Natural", code: "natural", rgb: "center center rgb(185, 140, 32)"},
     {name: "Toffee", code: "toffee", rgb: "center center rgb(114, 62, 1)"},
+    {name: "Tiffany", code: "tiffany", rgb: "center center rgb(147 207 179)"},
     {name: "Dark Purple", code: "darkpurple", rgb: "center center rgb(37, 7, 31)"},
     {name: "Royal Blue", code: "royalblue", rgb: "center center rgb(0, 12, 107)"},
     {name: "Red", code: "red", rgb: "center center rgb(156, 0, 2)"},
@@ -179,7 +185,7 @@ export const FIELDER_PART_NAMES = [
     {name: 'base', defaultColor: '', selectedColor: '', design_name: '', active: true},
     {name: 'wrist', defaultColor: 'gray', design_name: 'wrist_color', active: true},
     {name: 'patch', defaultColor: 'wine', design_name: 'patch_leather_color', active: false},
-    {name: 't2full', defaultColor: 'wine', design_name: 'thumb_inner_color', active: true}, // for view04 only
+    
     {name: 'logo', defaultColor: 'wine', design_name: 'wrist_logo_color', active: true},
     {name: 'f1', defaultColor: 'gray', design_name: 'index_inner_color', active: true},
     {name: 'f2', defaultColor: 'wine', design_name: 'index_outer_color', active: true},
@@ -191,6 +197,7 @@ export const FIELDER_PART_NAMES = [
     {name: 'f8', defaultColor: 'wine', design_name: 'pinky_outer_color', active: true},
     {name: 't1', defaultColor: 'gray', design_name: 'thumb_outer_color', active: true},
     {name: 't2', defaultColor: 'wine', design_name: 'thumb_inner_color', active: true},
+    {name: 't2full', defaultColor: 'wine', design_name: 'thumb_inner_color', active: true}, // for view04 only
     {name: 'binding', defaultColor: 'gray', design_name: 'binding_color', active: true},
     {name: 'welting', defaultColor: 'gray', design_name: 'welting_color', active: true},
     {name: 'palm', defaultColor: 'wine', design_name: 'palm_color', active: true},
@@ -206,7 +213,7 @@ export const FIELDER_PART_NAMES = [
     {name: PART_NAME_MAPPING.FINGER_PAD, defaultColor: 'gray', design_name: 'finger_pad_color', active: false},
     {name: PART_NAME_MAPPING.FINGER_PAD_STITCH, defaultColor: 'gray', design_name: 'finger_pad_stitch_color', active: false},
     {name: 'stitch', defaultColor: 'red', design_name: 'stitching_color', active: true},
-    {name: 'e', defaultColor: 'red', design_name: 'thumb_logo_color', active: false},
+    {name: 'e', defaultColor: 'red', design_name: 'thumb_logo_color', active: DEFAULT_SELECTION.selected_thumb_logo === 'E Logo'},
 ]
 
 export const WEB_TYPE_OPTION_MAPPING = {
@@ -216,14 +223,14 @@ export const WEB_TYPE_OPTION_MAPPING = {
     "Y": "y",
     "V": "v",
     "Basket": "basket",
-    "Basket Lace": "basketlace",
+    "Basket T": "basketlace",
     "Lace Cross": "lacecross",
-    "One Piece (Catcher)": "onepiece",
-    "Two Piece (Catcher)": "twopiece",
+    "One Piece (Catcher)": "1piece",
+    "Two Piece (Catcher)": "2piece",
     "H (First Base)": "h",
     "Post (First Base)": "post",
-    "One Piece": "onepiece",
-    "Two Piece": "twopiece",
+    "One Piece": "1piece",
+    "Two Piece": "2piece",
     "Shield": "shield",
     "Sealing": "sealing",
     "Lace Sealing": "lacesealing",

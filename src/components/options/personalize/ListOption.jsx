@@ -88,7 +88,7 @@ function ListOption(props) {
                     <label className="form-label" htmlFor="customFile">Upload your logo</label>
                     <input type="file" className="form-control" name="custom_logo" id="custom_logo" onChange={_onChange} />
                     <div className="logo-preview text-center mt-3 mb-5" style={{display: 'flex', justifyContent: 'center', position: 'relative'}}>
-                        <div style={{display: thumbLogoSrc? 'block': 'none'}}>
+                        <div style={{display: thumbLogoSrc? 'block': 'none', marginBottom: '50px'}}>
                             <img src={thumbLogoSrc} alt="logo" width="100%" id="custom_logo_img"/>
                             <i className="fas fa-window-close" onClick={handleUnsetCustomImage}></i>
                         </div>

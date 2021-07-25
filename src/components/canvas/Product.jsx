@@ -94,12 +94,12 @@ class Product extends Component {
                                                     nameFont={nameFont}
                                                     isMobile = {containerWidth <= 500}
                                                 />
-                                                <LoadImageFromDisk 
+                                                {/* <LoadImageFromDisk 
                                                     src={thumbLogoSrc} 
                                                     containerOffsetWidth={containerWidth} 
                                                     containerOffsetHeight={conatainerHeight} 
                                                     isMobile = {containerWidth <= 500}
-                                                />
+                                                /> */}
                                             </React.Fragment>
                                         )
                                     } else if(view === 'view04' && src.includes('-lace-')) {

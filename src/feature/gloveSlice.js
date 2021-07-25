@@ -7,7 +7,7 @@ const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 // const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
 // const PERSONAL_EMBROIDERY_INDEX = gloveData[LEATHER_DESIGN].filter(data => data.active).length + LEATHER_DESIGN_INDEX;
 
-export const saveCustomisation = createAsyncThunk(
+export const saveCustomImage = createAsyncThunk(
     'api/save-customisation',
     async (userData, thunkAPI) => {
         console.log({ userData, thunkAPI });
@@ -409,14 +409,65 @@ export const gloveSlice = createSlice({
             // }
             state.gloveJson = gloveData;
             state.partNames = FIELDER_PART_NAMES;
+            state.swipeViewIndexes = {
+                [GLOVE_FOUNDATION]: 0,
+                [LEATHER_DESIGN]: 0,
+                [PERSONAL_EMBROIDERY]: 0,
+            }
+
+            let reactTabs = document.querySelectorAll('.react-tabs__tab-list .react-tab-tab');
+            if(reactTabs && reactTabs.length) {
+                reactTabs[0].click();
+            }
             gloveSlice.caseReducers.calculateRemaining(state, {})
+        },
+        saveCustomisation: (state, payload) => {
+            let gloveFoundationActiveOptions = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.active && option.selected);
+            let leatherDesignActiveOptions = state.gloveJson[LEATHER_DESIGN].filter(option => option.active && option.selected_color);
+            let personalActiveOptions = state.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.active);
+
+            // since personalise section has multiple type of options
+            personalActiveOptions = personalActiveOptions.filter(option => {
+                if (option.type === "list_options") {
+                    return option.selected;
+                } else if (option.type === "text_and_color") {
+                    return option.text && option.selected_color;
+                } else if (option.type === "text_area") {
+                    return option.text;
+                } else if (option.type === "color") {
+                    return option.selected_color;
+                }
+                return true;
+            });
+            gloveFoundationActiveOptions = gloveFoundationActiveOptions.map(option => {
+                return {
+                    name: option.name,
+                    selected: option.selected
+                }
+            });
+            leatherDesignActiveOptions = leatherDesignActiveOptions.map(option => {
+                return {
+                    name: option.name,
+                    selected: option.selected_color
+                }
+            });
+            personalActiveOptions = personalActiveOptions.map(option => {
+                return {
+                    name: option.name,
+                    selected: option.selected_color || option.selected || '',
+                    text: option.text || ''
+                }
+            });
+
+            console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions})
+
         }
     },
     extraReducers: {
-        [saveCustomisation.fulfilled]: (state, action) => {
+        [saveCustomImage.fulfilled]: (state, action) => {
             console.log({ action });
         },
-        [saveCustomisation.rejected]: (state, action) => {
+        [saveCustomImage.rejected]: (state, action) => {
             console.error("error occured");
             console.log({ action });
         }
@@ -441,6 +492,7 @@ export const {
     setThumbLogo,
     unsetThumbLogo,
     reseltConfigurator,
+    saveCustomisation
 } = gloveSlice.actions
 
 export default gloveSlice.reducer

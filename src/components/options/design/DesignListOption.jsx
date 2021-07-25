@@ -22,7 +22,7 @@ function DesignListOption(props) {
                     let id = `${pickFor}-${tabData.name}-${option.code}`
                     return (
                         <div key={id} className="radio-input-wrapper">
-                            <div className="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                            <div className="col-1">
                                 <input 
                                     type="radio" 
                                     name={`${tabData.name}`} 
@@ -32,7 +32,7 @@ function DesignListOption(props) {
                                     checked={option.code === tabData.selected_color}
                                 />
                             </div>
-                            <div className="col-md-11">
+                            <div className="col-11">
                                 <label htmlFor={id}>{option.name}</label>
                             </div>
                         </div>

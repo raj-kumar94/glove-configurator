@@ -1,9 +1,10 @@
 import { tabConstants } from '../constants';
-import { PART_NAME_MAPPING, KIP_COMMOM_COLOR } from '../constants';
+import { PART_NAME_MAPPING, KIP_COMMOM_COLOR, DEFAULT_SELECTION } from '../constants';
 // import { filederPartsActiveInactive } from '../config/fielderConfig';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
-const FIELDER_COLOR_OPTIONS = ["thumb_inner_color", "thumb_outer_color", "index_inner_color", "index_outer_color", "middle_inner_color", "middle_outer_color", "ring_inner_color", "ring_outer_color", "pinky_inner_color", "pinky_outer_color"];
-const selected_finger_hood_or_pad = "None"; // Choices -> ["None", "Pad", "Hood"]
+// const FIELDER_COLOR_OPTIONS = ["thumb_inner_color", "thumb_outer_color", "index_inner_color", "index_outer_color", "middle_inner_color", "middle_outer_color", "ring_inner_color", "ring_outer_color", "pinky_inner_color", "pinky_outer_color"];
+const selected_finger_hood_or_pad = DEFAULT_SELECTION.selected_finger_hood_or_pad; // Choices -> ["None", "Pad", "Hood"]
+const selected_thumb_logo = DEFAULT_SELECTION.selected_thumb_logo;
 
 export const gloveData = {
     [GLOVE_FOUNDATION]: [
@@ -70,8 +71,8 @@ export const gloveData = {
         },
         {
             "name": "web_type",
-            // "options": ["T", "I", "H", "Y", "V", "Basket", "Basket Lace", "Lace Cross", "One Piece (Catcher)", "Two Piece (Catcher)", "H (First Base)", "Post (First Base)", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
-            "options": ["T", "I", "H", "Y", "V", "Basket", "Basket Lace", "Lace Cross", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
+            // "options": ["T", "I", "H", "Y", "V", "Basket", "Basket T", "Lace Cross", "One Piece (Catcher)", "Two Piece (Catcher)", "H (First Base)", "Post (First Base)", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
+            "options": ["T", "I", "H", "Y", "V", "Basket", "Basket T", "Lace Cross", "One Piece", "Two Piece", "Shield", "Sealing", "Lace Sealing", "Cross", "Trapeze"],
             "selected": "I",
             "required": true,
             "active": true
@@ -232,7 +233,7 @@ export const gloveData = {
             // depending on finger_pad, finger_pad_location will be active or inactive
             "name": "finger_pad_location",
             "options": ["Index", "Middle"],
-            "selected": "Middle",
+            "selected": "Index",
             "required": true,
             "active": selected_finger_hood_or_pad === "Pad"
         },
@@ -266,7 +267,7 @@ export const gloveData = {
             // depending on finger_hood, finger_hood_location will be active or inactive
             "name": "finger_hood_location",
             "options": ["Index", "Middle"],
-            "selected": "Middle",
+            "selected": "Index",
             "required": true,
             "active": selected_finger_hood_or_pad === "Hood"
         },
@@ -274,6 +275,15 @@ export const gloveData = {
             "name": "stiffness",
             "options": ["Stiff", "Soft", "Youth"],
             "selected": "",
+            "required": true,
+            "active": true,
+        },
+        {
+            "name": "wrist_fur_color/Pad",
+            // "type": "list_options",
+            "options": [ "Black", "White", "Moisture Wicking Pad" ],
+            "selected": "",
+            // "default": "white",
             "required": true,
             "active": true,
         },
@@ -320,6 +330,48 @@ export const gloveData = {
             "required": true,
             "active": true
         },
+        // {
+        //     "name": "wrist_fur",
+        //     "selected_color": "",
+        //     "colors": [
+        //         {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
+        //         {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
+        //         {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
+        //     ],
+        //     "default": "white",
+        //     "required": true,
+        //     "active": true,
+        //     // "as_list": true,
+        //     // "retain_color_options": true
+        // },
+        // {
+        //     "name": "wrist_fur_kip",
+        //     "selected_color": "",
+        //     "colors": KIP_COMMOM_COLOR || [
+        //         {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
+        //         {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
+        //         {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
+        //     ],
+        //     "default": "white",
+        //     "required": true,
+        //     "active": true,
+        //     // "as_list": true,
+        //     // "retain_color_options": true
+        // },
+        // {
+        //     "name": "wrist_fur_color2",
+        //     "selected_color": "",
+        //     "colors": [
+        //         {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
+        //         {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
+        //         {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
+        //     ],
+        //     "default": "white",
+        //     "required": true,
+        //     "active": true,
+        //     "as_list": true,
+        //     "retain_color_options": true
+        // },
         {
             "name": "patch_leather_color",
             "selected_color": "",
@@ -480,20 +532,6 @@ export const gloveData = {
             "required": true,
             "active": true
         },
-        {
-            "name": "wrist_fur_color/Pad",
-            "selected_color": "",
-            "colors": [
-                {name: "Black", code: "black", rgb: "center center rgb(0, 0, 0)"},
-                {name: "White", code: "white", rgb: "center center rgb(255, 255, 255)"},
-                {name: "Moisture Wicking Pad", code: "moisture-wicking-pad", rgb: "center center rgb(255, 255, 255)"},
-            ],
-            "default": "white",
-            "required": true,
-            "active": true,
-            "as_list": true,
-            "retain_color_options": true
-        },
         // {
         //     "name": "embroidery_color",
         //     "selected_color": "",
@@ -522,15 +560,15 @@ export const gloveData = {
             "name": "thumb logo",
             "type": "list_options",
             "enabled": true,
-            "options": ["None", "E Logo", "Custom"],
-            "selected": "None",
+            "options": ["E Logo", "Custom"],
+            "selected": selected_thumb_logo,
             "controls": {
-                "None": {
-                    activate: "", 
-                    deactivate: "",
-                    activate_colors: [], 
-                    deactivate_colors: ["thumb_logo_color"]
-                },
+                // "None": {
+                //     activate: "", 
+                //     deactivate: "",
+                //     activate_colors: [], 
+                //     deactivate_colors: ["thumb_logo_color"]
+                // },
                 "E Logo": {
                     activate: "", 
                     deactivate: "",
@@ -554,7 +592,7 @@ export const gloveData = {
             "default": "white",
             "colors": KIP_COMMOM_COLOR,
             "required": true, // required only when it is active
-            "active": false,
+            "active": selected_thumb_logo === "E Logo",
             "enabled": true,
         },
         // {
