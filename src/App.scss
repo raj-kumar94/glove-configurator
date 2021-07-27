@@ -71,6 +71,10 @@ body {
         margin-top: -17px;
     }
 
+    .hide-tab {
+        display: none !important;
+    }
+
     /* Option tabs */
     .react-tabs__tab-list {
         display: flex;
@@ -80,6 +84,42 @@ body {
                 background: $primary-color;
             }
         }
+        // display: block;
+    }
+    .swipe-view-tabs .react-tabs__tab-list {
+        .tab-names {
+            i {
+                font-size: 20px;
+                &.fa-angle-right {
+                    margin-left: 7px;
+                }
+                &.fa-angle-left {
+                    margin-right: 7px;
+                }
+            }
+            max-width: 45%;
+            border-radius: 5px;
+            margin-top: 10px;
+            color: #0d98f0;
+            background: white;
+            text-transform: capitalize;
+            &:hover {
+                transform: scale(0.97);
+                transition: 0.2s all;
+                box-shadow: 0 0 10px rgb(0 0 0 / 15%);
+            }
+
+            &.left {
+                justify-content: flex-start;
+            }
+            &.right {
+                justify-content: flex-end;
+            }
+            &.first-selected {
+                margin-left: 55%
+            }
+        };
+        justify-content: space-between;
     }
 
     .react-tab-tab {
@@ -474,3 +514,54 @@ body {
         right: 0%;
     }
 }
+.react-tabs__tab-panel.react-tabs__tab-panel--selected { 
+    // animation-name: fadeIn; 
+    // animation-duration: 200ms; 
+    // animation-timing-function: linear; 
+    // width: 100%;
+    // height: 100%;
+    // // background: blue;
+    // position: relative;
+    // left: 100%;
+    // // -webkit-animation: slideIn 12s backwards;
+    // // -moz-animation: slideIn 12s backwards;
+    // animation: slideIn 5s backwards;
+}
+.react-tabs__tab-list {
+    border-bottom: none;
+}
+.tab-panel-main-content {
+    margin-bottom: 20px;
+}
+.swipe-view-tabs .current-info-block {
+    margin-top: 30px;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+    to { opacity: 1; } 
+}
+@-webkit-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @-moz-keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-900px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }

@@ -3,12 +3,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const fileDir = path.join(__dirname, 'public' , 'images', 'view04');
+const fileDir = path.join(__dirname, 'public' , 'images', 'view01');
 const files = fs.readdirSync(fileDir)
 for(const file of files) {
     let newFileName = file.toLowerCase();
-    if(newFileName.includes('-yellow.png')) {
-        newFileName = newFileName.replace('yellow', 'lemonyellow');
+    if(newFileName.includes('-2peice-')) {
+        newFileName = newFileName.replace('2peice', '2piece');
         fs.renameSync(path.join(fileDir, file), path.join(fileDir, newFileName))
         console.log(newFileName);
     }

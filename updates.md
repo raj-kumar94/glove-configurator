@@ -95,3 +95,31 @@ Or, if the designer can himself manage images on AWS S3, then it would be much e
 
 **Regarding the one piece and two piece missing colors:** I get the issue now. Earlier the one piece and two pieces were named as "onepiece" and "twopiece", then later it got renamed to "1piece" and "2piece". I had no idea that it was renamed.
 I adjusted the app to pick "1piece" and "2piece" and it looks much better now. If renaming happened for any other parts, please let me know. It is very difficult to keep tracked of renamed images among 11,000+ images.
+
+
+------------------------
+Update 25 july
+
+Thanks for the missing images. This image is still missing:
+`view02-fielder-stitch-shield-ch-navyblue.png`
+
+Please note:
+in 2 piece images, the spelling of filename was wrong
+eg: the given file is: `view01-fielder-stitch-2peice-ch-black.png`
+it should be: `view01-fielder-stitch-2piece-ch-black.png`
+for new images, please use `piece` instead of `peice`
+
+=====================================
+
+TODOs:
+
+On One Piece wrist is selected, wrist and thumb inner should be all one piece and change to same color at once. Wrist Color should not be an option when One Piece wrist is selected.
+When Two Piece wrist is selected, Wrist Color and Thumb Inner should be separate pieces and can be different colors. (done)
+
+Logo not visible in view02 when two piece is selected (done)
+
+
+For XX remaining please do it the way we mentioned because we need all data captured and sent to our manufacturer. (not required)
+
+Also, the color swatch for yellow on Steerhide is still too muddy. It should match the images (done)
+

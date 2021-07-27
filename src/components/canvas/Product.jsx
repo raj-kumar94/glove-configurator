@@ -83,7 +83,7 @@ class Product extends Component {
                         <Layer ref={this.layerRef}>
                             {
                                 images.map((src, index) => {
-                                    src = `${baseUrl}/images/${view}/${src}`;
+                                    src = `${baseUrl}/${view}/${src}`;
                                     if(view === 'view02' && src.includes('-lace-')) {
                                         return (
                                             <React.Fragment key={src}>

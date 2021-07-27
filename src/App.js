@@ -11,8 +11,8 @@ import Carousel from './components/Carousel';
 // import SlideOptions from './components/options/SlideOptions';
 // import CurrentOptionInfo from './components/options/CurrentOptionInfo';
 // import PickColor from './components/options/PickColor';
-// import SwipeView from './components/SwipeView';
-import SwipeView2 from './components/SwipeView2';
+import SwipeView from './components/SwipeView';
+// import SwipeView2 from './components/SwipeView2';
 import { tabConstants } from './constants';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
 const TABS = [GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY];
@@ -56,7 +56,30 @@ class App extends Component {
 										className={`react-tab-tab box-shadow--light d-flex flex-column`}
 										>
 											<span className="tab-menu-index"><span className="menu-index">{index+1}</span></span>
-											<span className="mr-1">{TAB}</span>
+											<span className="mr-1">
+												{
+													TAB === GLOVE_FOUNDATION &&
+													<>
+														Glove <br /> Foundation
+													</>
+												}
+												{
+													TAB === LEATHER_DESIGN &&
+													<>
+														Leather & <br /> Design
+													</>
+												}
+												{
+													TAB === PERSONAL_EMBROIDERY &&
+													<>
+														Embroidery & <br /> Personalization
+													</>
+												}
+												{
+													![GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY].includes(TAB) &&
+													TAB
+												}
+											</span>
 											<span className="font-weight-light mt-auto">{tabMapping[TAB]} remaining</span>
 										</Tab>
 									))
@@ -67,7 +90,7 @@ class App extends Component {
 							{
 								TABS.map(TAB => (
 									<TabPanel key={`tab-panel-${TAB}`}>
-										<SwipeView2 TAB={TAB} />
+										<SwipeView TAB={TAB} />
 									</TabPanel>
 								))
 							}

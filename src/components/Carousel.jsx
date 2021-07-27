@@ -26,13 +26,13 @@ class Carousel extends Component {
         let selectedWebType, selectedLeatherType, thumbTextData, pinkyTextData, nameFont, fingetHoodLocation, fingerPadLocation;
         for(let option of gloveJson[GLOVE_FOUNDATION]) {
             if(option.name === 'web_type') {
-                selectedWebType = option.selected;
+                selectedWebType = option.selected || option.default;
             } else if(option.name === 'leather') {
-                selectedLeatherType = option.selected;
+                selectedLeatherType = option.selected || option.default;
             } else if(option.name === 'finger_hood_location') {
-                fingetHoodLocation = option.selected;
+                fingetHoodLocation = option.selected || option.default;
             } else if(option.name === 'finger_pad_location') {
-                fingerPadLocation = option.selected;
+                fingerPadLocation = option.selected || option.default;
             }
         }
 

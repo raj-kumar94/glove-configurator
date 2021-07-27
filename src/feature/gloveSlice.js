@@ -11,6 +11,10 @@ export const saveCustomImage = createAsyncThunk(
     'api/save-customisation',
     async (userData, thunkAPI) => {
         console.log({ userData, thunkAPI });
+        // if(window.jQuery && window.jQuery.blockUI ) {
+        //     window.jQuery.blockUI({ css: { backgroundColor: '#174a45', color: '#fff'}, message: "Please wait..." });
+        //     window.jQuery.unblockUI();
+        // }
         var form = new FormData();
         let inputFile = document.getElementById('custom_logo').files[0];
         form.append("canvas", inputFile, 'custom_logo.png');
@@ -101,8 +105,11 @@ export const gloveSlice = createSlice({
                 // change hood_stitch_color and finger_pad_stitch_color as well
                 dependantColors = ["hood_stitch_color", "finger_pad_stitch_color"]
             } else if (action.payload.name === "thumb_inner_color") {
-                // change wrist_color as well
-                dependantColors = ["wrist_color"]
+                // change wrist_color as well only if "One Piece" was selected from Wrist options
+                const wristOption = state.gloveJson[GLOVE_FOUNDATION].filter(option => option.name === "wrist_options")[0];
+                if(wristOption.selected === "One Piece") {
+                    dependantColors = ["wrist_color"]
+                }
             }
             // console.log({dependantColors})
             for (let colorOption of state.gloveJson[LEATHER_DESIGN]) {
@@ -133,25 +140,26 @@ export const gloveSlice = createSlice({
              */
             if (selectedOption.name === 'leather') {
                 // alert('leather selected');
+                let colorOptions = [];
+                let leatherType = 'jk';
+                // console.log('object', selectedOption.selected);
+                if (selectedOption.selected === "Emerald Series - Japanese Kip Leather") {
+                    colorOptions = KIP_COMMOM_COLOR;
+                } else if (selectedOption.selected === "Peridot Series - US Steerhide Leather") {
+                    colorOptions = US_STEERHIDE_COMMOM_COLOR;
+                    leatherType = 'ussh';
+                } else if (selectedOption.selected === "Topaz Series - Smooth Cowhide Leather") {
+                    colorOptions = COWHIDE_COMMOM_COLOR;
+                    leatherType = 'ch';
+                } else {
+                    colorOptions = KIP_COMMOM_COLOR;
+                }
+
                 for (let option of state.gloveJson[LEATHER_DESIGN]) {
 
                     // don't change colors for this option
                     if (option.retain_color_options === true) {
                         continue;
-                    }
-                    let colorOptions = [];
-                    let leatherType = 'jk';
-                    // console.log('object', selectedOption.selected);
-                    if (selectedOption.selected === "Emerald Series - Japanese Kip Leather") {
-                        colorOptions = KIP_COMMOM_COLOR;
-                    } else if (selectedOption.selected === "Peridot Series - US Steerhide Leather") {
-                        colorOptions = US_STEERHIDE_COMMOM_COLOR;
-                        leatherType = 'ussh';
-                    } else if (selectedOption.selected === "Topaz Series - Smooth Cowhide Leather") {
-                        colorOptions = COWHIDE_COMMOM_COLOR;
-                        leatherType = 'ch';
-                    } else {
-                        colorOptions = KIP_COMMOM_COLOR;
                     }
 
                     // find default part color
@@ -171,6 +179,27 @@ export const gloveSlice = createSlice({
 
                     option.colors = colorOptions;
                 }
+
+                // update personalization colors as well
+                for (let option of state.gloveJson[PERSONAL_EMBROIDERY]) {
+                    if (option.retain_color_options === true) {
+                        continue;
+                    }
+                    if(option.type === "color" || option.type === "text_and_color") {
+                        if (option.selected_color) {
+                            let colorExists = colorOptions.filter(clr => clr.code === option.selected_color);
+                            // console.log({colorExists})
+                            if (colorExists && colorExists.length) {
+                                option.selected_color = colorExists[0].code || DEFAULT_FIELDER_PART_COLORS[leatherType][option.name];
+                            } else {
+                                option.selected_color = ''
+                            }
+                        }
+    
+                        option.colors = colorOptions;
+                    }
+                }
+
                 gloveSlice.caseReducers.calculateRemaining(state, {})
                 return;
             }
@@ -459,6 +488,9 @@ export const gloveSlice = createSlice({
                 }
             });
 
+            if(window.gc_addcart) {
+                window.gc_addcart({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions})
+            }
             console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions})
 
         }
