@@ -647,3 +647,13 @@ export const gloveData = {
         }
     ]
 }
+
+// const gloveDataMaping = gloveData[GLOVE_FOUNDATION].map(option => {
+//     return {
+//         name: option.name,
+//         options: option.options,
+//         required: option.required
+//     }
+// })
+
+// console.log(gloveDataMaping)

@@ -8,7 +8,7 @@ const { LEATHER_DESIGN, GLOVE_FOUNDATION, PERSONAL_EMBROIDERY } = tabConstants;
 
 class Carousel extends Component {
     render() {
-        const { views, gloveJson, thumbLogoSrc } = this.props;
+        const { views, gloveJson, thumbLogoSrc, stageRefs } = this.props;
         let thumbLogoSrc_ = '';
         let { partNames } = this.props;
         partNames = partNames.filter(part => part.active);
@@ -62,7 +62,7 @@ class Carousel extends Component {
             <>
             <Flickity options={{wrapAround: true, pageDots: false, draggable: false}} className="carousel carousel-main">
                 {
-                    views.map(view => {
+                    views.map((view, index) => {
                         const viewImages = partNames.map(part => {
                             // find the color
                             let partName = part.name;
@@ -101,6 +101,7 @@ class Carousel extends Component {
                                     pinkyTextData={pinkyTextData} 
                                     nameFont={nameFont} 
                                     thumbLogoSrc={thumbLogoSrc_}
+                                    stageRef={stageRefs[index]}
                                 />
                             </div>
                         )

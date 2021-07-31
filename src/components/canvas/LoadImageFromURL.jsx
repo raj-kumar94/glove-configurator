@@ -5,7 +5,7 @@ import useImage from 'use-image';
 
 // the first very simple and recommended way:
 const LoadImageFromURL = (props) => {
-    const [image] = useImage(props.src);
+    const [image] = useImage(props.src, 'Anonymous');
 
     let x = 20;
     let y = 30;
@@ -17,6 +17,7 @@ const LoadImageFromURL = (props) => {
      * so use if statement to update values
      */
     if(image) {
+        // image.crossOrigin = 'Anonymous';
         // var max = props.containerOffsetWidth;
         var max = Math.max(props.containerOffsetWidth, props.containerOffsetHeight);
         var img_width = image.width;

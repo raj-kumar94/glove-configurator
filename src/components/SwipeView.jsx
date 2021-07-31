@@ -77,7 +77,7 @@ class SwipeView2 extends Component {
                                         currentItemArrow = 'left';
                                     }
                                 } else {
-                                    console.log("asdasda", selectedAndActiveTab.length + 1);
+                                    // console.log("asdasda", selectedAndActiveTab.length + 1);
                                     // only selected and the next tab to be active
                                     if(index === selectedTabIndex-1 || index === selectedTabIndex + 1 ) {
                                         hideTab = false;

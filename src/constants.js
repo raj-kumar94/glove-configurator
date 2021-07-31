@@ -47,7 +47,7 @@ export const KIP_COMMOM_COLOR = [
     {name: "Camel", code: "camel", rgb: "center center rgb(216, 205, 159)"},
     {name: "Light Blue", code: "lightblue", rgb: "center center rgb(110, 152, 192)"},
     {name: "Pink", code: "pink", rgb: "center center rgb(204, 56, 109)"},
-    {name: "Lemon Yellow", code: "lemonyellow", rgb: "center center rgb(235 203 18)"},
+    {name: "Lemon Yellow", code: "lemonyellow", rgb: "center center rgb(247 233 2)"},
     {name: "Orange", code: "orange", rgb: "center center rgb(211, 121, 0)"},
     {name: "Natural", code: "natural", rgb: "center center rgb(185, 140, 32)"},
     {name: "Toffee", code: "toffee", rgb: "center center rgb(114, 62, 1)"},
@@ -98,6 +98,18 @@ export const COWHIDE_COMMOM_COLOR = [
     {name: "Gray", code: "gray", rgb: "center center rgb(176 171 146)"},
     {name: "Dark Gray", code: "darkgray", rgb: "center center rgb(101 107 95)"},
 ]
+
+const COLOR_NAME_AND_CODE_MAPPING = {};
+for(let c of KIP_COMMOM_COLOR) {
+    COLOR_NAME_AND_CODE_MAPPING[c.code] = c.name;
+}
+for(let c of US_STEERHIDE_COMMOM_COLOR) {
+    COLOR_NAME_AND_CODE_MAPPING[c.code] = c.name;
+}
+for(let c of COWHIDE_COMMOM_COLOR) {
+    COLOR_NAME_AND_CODE_MAPPING[c.code] = c.name;
+}
+export { COLOR_NAME_AND_CODE_MAPPING };
 
 export const DEFAULT_FIELDER_PART_COLORS = {
     'jk': {

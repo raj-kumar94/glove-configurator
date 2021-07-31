@@ -17,7 +17,7 @@ function CanvasText(props) {
     // console.log({selectedColorCode});
 
     let rotationDeg = 295;
-    let x = 380;
+    let x = 370;
     let y = 400;
 
     if(data.name === 'name on pinky') {
@@ -31,8 +31,8 @@ function CanvasText(props) {
      */
     if(isMobile) {
         if(data.name === 'name on pinky') {
+            x = 160;
             y = 120;
-            x = 150;
         } else {
             x = 350;
             y = 450;
@@ -65,7 +65,7 @@ function CanvasText(props) {
 
     return (
         <Text 
-            draggable={true} 
+            draggable={false} 
             text={text}
             x={x}
             y={y}

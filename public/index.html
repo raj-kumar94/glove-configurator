@@ -47,6 +47,17 @@
       // window.IMAGE_BASE_URL = 'https://glove-configurator.s3.us-east-2.amazonaws.com/fielder';
       // window.IMAGE_BASE_URL = 'https://d1446vl66f2wl0.cloudfront.net/fielder';
       window.IMAGE_BASE_URL = '/images';
+      window.currentProduct = {
+        variants: [
+          { sku: 'kip', price: 235, variant_id: 111 },
+          { sku: 'steerhide', price: 200, variant_id: 222 },
+          { sku: 'cowhide', price: 160, variant_id: 333 }
+        ]
+      }
+      window.gc_addcart = (variant_id, data) => {
+        console.log("gc_addcart:start");
+        console.log({variant_id, data})
+      }
     </script>
     <div class="glove-config-wrapper">
       <div id="root"></div>

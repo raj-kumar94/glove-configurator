@@ -69,7 +69,8 @@ class Product extends Component {
             thumbTextData,
             pinkyTextData,
             nameFont,
-            thumbLogoSrc
+            // thumbLogoSrc,
+            stageRef
         } = this.props;
         console.log('rendering')
         // console.log({thumbLogoSrc});
@@ -78,7 +79,7 @@ class Product extends Component {
 
         return (
             <div className="product-view">
-                <Stage width={containerWidth} height={conatainerHeight}>
+                <Stage width={containerWidth} height={conatainerHeight} ref={stageRef}>
                     <Provider store={store}>
                         <Layer ref={this.layerRef}>
                             {

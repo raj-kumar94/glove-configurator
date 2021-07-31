@@ -1,40 +1,107 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios';
 import { gloveData } from '../data/gloveData';
 import { tabConstants, FIELDER_PART_NAMES } from '../constants';
-import { KIP_COMMOM_COLOR, US_STEERHIDE_COMMOM_COLOR, COWHIDE_COMMOM_COLOR, DEFAULT_FIELDER_PART_COLORS } from '../constants';
+import { KIP_COMMOM_COLOR, US_STEERHIDE_COMMOM_COLOR, COWHIDE_COMMOM_COLOR, DEFAULT_FIELDER_PART_COLORS, COLOR_NAME_AND_CODE_MAPPING } from '../constants';
+import { getCurrentVariant } from '../utils/utils';
 const { GLOVE_FOUNDATION, LEATHER_DESIGN, PERSONAL_EMBROIDERY } = tabConstants;
+// const imageUploadEndpoint = "https://canvas.canvasandmore.co.za/upload/v2";
+const imageUploadEndpoint = "https://glove.emerygloveco.com/upload/v2";
 // const GLOVE_FOUNDATION_INDEX = 0;
 // const LEATHER_DESIGN_INDEX = gloveData[GLOVE_FOUNDATION].filter(data => data.active).length + 1;
 // const PERSONAL_EMBROIDERY_INDEX = gloveData[LEATHER_DESIGN].filter(data => data.active).length + LEATHER_DESIGN_INDEX;
 
+
+const base64ToBlob = (base64, mime) => {
+    mime = mime || '';
+    var sliceSize = 1024;
+    var byteChars = window.atob(base64);
+    var byteArrays = [];
+
+    for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+        var slice = byteChars.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, { type: mime });
+}
+
+
 export const saveCustomImage = createAsyncThunk(
     'api/save-customisation',
     async (userData, thunkAPI) => {
-        console.log({ userData, thunkAPI });
+        if(window.jQuery && window.jQuery.blockUI ) {
+            window.jQuery.blockUI({ css: { backgroundColor: '#174a45', color: '#fff'}, message: "Please wait..." });
+        }
+
+        let state = thunkAPI.getState();
+        console.log(userData);
+        let promises = [];
+        let pixelRatio = 1;
+        const currentTime = new Date().getTime();
+        let uploadThumbLogo = false;
+        let thumbLogoOption = state.glove.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.name === 'thumb logo');
+        let configuratorFileUpload = document.getElementById('custom_logo');
+        if(configuratorFileUpload && configuratorFileUpload.files && configuratorFileUpload.files.length && thumbLogoOption[0].selected === "Custom") {
+            uploadThumbLogo = true;
+            const form = new FormData();
+            // console.log(state.glove.thumbLogoSrc)
+            let inputFile = configuratorFileUpload.files[0]
+            form.append("canvas", inputFile, `${currentTime}-thumb-logo.png`);
+
+            let apiCall = axios.post(imageUploadEndpoint, form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            promises.push(apiCall);
+        }
+        // return;
         // if(window.jQuery && window.jQuery.blockUI ) {
         //     window.jQuery.blockUI({ css: { backgroundColor: '#174a45', color: '#fff'}, message: "Please wait..." });
         //     window.jQuery.unblockUI();
         // }
-        var form = new FormData();
-        let inputFile = document.getElementById('custom_logo').files[0];
-        form.append("canvas", inputFile, 'custom_logo.png');
-        // return {msg: 'success'}
-        const response = await fetch('https://example.com/upload/v2', {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            // mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            // credentials: 'same-origin', // include, *same-origin, omit
-            // headers: {
-            //     // 'Content-Type': 'application/json'
-            //     // 'Content-Type': 'application/x-www-form-urlencoded',
-            //     'Content-Type': 'multipart/form-data'
-            // },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            // body: JSON.stringify({ name: 'test' }) // body data type must match "Content-Type" header
-            body: form
-        });
-        return response.json()
+
+        for(let i =0; i< userData.stageRefs.length; i++) {
+            const form = new FormData();
+            const uri = userData.stageRefs[i].current.toDataURL({
+                pixelRatio: pixelRatio // default is 1
+            });
+            // console.log({uri, stageRef: userData.stageRefs[i].current.toDataURL});
+            var base64ImageContent = uri.replace(/^data:image\/(png|jpg);base64,/, "");
+            let base64Img = base64ToBlob(base64ImageContent, 'image/png');
+            form.append("canvas", base64Img, `${currentTime}-view0${i+1}.png`);
+
+            let apiCall = axios.post(imageUploadEndpoint, form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            promises.push(apiCall);
+            // break;
+        }
+
+        if(promises.length) {
+            let resp = await Promise.all(promises);
+            let images = resp.map(r => {
+                return r.data.file
+            });
+
+            return {
+                images: images,
+                isThumbLogoAvailable: uploadThumbLogo
+            }
+        } else {
+            return '';
+        }
     }
 )
 
@@ -54,6 +121,8 @@ export const gloveSlice = createSlice({
             "view03": ["view03-base.png"],
             "view04": ["view04-base.png"],
         },
+        stageViewImages: null,
+        currentProduct: window.currentProduct,
         thumbLogoSrc: '',
         partNames: FIELDER_PART_NAMES,
         swipeViewIndexes: {
@@ -385,7 +454,11 @@ export const gloveSlice = createSlice({
             // since personalise section has multiple type of options
             const personalActiveOptionsRemaining = personalActiveOptions.filter(option => {
                 if (option.type === "list_options") {
-                    return option.selected;
+                    if(option.name === 'thumb logo' && option.selected === 'Custom') {
+                        return state.thumbLogoSrc;
+                    } else {
+                        return option.selected;
+                    }
                 } else if (option.type === "text_and_color") {
                     return option.text && option.selected_color;
                 } else if (option.type === "text_area") {
@@ -469,39 +542,78 @@ export const gloveSlice = createSlice({
                 return true;
             });
             gloveFoundationActiveOptions = gloveFoundationActiveOptions.map(option => {
-                return {
-                    name: option.name,
-                    selected: option.selected
+                if(option.name === 'wrist_fur_color/Pad') {
+                    return {
+                        name: 'wrist_fur_color_or_pad',
+                        selected: option.selected
+                    }
+                } else {
+                    return {
+                        name: option.name,
+                        selected: option.selected
+                    }
                 }
             });
             leatherDesignActiveOptions = leatherDesignActiveOptions.map(option => {
                 return {
                     name: option.name,
-                    selected: option.selected_color
+                    selected: COLOR_NAME_AND_CODE_MAPPING[option.selected_color] || option.selected_color
                 }
             });
             personalActiveOptions = personalActiveOptions.map(option => {
-                return {
-                    name: option.name,
-                    selected: option.selected_color || option.selected || '',
-                    text: option.text || ''
+                if(option.name === 'thumb logo' && state.thumbLogoSrc && state.thumbLogoSrc.length < 200) {
+                    return {
+                        name: option.name,
+                        selected: (COLOR_NAME_AND_CODE_MAPPING[option.selected_color] || option.selected_color) || option.selected || '',
+                        image: state.thumbLogoSrc
+                    }
+                } else {
+                    return {
+                        name: option.name,
+                        selected: (COLOR_NAME_AND_CODE_MAPPING[option.selected_color] || option.selected_color) || option.selected || '',
+                        text: option.text || ''
+                    }
                 }
             });
 
             if(window.gc_addcart) {
-                window.gc_addcart({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions})
+                if(state.currentProduct && state.currentProduct.variants) {
+                    let currentVariant = getCurrentVariant(state.currentProduct, state.gloveJson[GLOVE_FOUNDATION]);
+                    // call WooCommerce
+                    window.gc_addcart(currentVariant.variant_id, {gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, viewImages: state.stageViewImages});
+                } else {
+                    alert('Product not found');
+                }
             }
-            console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions})
+            console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, stageViewImages: state.stageViewImages})
 
         }
     },
     extraReducers: {
         [saveCustomImage.fulfilled]: (state, action) => {
+            if(window.jQuery && window.jQuery.blockUI ) {
+                window.jQuery.unblockUI();
+            }
             console.log({ action });
+            if(action.payload && action.payload.images) {
+                // view images
+                const {images, isThumbLogoAvailable } = action.payload;
+                let index=0;
+                if(isThumbLogoAvailable) {
+                    console.log("updating logo image...");
+                    state.thumbLogoSrc = images[0];
+                    index = 1;
+                }
+                state.stageViewImages = images.slice(index);
+            }
+            gloveSlice.caseReducers.saveCustomisation(state, {})
         },
         [saveCustomImage.rejected]: (state, action) => {
             console.error("error occured");
             console.log({ action });
+            if(window.jQuery && window.jQuery.blockUI ) {
+                window.jQuery.unblockUI();
+            }
         }
     }
 })
