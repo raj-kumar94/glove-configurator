@@ -45,7 +45,7 @@ function ListOption(props) {
             // console.log("object");
             dispatch(setThumbLogo({
                 name: event.target.name,
-                thumbLogoSrc: url
+                thumbLogoSrc: url,
             }));
         };
     }
@@ -82,8 +82,7 @@ function ListOption(props) {
             }
 
             {
-                tabData.selected === "Custom" && 
-                <div className="file-input-wrapper">
+                <div className="file-input-wrapper" style={{display: tabData.selected === "Custom" ? 'block': 'none'}}>
                     <hr />
                     <label className="form-label" htmlFor="customFile">Upload your logo</label>
                     <input type="file" className="form-control" name="custom_logo" id="custom_logo" onChange={_onChange} />

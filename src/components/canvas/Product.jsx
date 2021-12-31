@@ -72,7 +72,7 @@ class Product extends Component {
             // thumbLogoSrc,
             stageRef
         } = this.props;
-        console.log('rendering')
+        // console.log('rendering')
         // console.log({thumbLogoSrc});
 
         let baseUrl = window.IMAGE_BASE_URL || '';

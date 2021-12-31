@@ -558,6 +558,7 @@ export const gloveData = {
         // },
         {
             "name": "thumb logo",
+            "name_code": "thumb_logo",
             "type": "list_options",
             "enabled": true,
             "options": ["E Logo", "Custom"],
@@ -587,6 +588,7 @@ export const gloveData = {
         },
         {
             "name": "thumb_logo_color",
+            "name_code": "thumb_logo_color",
             "selected_color": "",
             "type": "color",
             "default": "white",
@@ -610,6 +612,7 @@ export const gloveData = {
         // },
         {
             "name": "name on thumb",
+            "name_code": "name_on_thumb",
             "type": "text_and_color",
             "enabled": false,
             "text": "",
@@ -620,6 +623,7 @@ export const gloveData = {
         },
         {
             "name": "name on pinky",
+            "name_code": "name_on_pinky",
             "type": "text_and_color",
             "enabled": false,
             "text": "",
@@ -630,6 +634,7 @@ export const gloveData = {
         },
         {
             "name": "name font",
+            "name_code": "name_font",
             "type": "list_options",
             "enabled": true,
             "options": ["Script", "Block"],
@@ -639,6 +644,7 @@ export const gloveData = {
         },
         {
             "name": "special instructions",
+            "name_code": "special_instructions",
             "type": "text_area",
             "enabled": true,
             "text": "",
@@ -650,9 +656,9 @@ export const gloveData = {
 
 // const gloveDataMaping = gloveData[GLOVE_FOUNDATION].map(option => {
 //     return {
-//         name: option.name,
-//         options: option.options,
-//         required: option.required
+//         name: option.name_code || option.name,
+//         // options: option.options,
+//         // required: option.required
 //     }
 // })
 

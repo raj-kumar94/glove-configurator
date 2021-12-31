@@ -43,19 +43,21 @@ export const saveCustomImage = createAsyncThunk(
         }
 
         let state = thunkAPI.getState();
-        console.log(userData);
+        // console.log(userData);
         let promises = [];
         let pixelRatio = 1;
         const currentTime = new Date().getTime();
         let uploadThumbLogo = false;
         let thumbLogoOption = state.glove.gloveJson[PERSONAL_EMBROIDERY].filter(option => option.name === 'thumb logo');
-        let configuratorFileUpload = document.getElementById('custom_logo');
-        if(configuratorFileUpload && configuratorFileUpload.files && configuratorFileUpload.files.length && thumbLogoOption[0].selected === "Custom") {
+        console.log({thumbLogoOption});
+        // let configuratorFileUpload = document.getElementById('custom_logo');
+        if(thumbLogoOption[0].selected === "Custom") {
             uploadThumbLogo = true;
             const form = new FormData();
             // console.log(state.glove.thumbLogoSrc)
-            let inputFile = configuratorFileUpload.files[0]
-            form.append("canvas", inputFile, `${currentTime}-thumb-logo.png`);
+            // let inputFile = configuratorFileUpload.files[0]
+            let blob = await fetch(state.glove.thumbLogoSrc).then(r => r.blob());
+            form.append("canvas", blob, `${currentTime}-thumb-logo.png`);
 
             let apiCall = axios.post(imageUploadEndpoint, form, {
                 headers: {
@@ -63,8 +65,18 @@ export const saveCustomImage = createAsyncThunk(
                 },
             })
             promises.push(apiCall);
+
+            // if(configuratorFileUpload && configuratorFileUpload.files && configuratorFileUpload.files.length) {
+            // } else {
+            //     alert('Custom file could not be uploaded. Please re-upload the file');
+            //     return;
+            // }
         }
-        // return;
+
+        if(window.location.search && window.location.search.includes('debug')) {
+            console.log("debugging on, returning...")
+            return;
+        }
         // if(window.jQuery && window.jQuery.blockUI ) {
         //     window.jQuery.blockUI({ css: { backgroundColor: '#174a45', color: '#fff'}, message: "Please wait..." });
         //     window.jQuery.unblockUI();
@@ -296,7 +308,7 @@ export const gloveSlice = createSlice({
                         }
 
                         if (optionFound && option.controls) {
-                            console.log(`Calling setSelectedGloveFoundation for name:${option.name}, selected: ${option.selected}`)
+                            // console.log(`Calling setSelectedGloveFoundation for name:${option.name}, selected: ${option.selected}`)
                             // gloveSlice.caseReducers.setSelectedGloveFoundation(state, {payload: {name: option.name, selected: option.selected, called: 'yes'} })
                         }
 
@@ -563,13 +575,13 @@ export const gloveSlice = createSlice({
             personalActiveOptions = personalActiveOptions.map(option => {
                 if(option.name === 'thumb logo' && state.thumbLogoSrc && state.thumbLogoSrc.length < 200) {
                     return {
-                        name: option.name,
+                        name: option.name_code || option.name,
                         selected: (COLOR_NAME_AND_CODE_MAPPING[option.selected_color] || option.selected_color) || option.selected || '',
                         image: state.thumbLogoSrc
                     }
                 } else {
                     return {
-                        name: option.name,
+                        name: option.name_code || option.name,
                         selected: (COLOR_NAME_AND_CODE_MAPPING[option.selected_color] || option.selected_color) || option.selected || '',
                         text: option.text || ''
                     }
@@ -580,12 +592,13 @@ export const gloveSlice = createSlice({
                 if(state.currentProduct && state.currentProduct.variants) {
                     let currentVariant = getCurrentVariant(state.currentProduct, state.gloveJson[GLOVE_FOUNDATION]);
                     // call WooCommerce
+                    console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, viewImages: state.stageViewImages})
                     window.gc_addcart(currentVariant.variant_id, {gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, viewImages: state.stageViewImages});
                 } else {
                     alert('Product not found');
                 }
             }
-            console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, stageViewImages: state.stageViewImages})
+            // console.log({gloveFoundationActiveOptions, leatherDesignActiveOptions, personalActiveOptions, stageViewImages: state.stageViewImages})
 
         }
     },
@@ -594,7 +607,7 @@ export const gloveSlice = createSlice({
             if(window.jQuery && window.jQuery.blockUI ) {
                 window.jQuery.unblockUI();
             }
-            console.log({ action });
+            // console.log({ action });
             if(action.payload && action.payload.images) {
                 // view images
                 const {images, isThumbLogoAvailable } = action.payload;
