@@ -58,15 +58,6 @@ piping color is missing from the website
 
 
 # TODO
-- color option on selection of "Wrist Logo Options"
-
-- Update color pallet
-- Update n remaining text
-- Add Thumb text
-- Add thumb custom logo
-- Rename piping to binding
-- Finger Pad color doesn’t seem to be working when selected
-
 
 
 # Doc
